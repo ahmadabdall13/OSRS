@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">OSRS</string>
+    <string name="contacting_info">If you have any inquiries or questions please send them to the following
+    </string>
+    <string name="our_email">E-mail :OSRS@gmail.com></string>
+    <string name="mobile_number">Mobile Number: 0796538817</string>
+
+
+    <string name="products">Products</string>
+    <string name="user_name">User Name :</string>
+    <string name="password">Password :</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="title">title</string>
+    <string name="description">description</string>
+    <string name="products_image">products image</string>
+    <string name="sign_in_facebook">Sign In With Facebook</string>
+    <string name="facebook_app_id">371672466998061</string>
+    <string name="fb_login_protocol_scheme">fb371672466998061</string>
+    <string name="todo">TODO</string>
+
+
+
+</resources>

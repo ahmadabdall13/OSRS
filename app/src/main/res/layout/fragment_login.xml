@@ -1,0 +1,114 @@
+
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:background="@android:color/background_light"
+>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:gravity="center"
+                  android:layout_marginTop="-80dp"
+                  android:layout_marginBottom="10px"
+    >
+
+        <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+        >
+
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/userNameET"
+                    android:hint="@string/user_name"
+
+
+                    tools:ignore="Autofill"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+
+        >
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:ems="10"
+                    android:id="@+id/passwordET"
+                    tools:ignore="Autofill"
+                    android:hint="@string/password"
+
+            />
+        </android.support.design.widget.TextInputLayout>
+        <Button
+                android:layout_margin="30dp"
+                android:text="@string/sign_in"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/logInBTN"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:background="@android:color/holo_red_light"
+
+        />
+    </LinearLayout>
+    <View
+            android:layout_width="300dp"
+            android:layout_height="1dp"
+
+            android:background="@android:color/darker_gray"/>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:text="Or you can login with :"
+              android:textStyle="bold"
+    />
+
+
+    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:orientation="horizontal"
+                  android:layout_gravity="center"
+                  android:gravity="center"
+                  android:layout_marginTop="20dp"
+    >
+
+
+        <!--<com.facebook.login.widget.LoginButton-->
+
+                <!--android:layout_width="48dp"-->
+                <!--android:layout_height="125dp"-->
+                <!--android:id="@+id/login_facebook_button"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:layout_marginBottom="30dp"/>-->
+
+
+        <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/login_facebook_button"
+                android:textAlignment="center"
+                android:background="@drawable/facebook_icon"
+                android:layout_margin="30px"
+        />
+
+        <Button
+                android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/logInBTNGoogle"
+            android:textAlignment="center"
+            android:background="@drawable/google_plus"
+    />
+    </LinearLayout>
+</LinearLayout>

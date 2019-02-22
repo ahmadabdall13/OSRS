@@ -1,0 +1,42 @@
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light"
+>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_marginTop="200px"
+            android:id="@+id/contacting_info"
+            android:textAlignment="center"
+            android:text="@string/contacting_info"
+
+    />
+
+    <TextView
+            android:text="@string/our_email"
+            android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+            android:layout_marginTop="220dp"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_red_light"
+    />
+
+    <TextView
+            android:text="@string/mobile_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="266dp"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_red_light"
+    />
+
+</FrameLayout>
