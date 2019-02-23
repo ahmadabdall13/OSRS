@@ -21,6 +21,7 @@ class PreLoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pre_login)
 
+
         // these three lines for the tabs
         val fragmentAdapter = MyPagerAdapter(supportFragmentManager)
         viewpager_main.adapter = fragmentAdapter
@@ -28,9 +29,9 @@ class PreLoginActivity : AppCompatActivity() {
 
 
 
-} // end onCreate
-} // end PreLoginActivity
+    }
 
 
 
+}
 
