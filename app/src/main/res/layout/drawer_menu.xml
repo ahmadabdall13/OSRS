@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
->
+ android:layout_height="match_parent"
+ android:layout_width="wrap_content">
     <item
-            android:id="@+id/action_cut"
-            android:title="Cut"
+            android:id="@+id/addProduct"
+            android:title="Add Product"
     />
-    <item
-            android:id="@+id/action_copy"
-            android:title="Copy"
-    />
-    <item
-            android:id="@+id/action_paste"
-            android:title="Paste"
-    />
-    <item
-            android:id="@+id/action_new"
-            android:title="New"
-    />
+
 </menu>

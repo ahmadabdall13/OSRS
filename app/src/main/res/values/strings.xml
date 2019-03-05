@@ -19,10 +19,24 @@
     <string name="todo">TODO</string>
 
 
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="product_name_in_english">Product Name In English</string>
+    <string name="product_name_in_arabic">Product Name In Arabic</string>
+    <string name="product_price">Product Price</string>
+    <string name="product_description">Product Description</string>
 
 
-        <string name="drawer_open">Open</string>
-        <string name="drawer_close">Close</string>
-
+    <string name="product_prompt">Choose A Product</string>
+    <string-array name="spinner_testText">
+        <item>Malaysia</item>
+        <item>United States</item>
+        <item>Indonesia</item>
+        <item>France</item>
+        <item>Italy</item>
+        <item>Singapore</item>
+        <item>New Zealand</item>
+        <item>India</item>
+    </string-array>
 
 </resources>
