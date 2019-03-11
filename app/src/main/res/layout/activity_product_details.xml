@@ -46,19 +46,7 @@ android:id="@+id/proLinear">
                   android:text="this is tesla x 2019 gray and there are alot of another types"
         />
 
-        <RatingBar
-                android:id="@+id/ratingBar99"
-                style="@android:style/Widget.Material.Light.RatingBar.Small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="3dp"
-                android:isIndicator="false"
-                android:numStars="5"
-                android:rating="1"
-                android:stepSize="0.5"
-                android:layout_marginStart="10dp"/>
+
 
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"

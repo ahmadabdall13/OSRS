@@ -2,20 +2,15 @@ package com.example.osrs.activities
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
-import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import com.example.osrs.AddProductActivity
-import com.example.osrs.R
-import com.example.osrs.activities.fragments.MyPagerAdapter
+import com.example.osrs.*
+import com.example.osrs.Adapters.MyPagerAdapter
 import kotlinx.android.synthetic.main.activity_pre_login.*
-import kotlinx.android.synthetic.main.fragment_products.*
 
 
 class PreLoginActivity : AppCompatActivity() {
@@ -73,11 +68,30 @@ class PreLoginActivity : AppCompatActivity() {
 
                 // Handle navigation view item clicks here.
                 when (it.itemId) {
-                    R.id.addProduct -> {
+                    R.id.addProductTab -> {
                         val intent = Intent(applicationContext, AddProductActivity::class.java)
                         startActivity(intent)
                     }
 
+                    R.id.myRequestsTab -> {
+                        val intent = Intent(applicationContext, MyRequestsActivity::class.java)
+                        startActivity(intent)
+                    }
+
+                    R.id.myProductsTab -> {
+                        val intent = Intent(applicationContext, MyProductsActivity::class.java)
+                        startActivity(intent)
+                    }
+
+                    R.id.settingsTab -> {
+                        val intent = Intent(applicationContext, SettingsActivity::class.java)
+                        startActivity(intent)
+                    }
+
+                    R.id.contactUsTab -> {
+                        val intent = Intent(applicationContext, ContactUsActivity::class.java)
+                        startActivity(intent)
+                    }
                 }
             // Close the drawer
             drawer_layout.closeDrawer(GravityCompat.START)

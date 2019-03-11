@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.ContactUsActivity"
+        android:orientation="vertical"
+>
+    <android.support.v7.widget.Toolbar xmlns:tools="http://schemas.android.com/tools"
+                                       android:layout_height="wrap_content"
+                                       xmlns:android="http://schemas.android.com/apk/res/android"
+                                       android:layout_width="match_parent"
+                                       tools:targetApi="lollipop"
+                                       android:background="@android:color/holo_red_light"
+                                       android:id="@+id/too"
+    >    </android.support.v7.widget.Toolbar>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_marginTop="150dp"
+            android:textAlignment="center"
+            android:text="@string/contacting_info"
+
+    />
+
+    <TextView
+            android:text="@string/our_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_red_light"
+    />
+
+    <TextView
+            android:text="@string/mobile_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_red_light"
+    />
+
+
+</LinearLayout>

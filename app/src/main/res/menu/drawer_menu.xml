@@ -1,9 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu
         xmlns:android="http://schemas.android.com/apk/res/android"
+
 >
     <item
-            android:id="@+id/addProduct"
-            android:title="Add Product"
+            android:id="@+id/addProductTab"
+            android:title="@string/add_product"
     />
+
+    <item
+            android:id="@+id/myRequestsTab"
+            android:title="@string/my_requests"
+    />
+
+    <item
+            android:id="@+id/myProductsTab"
+            android:title="@string/my_products"
+    />
+
+    <item
+            android:id="@+id/settingsTab"
+            android:title="@string/settings"
+    />
+
+    <item
+            android:id="@+id/contactUsTab"
+            android:title="@string/contact_us"
+    />
+
 </menu>

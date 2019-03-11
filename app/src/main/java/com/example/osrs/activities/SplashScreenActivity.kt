@@ -10,7 +10,7 @@ import android.view.WindowManager
 import android.widget.ProgressBar
 import com.example.osrs.R
 
-class MainActivity : Activity() {
+class SplashScreenActivity : Activity() {
 
 
     private var mDelayHandler: Handler? = null
@@ -36,7 +36,7 @@ class MainActivity : Activity() {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE)
         this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_splash_screen)
 
         //Initialize the Handler
         mDelayHandler = Handler()
@@ -85,4 +85,4 @@ class MainActivity : Activity() {
     } // end onDestroy
 
 
-} // end MainActivity
+} // end SplashScreenActivity

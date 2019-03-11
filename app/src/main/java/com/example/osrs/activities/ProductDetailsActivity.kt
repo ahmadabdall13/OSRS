@@ -21,15 +21,7 @@ import android.widget.*
 
 class ProductDetailsActivity : AppCompatActivity() {
 
-    private val actors = arrayOf("Zaid","Batool","Amal","Amal2","Amal3")
 
-    private val reviews = arrayOf(
-        "Bad Product But Good ",
-        "I Like It thank you guys hahah",
-        "I Like It thank you guys hahah",
-        "I Like It thank you guys hahah",
-        "Hey Guys i recommend this product"
-    )
 
 
 
@@ -39,8 +31,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_details)
 
-        val myListAdapter = RatingCustomListAdapter(applicationContext,reviews,actors)
-        list_reviews.adapter = myListAdapter
+
 
         subImage1.setOnClickListener{
 

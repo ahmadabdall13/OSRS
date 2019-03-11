@@ -19,4 +19,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="HeaderBar">
+        <item name="android:background">@android:color/holo_red_dark</item>
+    </style>
 </resources>

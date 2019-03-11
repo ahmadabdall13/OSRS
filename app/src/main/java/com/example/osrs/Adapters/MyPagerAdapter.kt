@@ -1,17 +1,17 @@
-package com.example.osrs.activities.fragments
+package com.example.osrs.Adapters
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import com.example.osrs.fragments.LoginFragment
+import com.example.osrs.fragments.ProductsFragment
 
 class MyPagerAdapter (fm: FragmentManager) : FragmentPagerAdapter(fm){
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> {
-                ContactsFragment()
-            }
-            1 -> ProductsFragment()
+
+            0 -> ProductsFragment()
             else -> {
                 return LoginFragment()
             }
@@ -19,14 +19,13 @@ class MyPagerAdapter (fm: FragmentManager) : FragmentPagerAdapter(fm){
     } // end getItem
 
     override fun getCount(): Int {
-        return 3
+        return 2
     } // end getCount fun
 
     override fun getPageTitle(position: Int): CharSequence {
 
         return when (position) {
-            0 -> "Contact Us"
-            1 -> "Products"
+            0 -> "Products"
             else -> {
                 return "Login"
             }

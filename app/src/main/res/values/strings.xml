@@ -10,7 +10,7 @@
     <string name="user_name">User Name :</string>
     <string name="password">Password :</string>
     <string name="sign_in">SIGN IN</string>
-    <string name="title">title</string>
+    <string name="car_brand">Car Brand</string>
     <string name="description">description</string>
     <string name="products_image">products image</string>
     <string name="sign_in_facebook">Sign In With Facebook</string>
@@ -23,20 +23,62 @@
     <string name="drawer_close">Close</string>
     <string name="product_name_in_english">Product Name In English</string>
     <string name="product_name_in_arabic">Product Name In Arabic</string>
-    <string name="product_price">Product Price</string>
+    <string name="car_price">Car Price</string>
     <string name="product_description">Product Description</string>
 
 
-    <string name="product_prompt">Choose A Product</string>
-    <string-array name="spinner_testText">
-        <item>Malaysia</item>
-        <item>United States</item>
-        <item>Indonesia</item>
-        <item>France</item>
-        <item>Italy</item>
-        <item>Singapore</item>
-        <item>New Zealand</item>
-        <item>India</item>
+    <string name="car_prompt">Choose A Brand</string>
+
+
+    <string name="model_prompt">Choose A Model</string>
+
+
+    <string name="engine_prompt">Type of Engine</string>
+    <string-array name="types_of_engine">
+        <item>Type of Engine</item>
+        <item>1 Cylinder</item>
+        <item>2 Cylinders</item>
+        <item>3 Cylinders</item>
+        <item>4 Cylinders</item>
+        <item>5 Cylinders</item>
+        <item>6 Cylinders</item>
+        <item>7 Cylinders</item>
+        <item>8 Cylinders</item>
+        <item>9 Cylinders</item>
+        <item>10 Cylinders</item>
+        <item>12 Cylinders</item>
+        <item>14 Cylinders</item>
+        <item>16 Cylinders</item>
+    </string-array>
+
+    <string name="transmission_prompt">Type of Transmission</string>
+    <string name="external_color">External Color</string>
+    <string name="internal_color">Internal Color</string>
+    <string name="mileage">Mileage</string>
+    <string name="year_of_make">Year Of Make :</string>
+    <string name="add_product">Add Product</string>
+    <string name="add">Add</string>
+    <string name="my_requests">My Requests</string>
+    <string name="my_products">My Products</string>
+    <string name="settings">Settings</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="comma"> , </string>
+    <string name="car_model">Car Model</string>
+    <string name="offer_status">Offer Status</string>
+
+    <string-array name="types_of_transmissions">
+        <item>Type of Transmission</item>
+        <item>Automatic Transmission</item>
+        <item>Manual Transmission</item>
+        <item>Semi-automatic Transmission</item>
+    </string-array>
+
+    <string-array name="type_of_brand">
+        <item>Choose A Brand</item>
+    </string-array>
+
+    <string-array name="type_of_model">
+        <item>Choose A Model</item>
     </string-array>
 
 </resources>
