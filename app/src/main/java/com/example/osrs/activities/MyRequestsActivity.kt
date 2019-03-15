@@ -3,9 +3,9 @@ package com.example.osrs.activities
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
-import com.example.osrs.Adapters.ProductsCustomListAdapter
+import com.example.osrs.adapters.ProductsCustomListAdapter
 import com.example.osrs.R
-import kotlinx.android.synthetic.main.fragment_products.*
+import kotlinx.android.synthetic.main.activity_my_requests.*
 
 class MyRequestsActivity : AppCompatActivity() {
 

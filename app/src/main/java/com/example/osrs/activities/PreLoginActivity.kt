@@ -8,13 +8,42 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.View
 import android.widget.Toast
-import com.example.osrs.*
-import com.example.osrs.Adapters.MyPagerAdapter
+import com.example.osrs.adapters.ProductsCustomListAdapter
 import kotlinx.android.synthetic.main.activity_pre_login.*
+import android.view.Menu
+import android.view.MenuItem
+import com.example.osrs.R
 
 
 class PreLoginActivity : AppCompatActivity() {
 
+    private val CarBrand = arrayOf("Audi","BMW")
+    private val CarModle = arrayOf(
+        "A7",
+        "Tiger"
+    )
+
+    private val imageId = arrayOf(
+        R.drawable.audi,
+        R.drawable.audi
+    )
+
+    private val MileAge:Array<Double> = arrayOf(
+        13.0,0.0
+    )
+
+    private val Trans = arrayOf(
+        "Auto",
+        "Manual"
+    )
+
+    private val CarPrice:Array<Double> = arrayOf(
+        700_000.213,13_22_13.22
+    )
+
+    private val OfferStatus:Array<String> = arrayOf(
+        "Pending","Declined"
+    )
 
 
 
@@ -23,16 +52,10 @@ class PreLoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_pre_login)
 
 
-        // these three lines for the tabs
-        val fragmentAdapter = MyPagerAdapter(supportFragmentManager)
-        viewpager_main.adapter = fragmentAdapter
-        tabs_main.setupWithViewPager(viewpager_main)
-
-
         // Configure action bar
         setSupportActionBar(toolbar)
         val actionBar = supportActionBar
-        actionBar?.title = "Fuck Zaid and his gf"
+        actionBar?.title = ""
 
 
         // Initialize the action bar drawer toggle instance
@@ -46,15 +69,17 @@ class PreLoginActivity : AppCompatActivity() {
             override fun onDrawerClosed(view: View){
                 super.onDrawerClosed(view)
                 //toast("Drawer closed")
-            }
+
+            } // end onDrawerClosed
 
             override fun onDrawerOpened(drawerView: View){
                 super.onDrawerOpened(drawerView)
                 //toast("Drawer opened")
-            }
+
+            } // end onDrawerOpened
 
 
-        }
+        } // end drawerToggle: ActionBarDrawerToggle
 
 
         // Configure the drawer layout to add listener and show icon on toolbar
@@ -92,17 +117,63 @@ class PreLoginActivity : AppCompatActivity() {
                         val intent = Intent(applicationContext, ContactUsActivity::class.java)
                         startActivity(intent)
                     }
+
+                    R.id.loginLogo -> {
+                        val intent = Intent(applicationContext, LoginActivity::class.java)
+                        startActivity(intent)
+                    }
                 }
             // Close the drawer
             drawer_layout.closeDrawer(GravityCompat.START)
             true
-        }
-    }
+        } // end navigation_view.setNavigationItemSelectedListener
+
+        val myListAdapter = ProductsCustomListAdapter(
+            this,
+            CarBrand,
+            CarModle,
+            MileAge,
+            Trans,
+            CarPrice,
+            imageId,
+            OfferStatus
+        )
+        productsLV.adapter = myListAdapter
+    } // end ofCreate
 
 
 
     // Extension function to show toast message easily
     private fun Context.toast(message:String){
         Toast.makeText(applicationContext,message,Toast.LENGTH_SHORT).show()
-    }
-}
+    } // end Context.toast
+
+
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the login_menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.login_menu,menu)
+        return true
+    } // end onCreateOptionsMenu
+
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        val id = item.itemId
+
+
+        if (id == R.id.loginLogo) {
+                val intent = Intent(applicationContext, LoginActivity::class.java)
+                startActivity(intent)
+
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
+    } // end onOptionsItemSelected
+
+    
+} // end PreLoginActivity

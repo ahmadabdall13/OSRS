@@ -1,4 +1,4 @@
-package com.example.osrs.Adapters
+package com.example.osrs.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context

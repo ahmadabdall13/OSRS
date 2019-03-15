@@ -1,20 +1,30 @@
-
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:layout_gravity="center"
         android:orientation="vertical"
         android:background="@android:color/background_light"
 >
+
+    <android.support.v7.widget.Toolbar
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_height="wrap_content"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            tools:targetApi="lollipop"
+            android:background="@android:color/holo_red_light"
+            android:id="@+id/too"
+    >    </android.support.v7.widget.Toolbar>
+
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:orientation="vertical"
                   android:gravity="center"
-                  android:layout_marginTop="-80dp"
+                  android:textAlignment="center"
+                  android:layout_gravity="center"
+                  android:layout_marginTop="80dp"
                   android:layout_marginBottom="10dp"
     >
 
@@ -55,7 +65,7 @@
             />
         </android.support.design.widget.TextInputLayout>
         <Button
-                android:layout_margin="30dp"
+                android:layout_margin="3dp"
                 android:text="@string/sign_in"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
@@ -65,21 +75,36 @@
                 android:background="@android:color/holo_red_light"
 
         />
+        <Button
+
+                android:text="@string/sign_up"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/toSignUpActivityBTN"
+                android:layout_marginTop="2dp"
+                android:textAlignment="center"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/holo_red_light"
+
+        />
     </LinearLayout>
     <View
             android:layout_width="300dp"
             android:layout_height="1dp"
-
+            android:layout_gravity="center"
             android:background="@android:color/darker_gray"/>
 
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-              android:text="Or you can login with :"
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/or_you_can_login_with"
               android:textStyle="bold"
+              android:layout_gravity="center"
     />
 
 
-    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    <LinearLayout android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
                   android:layout_gravity="center"
                   android:gravity="center"
                   android:layout_marginTop="20dp"
@@ -88,11 +113,11 @@
 
         <!--<com.facebook.login.widget.LoginButton-->
 
-                <!--android:layout_width="48dp"-->
-                <!--android:layout_height="125dp"-->
-                <!--android:id="@+id/login_facebook_button"-->
-                <!--android:layout_gravity="center_horizontal"-->
-                <!--android:layout_marginBottom="30dp"/>-->
+        <!--android:layout_width="48dp"-->
+        <!--android:layout_height="125dp"-->
+        <!--android:id="@+id/login_facebook_button"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginBottom="30dp"/>-->
 
 
         <Button
@@ -101,15 +126,15 @@
                 android:id="@+id/login_facebook_button"
                 android:textAlignment="center"
                 android:background="@drawable/facebook_icon"
-                android:layout_margin="30px"
+                android:layout_margin="30dp"
         />
 
         <Button
                 android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:id="@+id/logInBTNGoogle"
-            android:textAlignment="center"
-            android:background="@drawable/google_plus"
-    />
+                android:layout_height="40dp"
+                android:id="@+id/logInBTNGoogle"
+                android:textAlignment="center"
+                android:background="@drawable/google_plus"
+        />
     </LinearLayout>
 </LinearLayout>

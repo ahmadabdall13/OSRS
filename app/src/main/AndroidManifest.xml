@@ -13,6 +13,10 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:node="replace">
+        <activity android:name=".activities.SignUpActivity">
+        </activity>
+        <activity android:name=".activities.LoginActivity">
+        </activity>
         <activity android:name=".activities.ContactUsActivity">
         </activity>
         <activity android:name=".activities.SettingsActivity">
