@@ -76,6 +76,11 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="user_type">User Type</string>
 
+
+    <string name="ldp_day">D</string>
+    <string name="ldp_month">M</string>
+    <string name="ldp_year">Y</string>
+
     <string-array name="types_of_transmissions">
         <item>Type of Transmission</item>
         <item>Automatic Transmission</item>

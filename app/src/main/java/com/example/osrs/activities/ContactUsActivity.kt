@@ -21,6 +21,8 @@ class ContactUsActivity : AppCompatActivity() {
         actionbar.setDisplayHomeAsUpEnabled(true)
         actionbar.setDisplayHomeAsUpEnabled(true)
 
+
+
     } // end onCreate
 
     override fun onSupportNavigateUp(): Boolean {
