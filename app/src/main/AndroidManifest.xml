@@ -29,7 +29,10 @@
         </activity>
         <activity android:name=".activities.ProductDetailsActivity">
         </activity>
-        <activity android:name=".activities.PreLoginActivity">
+        <activity android:name=".activities.PreLoginActivity"
+        >
+        </activity>
+        <activity android:name=".activities.SignUpActivity">
         </activity>
         <activity
                 android:name=".activities.SplashScreenActivity"

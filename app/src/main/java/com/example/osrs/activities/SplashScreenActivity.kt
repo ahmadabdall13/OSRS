@@ -24,6 +24,7 @@ class SplashScreenActivity : Activity() {
         if (!isFinishing) {
 
             val intent = Intent(applicationContext, PreLoginActivity::class.java)
+//            val intent = Intent(applicationContext, SignUpActivity::class.java)
             startActivity(intent)
             finish()
         } // end if

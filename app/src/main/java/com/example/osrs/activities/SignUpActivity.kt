@@ -7,31 +7,25 @@ import android.support.v7.widget.Toolbar
 import com.example.osrs.R
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
+
 class SignUpActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
-        var mToolbar: Toolbar = findViewById(R.id.too)
-        setSupportActionBar(mToolbar)
-        //actionbar
-        val actionbar = supportActionBar
-        //set actionbar title
-        actionbar!!.title = "Sign Up"
-        //set back button
-        actionbar.setDisplayHomeAsUpEnabled(true)
-        actionbar.setDisplayHomeAsUpEnabled(true)
 
-        loginLink.setOnClickListener {
-            val intent = Intent(applicationContext, LoginActivity::class.java)
-            startActivity(intent)
-        } // end loginLink.setOnClickListener
+        setSupportActionBar(sp_toolbar)
+        val actionBar = supportActionBar
+        actionBar!!.title= "Sign Up"
 
-    } // end onCreate
+        actionBar.setDisplayHomeAsUpEnabled(true)
+        actionBar.setDisplayHomeAsUpEnabled(true)
+
+    }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
     } // end onSupportNavigateUp
-} // end SignUpActivity
+}
