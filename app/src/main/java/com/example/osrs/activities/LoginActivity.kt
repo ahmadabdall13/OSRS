@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.widget.Button
 import com.example.osrs.R
+import com.example.osrs.services.ServiceVolley
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -73,6 +74,9 @@ class LoginActivity : AppCompatActivity() {
         //set back button
         actionbar.setDisplayHomeAsUpEnabled(true)
         actionbar.setDisplayHomeAsUpEnabled(true)
+
+
+        ServiceVolley().login()
 
     } // end onCreate
 
