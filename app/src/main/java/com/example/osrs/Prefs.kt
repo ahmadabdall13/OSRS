@@ -20,7 +20,6 @@ class Prefs(context: Context){
 
 
 
-
     var firstName = preferences.getString(FIRST_NAME, "")
         set(value) = preferences.edit().putString(FIRST_NAME,value).apply()
 
