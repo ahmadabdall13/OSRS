@@ -11,7 +11,7 @@ import com.android.volley.Response
 import com.android.volley.VolleyLog
 import com.android.volley.toolbox.JsonObjectRequest
 import com.example.osrs.activities.SignUpActivity
-import com.example.osrs.loginSharedPref
+import com.example.osrs.Prefs
 
 
 import org.json.JSONObject
@@ -35,18 +35,26 @@ class ServiceVolley : ServiceInterface {
             Request.Method.POST, basePath + "login", loginJO,
             Response.Listener<JSONObject> { response ->
 
-            //    loginSharedPref.userID = response.getInt("user_type_id")
-
-//                if (response.getBoolean("user_type_id")){
-//                    val intent = Intent(context, SignUpActivity::class.java)
-//                    context.startActivity(intent)
-//                }else{
                 val type = response["user_type_id"]
 
                 if ( type != null){
-                    Toast.makeText(context,"Welcome Vendor ${response["id"]}", Toast.LENGTH_LONG).show()
-                val intent = Intent(context, SignUpActivity::class.java)
-                    context.startActivity(intent)}
+                    val Prefs = Prefs(context)
+
+                  //  Toast.makeText(context,"Welcome Vendor ${response["id"]}", Toast.LENGTH_LONG).show()
+                    Prefs.userId = response["id"].toString()
+                    Prefs.firstName = response["first_name"].toString()
+                    Prefs.lastName = response["last_name"].toString()
+
+                    val userId = Prefs.userId
+                    val firstName = Prefs.firstName
+                    val lastName = Prefs.lastName
+
+                    Toast.makeText(context,"===> ${firstName} ${lastName} ${userId}", Toast.LENGTH_LONG).show()
+
+                    val intent = Intent(context, SignUpActivity::class.java)
+                    context.startActivity(intent)
+
+                }
                 else{
                     Toast.makeText(context,"Please Sign The Fuck Up", Toast.LENGTH_LONG).show()
 
