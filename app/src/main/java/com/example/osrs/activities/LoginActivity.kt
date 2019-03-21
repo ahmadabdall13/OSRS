@@ -1,6 +1,7 @@
 package com.example.osrs.activities
 
 import android.content.Intent
+
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
@@ -8,6 +9,7 @@ import android.util.Log
 import android.widget.Button
 import com.example.osrs.R
 import com.example.osrs.services.ServiceVolley
+
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -19,16 +21,21 @@ import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
 
 class LoginActivity : AppCompatActivity() {
+
     private var callbackManager: CallbackManager? = null
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+
+
         FacebookSdk.sdkInitialize(this)
         AppEventsLogger.activateApp(this)
 
-        var btnLoginFacebook = findViewById<Button>(R.id.login_facebook_button)
+        val btnLoginFacebook = findViewById<Button>(R.id.login_facebook_button)
 
         btnLoginFacebook.setOnClickListener {
             // Login
@@ -56,6 +63,10 @@ class LoginActivity : AppCompatActivity() {
 
         logInBTN.setOnClickListener {
 
+            val emailAddress = emailAddressET.text.toString()
+            val password = passwordET.text.toString()
+            ServiceVolley().login(emailAddress,password,this)
+
         } // end logInBTN.setOnClickListener
 
         toSignUpActivityBTN.setOnClickListener {
@@ -65,7 +76,7 @@ class LoginActivity : AppCompatActivity() {
 
         } // end signInBTN.setOnClickListener
 
-        var mToolbar: Toolbar = findViewById(R.id.too)
+        val mToolbar: Toolbar = findViewById(R.id.too)
         setSupportActionBar(mToolbar)
         //actionbar
         val actionbar = supportActionBar
@@ -76,7 +87,7 @@ class LoginActivity : AppCompatActivity() {
         actionbar.setDisplayHomeAsUpEnabled(true)
 
 
-        ServiceVolley().login()
+
 
     } // end onCreate
 

@@ -16,10 +16,10 @@ class SplashScreenActivity : Activity() {
     private var mDelayHandler: Handler? = null
     private val SPLASH_DELAY: Long = 3000
 
-    internal var pStatus = 0
+    private var pStatus = 0
     private val handler = Handler()
 
-    internal val mRunnable: Runnable = Runnable {
+    private val mRunnable: Runnable = Runnable {
 
         if (!isFinishing) {
 

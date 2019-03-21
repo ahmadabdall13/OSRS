@@ -8,14 +8,13 @@
     <application
             android:allowBackup="false"
             android:icon="@mipmap/ic_launcher"
-            android:name=".services.BackendVolley"
             android:label="@string/app_name"
+            android:name=".services.BackendVolley"
+            android:usesCleartextTraffic="true"
             android:roundIcon="@drawable/cart"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:node="replace">
-        <activity android:name=".activities.SignUpActivity">
-        </activity>
         <activity android:name=".activities.LoginActivity">
         </activity>
         <activity android:name=".activities.ContactUsActivity">

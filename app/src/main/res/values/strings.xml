@@ -75,6 +75,7 @@
     <string name="mobile_number1">Mobile Number</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="user_type">User Type</string>
+    <string name="email">Email</string>
 
     <string-array name="types_of_transmissions">
         <item>Type of Transmission</item>
