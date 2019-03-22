@@ -66,9 +66,7 @@ class LoginActivity : AppCompatActivity() {
 
         logInBTN.setOnClickListener {
 
-            val emailAddress = emailAddressET.text.toString()
-            val password = passwordET.text.toString()
-            ServiceVolley().login(emailAddress,password,this)
+            ServiceVolley().login( emailAddressET.text.toString(),passwordET.text.toString(),this)
 
         } // end logInBTN.setOnClickListener
 

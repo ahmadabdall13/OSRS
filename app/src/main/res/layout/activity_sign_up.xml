@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:fillViewport="true"
+            android:background="@android:color/background_light"
+            tools:ignore="ScrollViewCount">
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         tools:context=".activities.SignUpActivity">
 
 
@@ -21,18 +29,35 @@
             android:id="@+id/sp_toolbar"
     >    </android.support.v7.widget.Toolbar>
 
+    <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:id="@+id/frame"
+    >
+        <EditText
+                android:id="@+id/signUpEmailAddressET"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/email"
+                android:autofillHints="no"
+                tools:ignore="UnusedAttribute"
+                android:inputType="textEmailAddress"/>
+
+    </android.support.design.widget.TextInputLayout>
+
 
     <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/sp_toolbar"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:id="@+id/frame1"
     >
         <EditText
-                android:id="@+id/sp_first_name"
+                android:id="@+id/firstNameET"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -46,19 +71,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:layout_below="@+id/frame1"
             android:id="@+id/frame2"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-
             android:layout_gravity="center_horizontal"
     >
         <EditText
-                android:id="@+id/sp_last_name"
+                android:id="@+id/lastNameET"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="@string/first_name"
+                android:hint="@string/last_name"
                 android:autofillHints="no"
                 tools:ignore="UnusedAttribute"
                 android:inputType="text"/>
@@ -69,66 +91,60 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:layout_below="@+id/frame2"
-            android:layout_centerHorizontal="true"
             android:id="@+id/frame3"
             android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal"
     >
         <EditText
-                android:id="@+id/sp_mobile_number"
+                android:id="@+id/mobileNumberET"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/mobile_number1"
                 android:autofillHints="no"
                 tools:ignore="UnusedAttribute"
-                android:inputType="text"/>
+                android:inputType="number"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:textAlignment="center"
             android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal"
-            android:layout_below="@+id/frame3"
             android:id="@+id/frame4"
 
     >
         <EditText
-                android:id="@+id/sp_password"
+                android:id="@+id/signUpPasswordET"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/password"
                 android:autofillHints="no"
                 tools:ignore="UnusedAttribute"
-                android:inputType="text"/>
+                android:inputType="textPassword"/>
     </android.support.design.widget.TextInputLayout>
 
 
     <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:textAlignment="center"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:layout_below="@+id/frame4"
             android:id="@+id/frame5"
 
     >
         <EditText
-                android:id="@+id/sp_confirm_password"
+                android:id="@+id/confirmPasswordET"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/confirm_password"
                 android:autofillHints="no"
                 tools:ignore="UnusedAttribute"
-                android:inputType="text"/>
+                android:inputType="textPassword"/>
     </android.support.design.widget.TextInputLayout>
 
 
@@ -137,10 +153,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal"
-            android:layout_below="@+id/frame5"
             android:id="@+id/frame6"
 
     >
@@ -148,7 +162,7 @@
         <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-                android:id="@+id/sp_user_type_id"
+                android:id="@+id/userTypeSpinner"
                 android:prompt="@string/user_type"
                 android:entries="@array/user_types"
                 android:layout_marginTop="20dp"
@@ -161,11 +175,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:gravity="center"
-            android:layout_alignParentBottom="true"
-            android:text="Sign Up"
-            android:id="@+id/sp_btn"
+            android:text="@string/sign_up"
+            android:id="@+id/signUpBTN"
+            android:layout_marginBottom="0dp"
+            android:layout_marginTop="30dp"
             android:textColor="@android:color/white"
             android:background="@color/colorPrimary"
 
     />
-</RelativeLayout>
+</LinearLayout>
+</ScrollView>
