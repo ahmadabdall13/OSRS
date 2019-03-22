@@ -37,25 +37,63 @@
     >
 
 
-    <Spinner
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/carBrandSpinner"
-            android:layout_marginTop="20px"
-            android:prompt="@string/car_prompt"
-            android:entries="@array/type_of_brand"
 
-    />
-
-        <Spinner
-                android:layout_width="fill_parent"
+        <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/carModelSpinner"
-                android:layout_marginTop="40px"
-                android:prompt="@string/model_prompt"
-                android:entries="@array/type_of_model"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+        >
+            <EditText
+                    android:id="@+id/carBrandEt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/car_prompt"
+                    android:autofillHints="no"
+                    tools:ignore="UnusedAttribute"
+                    android:inputType="date"/>
+        </android.support.design.widget.TextInputLayout>
 
-        />
+    <!--<Spinner-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/carBrandSpinner"-->
+            <!--android:layout_marginTop="20px"-->
+            <!--android:prompt="@string/car_prompt"-->
+            <!--android:entries="@array/type_of_brand"-->
+
+    <!--/>-->
+
+
+        <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+        >
+            <EditText
+                    android:id="@+id/carModelEt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/model_prompt"
+                    android:autofillHints="no"
+                    tools:ignore="UnusedAttribute"
+                    android:inputType="date"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <!--<Spinner-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/carModelSpinner"-->
+                <!--android:layout_marginTop="40px"-->
+                <!--android:prompt="@string/model_prompt"-->
+                <!--android:entries="@array/type_of_model"-->
+
+        <!--/>-->
 
     </LinearLayout>
 
@@ -154,7 +192,6 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-
                     android:ems="10"
                     android:id="@+id/extColor"
                     android:layout_weight="0.5"
