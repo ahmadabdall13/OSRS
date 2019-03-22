@@ -5,11 +5,17 @@ import android.content.Context
 
 class APIController constructor(serviceInjection: ServiceInterface): ServiceInterface {
 
+
+
     private val service: ServiceInterface = serviceInjection
+
+
+
 
     override fun login(Email:String,Password:String,context: Context) {
         service.login(Email,Password,context)
     } // end fun login
+
 
     override fun singUp(
         Email: String,
@@ -18,9 +24,36 @@ class APIController constructor(serviceInjection: ServiceInterface): ServiceInte
         LastName: String,
         MobileNumber: String,
         UserType:Int,
+        socialId:String,
         context: Context
     ) {
-        service.singUp(Email,Password,FirstName,LastName, MobileNumber,UserType,context)
+        service.singUp(Email,Password,FirstName,LastName, MobileNumber,UserType,socialId,context)
     } // end singUp
+
+
+
+    override fun loginFacebook(
+        socialId: String,
+        context: Context
+    ) {
+        service.loginFacebook(socialId,context)
+    } // end singUp
+
+
+
+
+
+    override fun addProduct(
+        brandName:String,modelName:String,yearOfMake:String,
+        typeOfEngine:String,typeOfTransmission:String,price:Double,mileage:String,externalColor:String,
+        internalColor:String, description:String,
+        context: Context
+    ) {
+        service.addProduct(brandName,modelName,yearOfMake,typeOfEngine,
+            typeOfTransmission,price,mileage,externalColor,internalColor,description,context)
+    } // end singUp
+
+
+
 
 } // end APIController
