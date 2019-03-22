@@ -4,11 +4,14 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.ProgressBar
+import android.widget.Toast
 import com.example.osrs.R
+import com.example.osrs.Prefs
 
 class SplashScreenActivity : Activity() {
 
@@ -66,7 +69,19 @@ class SplashScreenActivity : Activity() {
                 try {
                     // Sleep for 200 milliseconds.
                     // Just to display the progress slowly
+
+                    val Prefs = Prefs(this)
+
+//                    val token = Prefs.deviceToken
+
+//                    Log.v("TAG","My token is: $token")
+//                    Toast.makeText(applicationContext,"===> ${token}", Toast.LENGTH_LONG).show()
+//                    Log.d("Batool FUCK HER PUSSY222", token)
+
+
                     Thread.sleep(16) //thread will take approx 3 seconds to finish
+
+
                 } catch (e: InterruptedException) {
                     e.printStackTrace()
                 }

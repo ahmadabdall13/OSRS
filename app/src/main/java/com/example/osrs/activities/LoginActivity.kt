@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 import com.example.osrs.R
 import com.example.osrs.services.ServiceVolley
 
@@ -19,6 +20,7 @@ import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
+import com.example.osrs.Prefs
 
 class LoginActivity : AppCompatActivity() {
 
@@ -34,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
 
         FacebookSdk.sdkInitialize(this)
         AppEventsLogger.activateApp(this)
+        val Prefs =Prefs(this)
 
         val btnLoginFacebook = findViewById<Button>(R.id.login_facebook_button)
 
@@ -68,6 +71,10 @@ class LoginActivity : AppCompatActivity() {
         } // end logInBTN.setOnClickListener
 
         toSignUpActivityBTN.setOnClickListener {
+
+            val userId = Prefs.userId
+            Toast.makeText(applicationContext,"Welcome =|= ${userId}", Toast.LENGTH_LONG).show()
+
 
             val intent = Intent(applicationContext, SignUpActivity::class.java)
             startActivity(intent)

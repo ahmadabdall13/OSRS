@@ -3,18 +3,31 @@ package com.example.osrs
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
-
-class Prefs constructor(context: Context){
-
-    private val loginPreference = "login info"
-    val loginSharedPref: SharedPreferences = context.getSharedPreferences(loginPreference, 0) // prefs
+import android.preference.PreferenceManager
 
 
-    val user_id = "user_id"
-//    //    Here create vars to store the response in
-    var userID: Int
-        get() = loginSharedPref.getInt(user_id, Color.BLACK)
-        set(value) = loginSharedPref.edit().putInt(user_id,value).apply()
+class Prefs(context: Context){
+    companion object {
+        private const val USER_ID = "USER_ID"
+        private const val FIRST_NAME = "FIRST_NAME"
+        private const val LAST_NAME = "LAST_NAME"
+    }
+     val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+
+    // save USER_ID
+    var userId = preferences.getString(USER_ID, "")
+        set(value) = preferences.edit().putString(USER_ID,value).apply()
 
 
-} // end Prefs
+
+    var firstName = preferences.getString(FIRST_NAME, "")
+        set(value) = preferences.edit().putString(FIRST_NAME,value).apply()
+
+
+
+
+    var lastName = preferences.getString(LAST_NAME, "")
+        set(value) = preferences.edit().putString(LAST_NAME,value).apply()
+
+
+}

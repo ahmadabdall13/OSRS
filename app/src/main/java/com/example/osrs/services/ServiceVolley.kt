@@ -12,9 +12,11 @@ import com.android.volley.VolleyLog
 import com.android.volley.toolbox.JsonObjectRequest
 import com.example.osrs.activities.PreLoginActivity
 import com.example.osrs.activities.SignUpActivity
-
-
 import org.json.JSONObject
+
+import com.example.osrs.Prefs
+
+
 
 
 
@@ -35,22 +37,37 @@ class ServiceVolley : ServiceInterface {
             Request.Method.POST, basePath + "login", loginJO,
             Response.Listener<JSONObject> { response ->
 
-            //    loginSharedPref.userID = response.getInt("user_type_id")
+                var id =0
 
-//                if (response.getBoolean("user_type_id")){
-//                    val intent = Intent(context, SignUpActivity::class.java)
-//                    context.startActivity(intent)
-//                }else{
-                val type = response["user_type_id"]
+                if (response.has("id")){
+                     id = response["id"].toString().toInt()
+                } // end if
+                else {
+                    Toast.makeText(context,"Email Or Password Incorrect , Try Again", Toast.LENGTH_LONG).show()
+                    return@Listener
+                } // end else
 
-                if ( type != null){
-                    Toast.makeText(context,"Welcome Vendor ${response["id"]}", Toast.LENGTH_LONG).show()
-                val intent = Intent(context, SignUpActivity::class.java)
-                    context.startActivity(intent)}
-                else{
-                    Toast.makeText(context,"Please Sign The Fuck Up", Toast.LENGTH_LONG).show()
 
-                }
+//                if ( id > 0){
+                    val Prefs = Prefs(context)
+
+                    Prefs.userId = response["id"].toString()
+                    Prefs.firstName = response["first_name"].toString()
+                    Prefs.lastName = response["last_name"].toString()
+
+                    val userId = Prefs.userId
+                    val firstName = Prefs.firstName
+                    val lastName = Prefs.lastName
+
+                    Toast.makeText(context,"===> $firstName $lastName $userId", Toast.LENGTH_LONG).show()
+
+                    val intent = Intent(context, PreLoginActivity::class.java)
+                    context.startActivity(intent)
+
+//                }
+//                else{
+//                    Toast.makeText(context,"Please Sign The Fuck Up", Toast.LENGTH_LONG).show()
+//
 //                }
 
             },
