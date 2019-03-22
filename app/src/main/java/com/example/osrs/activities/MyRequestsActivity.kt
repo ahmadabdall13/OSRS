@@ -9,8 +9,8 @@ import kotlinx.android.synthetic.main.activity_my_requests.*
 
 class MyRequestsActivity : AppCompatActivity() {
 
-    private val CarBrand = arrayOf("Audi","BMW")
-    private val CarModle = arrayOf(
+    private val CarBrand : ArrayList<String> = arrayListOf("Audi","BMW")
+    private val CarModle : ArrayList<String> = arrayListOf(
         "A7",
         "Tiger"
     )
@@ -20,20 +20,20 @@ class MyRequestsActivity : AppCompatActivity() {
         R.drawable.audi
     )
 
-    private val MileAge:Array<Double> = arrayOf(
+    private val MileAge: ArrayList<Double> = arrayListOf(
         13.0,0.0
     )
 
-    private val Trans = arrayOf(
+    private val Trans : ArrayList<String> = arrayListOf(
         "Auto",
         "Manual"
     )
 
-    private val CarPrice:Array<Double> = arrayOf(
+    private val CarPrice: ArrayList<Double> = arrayListOf(
         700_000.213,13_22_13.22
     )
 
-    private val OfferStatus:Array<String> = arrayOf(
+    private val OfferStatus: ArrayList<String> = arrayListOf(
         "Pending","Declined"
     )
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +52,7 @@ class MyRequestsActivity : AppCompatActivity() {
         )
         productsLV.adapter = myListAdapter
 
-        var mToolbar: Toolbar = findViewById(R.id.too)
+        val mToolbar: Toolbar = findViewById(R.id.too)
         setSupportActionBar(mToolbar)
         //actionbar
         val actionbar = supportActionBar

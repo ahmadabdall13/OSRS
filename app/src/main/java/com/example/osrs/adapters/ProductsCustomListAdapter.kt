@@ -17,13 +17,13 @@ import com.facebook.FacebookSdk.getApplicationContext
 
 class ProductsCustomListAdapter(
     context: Context?,
-    private val carBrandTextA: Array<String>,
-    private val carModelTextA: Array<String>,
-    private val mileageTextA: Array<Double>,
-    private val transmissionTextA: Array<String>,
-    private val carPriceTextA: Array<Double>,
+    private val carBrandTextA: ArrayList<String>,
+    private val carModelTextA: ArrayList<String>,
+    private val mileageTextA: ArrayList<Double>,
+    private val transmissionTextA: ArrayList<String>,
+    private val carPriceTextA: ArrayList<Double>,
     private val imgid: Array<Int>,
-    private val offerStatusTextA: Array<String>
+    private val offerStatusTextA: ArrayList<String>
 
 
 ) : ArrayAdapter<String>(context, R.layout.products_custom_list, carBrandTextA) {

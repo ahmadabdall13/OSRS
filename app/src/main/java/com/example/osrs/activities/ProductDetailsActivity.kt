@@ -46,8 +46,8 @@ class ProductDetailsActivity : AppCompatActivity() {
                 LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
                 LinearLayout.LayoutParams.WRAP_CONTENT // Window height
             )
-            popupWindow.setOutsideTouchable(true);
-            popupWindow.setFocusable(true);
+            popupWindow.isOutsideTouchable = true
+            popupWindow.isFocusable = true
 
 
             // Set an elevation for the popup window

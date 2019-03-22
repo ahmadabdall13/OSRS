@@ -1,11 +1,13 @@
 package com.example.osrs.activities
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.util.AttributeSet
 import android.view.View
 import android.widget.Toast
 import com.example.osrs.adapters.ProductsCustomListAdapter
@@ -13,43 +15,19 @@ import kotlinx.android.synthetic.main.activity_pre_login.*
 import android.view.Menu
 import android.view.MenuItem
 import com.example.osrs.R
+import com.example.osrs.services.BackendVolley
+import com.example.osrs.services.ServiceVolley
 
 
 class PreLoginActivity : AppCompatActivity() {
-
-    private val CarBrand = arrayOf("Audi","BMW")
-    private val CarModle = arrayOf(
-        "A7",
-        "Tiger"
-    )
-
-    private val imageId = arrayOf(
-        R.drawable.audi,
-        R.drawable.audi
-    )
-
-    private val MileAge:Array<Double> = arrayOf(
-        13.0,0.0
-    )
-
-    private val Trans = arrayOf(
-        "Auto",
-        "Manual"
-    )
-
-    private val CarPrice:Array<Double> = arrayOf(
-        700_000.213,13_22_13.22
-    )
-
-    private val OfferStatus:Array<String> = arrayOf(
-        "Pending","Declined"
-    )
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pre_login)
+
+        val myListAdapter = ServiceVolley().getAllProducts(this)
+        mainProductsLV.adapter=myListAdapter
 
 
         // Configure action bar
@@ -128,17 +106,8 @@ class PreLoginActivity : AppCompatActivity() {
             true
         } // end navigation_view.setNavigationItemSelectedListener
 
-        val myListAdapter = ProductsCustomListAdapter(
-            this,
-            CarBrand,
-            CarModle,
-            MileAge,
-            Trans,
-            CarPrice,
-            imageId,
-            OfferStatus
-        )
-        productsLV.adapter = myListAdapter
+
+
     } // end ofCreate
 
 
