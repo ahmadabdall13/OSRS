@@ -78,4 +78,48 @@ class ServiceVolley : ServiceInterface {
 
         BackendVolley.instance?.addToRequestQueue(jsonObjReq, TAG)
     }
+
+
+
+
+
+
+    override fun loginFacebook(socialId:String,context: Context) {
+
+        val loginJO = JSONObject()
+        loginJO.put("social_id", socialId)
+
+
+        val jsonObjReq = object : JsonObjectRequest(
+            Request.Method.POST, basePath + "loginFacebook", loginJO,
+            Response.Listener<JSONObject> { response ->
+
+                val type = response["user_type_id"]
+
+                if ( type != null){
+                    val Prefs = Prefs(context)
+
+                }
+                else{
+                    Toast.makeText(context,"Please Sign The Fuck Up", Toast.LENGTH_LONG).show()
+
+                }
+
+            },
+            Response.ErrorListener { error ->
+                VolleyLog.e(TAG, "/post request fail! Error: ${error.message}")
+                Toast.makeText(context,"Error : Sing The Fuck Up ${error.message}", Toast.LENGTH_LONG).show()
+
+
+            }) {
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Content-Type"] = "application/json"
+                return headers
+            }
+        }
+
+        BackendVolley.instance?.addToRequestQueue(jsonObjReq, TAG)
+    }
 } // end ServiceVolley
