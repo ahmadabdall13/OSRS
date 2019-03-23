@@ -161,8 +161,8 @@ class PreLoginActivity : AppCompatActivity() {
 
 
         if (id == R.id.loginLogo) {
-//                val intent = Intent(applicationContext, LoginActivity::class.java)
-//                startActivity(intent)
+                val intent = Intent(applicationContext, LoginActivity::class.java)
+                startActivity(intent)
 
 
 
