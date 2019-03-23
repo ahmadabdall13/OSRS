@@ -1,34 +1,29 @@
 package com.example.osrs.activities
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
-import android.util.AttributeSet
 import android.view.View
 import android.widget.Toast
-import com.example.osrs.adapters.ProductsCustomListAdapter
 import kotlinx.android.synthetic.main.activity_pre_login.*
 import android.view.Menu
 import android.view.MenuItem
 import com.example.osrs.R
-import com.example.osrs.services.BackendVolley
 import com.example.osrs.services.ServiceVolley
 
 
 class PreLoginActivity : AppCompatActivity() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pre_login)
 
-        val myListAdapter = ServiceVolley().getAllProducts(this)
-        mainProductsLV.adapter=myListAdapter
-
+        // Fetching All Products In The Database
+        val response = ServiceVolley().getAllProducts(this)
+        mainProductsLV.adapter = response
 
         // Configure action bar
         setSupportActionBar(toolbar)

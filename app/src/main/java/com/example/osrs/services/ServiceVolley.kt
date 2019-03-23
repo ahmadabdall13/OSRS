@@ -156,14 +156,19 @@ class ServiceVolley : ServiceInterface {
 
         val offerStatus:ArrayList<String> = arrayListOf("Pending","Canceled")
 
-        val jsonObjReq = @RequiresApi(Build.VERSION_CODES.KITKAT)
-        object : JsonArrayRequest(
+        var jsonArray = JSONArray()
+        val jsonObjReq =
+        object : JsonArrayRequest(Request.Method.GET,
             getAllProductsBasePath,
+            null,
             Response.Listener<JSONArray> { response ->
 
 
+                jsonArray = response
 
-                for (i in 0..( response.length()-1 )){
+
+
+                for (i in 0 until  response.length() ){
                     val jsonObject = response.getJSONObject(i)
                         if (jsonObject.has("id")){
                             carBrand.add(i,jsonObject["brand_name"].toString())
@@ -174,20 +179,7 @@ class ServiceVolley : ServiceInterface {
 
                         } // end if
 
-                        else {
-                            Toast.makeText(context,"Email Or Password Incorrect , Try Again", Toast.LENGTH_LONG).show()
-                            return@Listener
-                        } // end else
-
-
-
-
                 } // end for
-
-
-
-
-
 
             },
             Response.ErrorListener { error ->
@@ -200,8 +192,6 @@ class ServiceVolley : ServiceInterface {
                 return headers
             }
         }
-
-        BackendVolley.instance?.addToRequestQueue(jsonObjReq, TAG)
         myListAdapter = ProductsCustomListAdapter(
             context,
             carBrand,
@@ -212,6 +202,8 @@ class ServiceVolley : ServiceInterface {
             imageId,
             offerStatus
         )
+        BackendVolley.instance?.addToRequestQueue(jsonObjReq, TAG)
+
         return myListAdapter
 
     } // end getAllProducts
