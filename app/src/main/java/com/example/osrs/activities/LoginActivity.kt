@@ -76,10 +76,8 @@ class LoginActivity : AppCompatActivity() {
         toSignUpActivityBTN.setOnClickListener {
 
             val userId = Prefs.userId
-            Toast.makeText(applicationContext,"Welcome =|= ${userId}", Toast.LENGTH_LONG).show()
-
-
             val intent = Intent(applicationContext, SignUpActivity::class.java)
+            intent.putExtra("social_id","default_singup")
             startActivity(intent)
 
         } // end signInBTN.setOnClickListener

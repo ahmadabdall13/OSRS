@@ -11,10 +11,10 @@ class Prefs(context: Context){
         private const val USER_ID = "USER_ID"
         private const val FIRST_NAME = "FIRST_NAME"
         private const val LAST_NAME = "LAST_NAME"
+        private const val USER_TYPE_ID = "USER_TYPE_ID"
     }
      val preferences = PreferenceManager.getDefaultSharedPreferences(context)
 
-    // save USER_ID
     var userId = preferences.getString(USER_ID, "")
         set(value) = preferences.edit().putString(USER_ID,value).apply()
 
@@ -25,9 +25,11 @@ class Prefs(context: Context){
 
 
 
-
     var lastName = preferences.getString(LAST_NAME, "")
         set(value) = preferences.edit().putString(LAST_NAME,value).apply()
 
+
+    var userTypeId = preferences.getString(USER_TYPE_ID, "")
+        set(value) = preferences.edit().putString(USER_TYPE_ID,value).apply()
 
 }

@@ -22,8 +22,7 @@ class SignUpActivity : AppCompatActivity() {
         var Intent1: Intent
         Intent1= getIntent()
         val socialId = Intent1.getStringExtra("social_id")
-        Toast.makeText(applicationContext,"your social id is = {$socialId} "
-            , Toast.LENGTH_LONG).show()
+
 
 
         setSupportActionBar(sp_toolbar)

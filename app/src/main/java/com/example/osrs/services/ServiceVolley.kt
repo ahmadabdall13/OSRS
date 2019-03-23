@@ -40,18 +40,16 @@ class ServiceVolley : ServiceInterface {
                 var id = 0
 
                 if (response.has("id")) {
-                    Prefs.userId = response["id"].toString()
-                    Prefs.firstName = response["first_name"].toString()
-                    Prefs.lastName = response["last_name"].toString()
-
-                    id = response["id"].toString().toInt()
                     val Prefs = Prefs(context)
+
                     Prefs.userId = response["id"].toString()
                     Prefs.firstName = response["first_name"].toString()
                     Prefs.lastName = response["last_name"].toString()
-                    val userId = Prefs.userId
-                    val firstName = Prefs.firstName
-                    val lastName = Prefs.lastName
+                    Prefs.userTypeId = response["user_type_id"].toString()
+
+//                    val userId = Prefs.userId
+//                    val firstName = Prefs.firstName
+//                    val lastName = Prefs.lastName
                     val intent = Intent(context, PreLoginActivity::class.java)
                     context.startActivity(intent)
                 } // end if
@@ -106,21 +104,16 @@ class ServiceVolley : ServiceInterface {
             Request.Method.POST, basePath + "signup", signUpJO,
             Response.Listener<JSONObject> { response ->
 
-                val type = response["user_type_id"]
-
-                    if (response.has("id")) {
-
+                    if (response.has("user_type_id")) {
                         Toast.makeText(
                             context, "Registration Completed Successfully, Welcome ${response["first_name"]} "
                             , Toast.LENGTH_LONG
                         ).show()
                         val intent = Intent(context, PreLoginActivity::class.java)
                         context.startActivity(intent)
-
                     }
                 else{
                     Toast.makeText(context,"Please Sign The Fuck Up", Toast.LENGTH_LONG).show()
-
                 }
 
 
