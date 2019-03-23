@@ -3,8 +3,10 @@ package com.example.osrs.services
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Build
 import android.support.annotation.RequiresApi
+import android.widget.ListView
 import android.widget.Toast
 import com.android.volley.AuthFailureError
 import com.android.volley.Request
@@ -12,13 +14,14 @@ import com.android.volley.Response
 import com.android.volley.VolleyLog
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
-import com.example.osrs.activities.PreLoginActivity
-import org.json.JSONObject
 import com.example.osrs.Prefs
 import com.example.osrs.R
 import com.example.osrs.adapters.ProductsCustomListAdapter
 import org.json.JSONArray
-
+import com.example.osrs.activities.SignUpActivity
+import com.example.osrs.activities.PreLoginActivity
+import kotlinx.android.synthetic.main.activity_pre_login.*
+import org.json.JSONObject
 
 class ServiceVolley : ServiceInterface {
 
@@ -29,54 +32,46 @@ class ServiceVolley : ServiceInterface {
     val getAllProductsBasePath = "http://18.219.85.157/products"
 
 
-    override fun login(Email:String,Password:String,context: Context) {
+
+    override fun login(Email: String, Password: String, context: Context) {
 
         val loginJO = JSONObject()
         loginJO.put("email_address", Email)
         loginJO.put("password", Password)
+        val Prefs = Prefs(context)
 
 
         val jsonObjReq = object : JsonObjectRequest(
             Request.Method.POST, basePath + "login", loginJO,
             Response.Listener<JSONObject> { response ->
 
-                var id =0
 
-                if (response.has("id")){
-                     id = response["id"].toString().toInt()
-                } // end if
-                else {
-                    Toast.makeText(context,"Email Or Password Incorrect , Try Again", Toast.LENGTH_LONG).show()
-                    return@Listener
-                } // end else
+                //  Toast.makeText(context,"Welcome Vendor ${response["id"]}", Toast.LENGTH_LONG).show()
+                var id = 0
 
-
-//                if ( id > 0){
+                if (response.has("id")) {
                     val Prefs = Prefs(context)
 
                     Prefs.userId = response["id"].toString()
                     Prefs.firstName = response["first_name"].toString()
                     Prefs.lastName = response["last_name"].toString()
+                    Prefs.userTypeId = response["user_type_id"].toString()
 
-                    val userId = Prefs.userId
-                    val firstName = Prefs.firstName
-                    val lastName = Prefs.lastName
-
-                    Toast.makeText(context,"===> $firstName $lastName $userId", Toast.LENGTH_LONG).show()
-
+//                    val userId = Prefs.userId
+//                    val firstName = Prefs.firstName
+//                    val lastName = Prefs.lastName
                     val intent = Intent(context, PreLoginActivity::class.java)
                     context.startActivity(intent)
-
-//                }
-//                else{
-//                    Toast.makeText(context,"Please Sign The Fuck Up", Toast.LENGTH_LONG).show()
-//
-//                }
+                } // end if
+                else {
+                    Toast.makeText(context, "Email Or Password Incorrect , Try Again", Toast.LENGTH_LONG).show()
+                    return@Listener
+                } // end else
 
             },
             Response.ErrorListener { error ->
                 VolleyLog.e(TAG, "/post request fail! Error: ${error.message}")
-                Toast.makeText(context,"Error : Sing The Fuck Up ${error.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Error : Sing The Fuck Up ${error.message}", Toast.LENGTH_LONG).show()
 
 
             }) {
@@ -89,7 +84,11 @@ class ServiceVolley : ServiceInterface {
         }
 
         BackendVolley.instance?.addToRequestQueue(jsonObjReq, TAG)
-    } // end login
+    }
+
+
+
+
 
     override fun singUp(
         Email: String,
@@ -97,7 +96,8 @@ class ServiceVolley : ServiceInterface {
         FirstName: String,
         LastName: String,
         MobileNumber: String,
-        UserType:Int,
+        UserType: Int,
+        socialId:String,
         context: Context
     ) {
         val signUpJO = JSONObject()
@@ -107,21 +107,131 @@ class ServiceVolley : ServiceInterface {
         signUpJO.put("last_name", LastName)
         signUpJO.put("mobile_number", MobileNumber)
         signUpJO.put("user_type_id", UserType)
+        signUpJO.put("social_id", socialId)
 
 
         val jsonObjReq = object : JsonObjectRequest(
             Request.Method.POST, basePath + "signup", signUpJO,
             Response.Listener<JSONObject> { response ->
 
-                    Toast.makeText(context,"Registration Completed Successfully, Welcome ${response["first_name"]} "
-                        , Toast.LENGTH_LONG).show()
+                if (response.has("user_type_id")) {
+                    Toast.makeText(
+                        context, "Registration Completed Successfully, Welcome ${response["first_name"]} "
+                        , Toast.LENGTH_LONG
+                    ).show()
                     val intent = Intent(context, PreLoginActivity::class.java)
                     context.startActivity(intent)
+                }
+                else{
+                    Toast.makeText(context,"Please Sign The Fuck Up", Toast.LENGTH_LONG).show()
+                }
+
 
             },
             Response.ErrorListener { error ->
                 VolleyLog.e(TAG, "/post request fail! Error: ${error.message}")
-                Toast.makeText(context,"Error : Sing The Fuck Up ${error.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Error : Sing The Fuck Up ${error.message}", Toast.LENGTH_LONG).show()
+
+
+            }) {
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Content-Type"] = "application/json"
+                return headers
+            }
+        }
+
+        BackendVolley.instance?.addToRequestQueue(jsonObjReq, TAG)
+
+    } // end ServiceVolley
+
+
+    override fun loginFacebook(socialId: String, context: Context) {
+
+        val loginJO = JSONObject()
+        loginJO.put("social_id", socialId)
+
+
+        val jsonObjReq = object : JsonObjectRequest(
+            Request.Method.POST, basePath + "loginFacebook", loginJO,
+            Response.Listener<JSONObject> { response ->
+
+                if (response.has("id")) {
+                    Toast.makeText(context, "hahah congrats! {$response}", Toast.LENGTH_LONG).show()
+
+                } else {
+                    Toast.makeText(context, "Please Sign The Fuck Up", Toast.LENGTH_LONG).show()
+//                    val intent = Intent(context, SignUpActivity::class.java)
+//                    intent.putExtra("social_id", socialId)
+//                    context.startActivity(intent)
+
+                    val intent = Intent(context, SignUpActivity::class.java)
+                    intent.putExtra("social_id", socialId)
+
+                    context.startActivity(intent)
+
+                }
+
+            },
+            Response.ErrorListener { error ->
+                VolleyLog.e(TAG, "/post request fail! Error: ${error.message}")
+                Toast.makeText(context, "Error : Sing The Fuck Up ${error.message}", Toast.LENGTH_LONG).show()
+
+
+            }) {
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Content-Type"] = "application/json"
+                return headers
+            }
+        }
+
+        BackendVolley.instance?.addToRequestQueue(jsonObjReq, TAG)
+    }
+
+
+
+
+
+
+
+
+
+    override fun addProduct(
+        brandName:String,modelName:String,yearOfMake:String,
+        typeOfEngine:String,typeOfTransmission:String,price:Double,mileage:String,externalColor:String,
+        internalColor:String, description:String,
+        context: Context
+    ) {
+        val productOj = JSONObject()
+        productOj.put("brand_name", brandName)
+        productOj.put("model_name", modelName)
+        productOj.put("year_of_make", yearOfMake)
+        productOj.put("type_of_engine", typeOfEngine)
+        productOj.put("price", price)
+        productOj.put("mileage", mileage)
+        productOj.put("external_color", externalColor)
+        productOj.put("internal_color", internalColor)
+        productOj.put("description", description)
+        productOj.put("product_type_id", 3)
+        productOj.put("vendor_id", 17)
+
+
+
+        val jsonObjReq = object : JsonObjectRequest(
+            Request.Method.POST, basePath + "products", productOj,
+            Response.Listener<JSONObject> { response ->
+
+                Toast.makeText(
+                    context, ", Welcome ${response} "
+                    , Toast.LENGTH_LONG
+                ).show()
+            },
+            Response.ErrorListener { error ->
+                VolleyLog.e(TAG, "/post request fail! Error: ${error.message}")
+                Toast.makeText(context, "Error : Sing The Fuck Up ${error.message}", Toast.LENGTH_LONG).show()
 
 
             }) {
@@ -137,76 +247,4 @@ class ServiceVolley : ServiceInterface {
     } // end singUp
 
 
-    override fun getAllProducts(context: Context): ProductsCustomListAdapter {
-        var myListAdapter : ProductsCustomListAdapter
-
-        var carBrand : ArrayList<String> = arrayListOf()
-        var carModle : ArrayList<String> = arrayListOf()
-
-        val imageId = arrayOf(
-            R.drawable.audi,
-            R.drawable.audi
-        )
-
-        var mileAge:ArrayList<Double> = arrayListOf()
-
-        var trans: ArrayList<String> = arrayListOf()
-
-        var carPrice:ArrayList<Double> = arrayListOf()
-
-        val offerStatus:ArrayList<String> = arrayListOf("Pending","Canceled")
-
-        var jsonArray = JSONArray()
-        val jsonObjReq =
-        object : JsonArrayRequest(Request.Method.GET,
-            getAllProductsBasePath,
-            null,
-            Response.Listener<JSONArray> { response ->
-
-
-                jsonArray = response
-
-
-
-                for (i in 0 until  response.length() ){
-                    val jsonObject = response.getJSONObject(i)
-                        if (jsonObject.has("id")){
-                            carBrand.add(i,jsonObject["brand_name"].toString())
-                            carModle.add(i,jsonObject["model_name"].toString())
-                            mileAge.add(i,jsonObject["mileage"].toString().toDouble())
-                            trans.add(i,jsonObject["type_of_transmission"].toString())
-                            carPrice.add(i,jsonObject["price"].toString().toDouble())
-
-                        } // end if
-
-                } // end for
-
-            },
-            Response.ErrorListener { error ->
-                VolleyLog.e(TAG, "/post request fail! Error: ${error.message}")
-            }) {
-            @Throws(AuthFailureError::class)
-            override fun getHeaders(): Map<String, String> {
-                val headers = HashMap<String, String>()
-                headers["Content-Type"] = "application/json"
-                return headers
-            }
-        }
-        myListAdapter = ProductsCustomListAdapter(
-            context,
-            carBrand,
-            carModle,
-            mileAge,
-            trans,
-            carPrice,
-            imageId,
-            offerStatus
-        )
-        BackendVolley.instance?.addToRequestQueue(jsonObjReq, TAG)
-
-        return myListAdapter
-
-    } // end getAllProducts
-
-
-} // end ServiceVolley
+    } // end ServiceVolley

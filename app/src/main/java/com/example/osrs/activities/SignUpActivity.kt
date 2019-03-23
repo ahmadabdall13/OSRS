@@ -13,13 +13,22 @@ import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class SignUpActivity : AppCompatActivity() {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
+
+        var Intent1: Intent
+        Intent1= getIntent()
+        val socialId = Intent1.getStringExtra("social_id")
+
+
+
         setSupportActionBar(sp_toolbar)
         val actionBar = supportActionBar
         actionBar!!.title= "Sign Up"
+
 
         actionBar.setDisplayHomeAsUpEnabled(true)
         actionBar.setDisplayHomeAsUpEnabled(true)
@@ -43,7 +52,7 @@ class SignUpActivity : AppCompatActivity() {
             else {
                 ServiceVolley().singUp(
                     signUpEmailAddressET.text.toString(), signUpPasswordET.text.toString()
-                    , firstNameET.text.toString(), lastNameET.text.toString(), mobileNumberET.text.toString(),userTypeID, this
+                    , firstNameET.text.toString(), lastNameET.text.toString(), mobileNumberET.text.toString(),userTypeID,socialId, this
                 )
             } // end else
 
