@@ -19,5 +19,7 @@ interface ServiceInterface {
                    internalColor:String, description:String,
                    context: Context)
 
+    fun createUserRequest(
+        productId:Int,customer_id:Int,requestStatusId:Int,context: Context)
 
 } // end ServiceInterface

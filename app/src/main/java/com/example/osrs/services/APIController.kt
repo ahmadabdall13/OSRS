@@ -52,4 +52,11 @@ class APIController constructor(serviceInjection: ServiceInterface , productsCus
     } // end singUp
 
 
+    override fun createUserRequest(
+        productId:Int,customer_id:Int,requestStatusId:Int,context: Context
+    )
+{
+        service.createUserRequest(productId,customer_id,requestStatusId,context)
+    } // end singUp
+
 } // end APIController

@@ -9,27 +9,73 @@ import com.example.osrs.R
 import kotlinx.android.synthetic.main.activity_product_details.*
 import android.view.LayoutInflater
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.support.annotation.RequiresApi
 import android.transition.Slide
+import android.view.View
 import android.widget.*
-
-
-
-
+import com.example.osrs.Prefs
+import com.example.osrs.services.ServiceVolley
+import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_pre_login.*
 
 
 class ProductDetailsActivity : AppCompatActivity() {
 
+//    .putExtra("id",carIds[position])
+//    .putExtra("brand",carBrandTextA[position])
+//    .putExtra("model",carModelTextA[position])
+//    .putExtra("mileage",mileageTextA[position])
+//    .putExtra("transmission",transmissionTextA[position])
+//    .putExtra("price",carPriceTextA[position])
+//    .putExtra("status",offerStatusTextA[position])
 
 
-
+//    private var id = 0;
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     @SuppressLint("InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_details)
+
+        val Prefs = Prefs(this)
+        var Intent1: Intent
+        Intent1= getIntent()
+        val productId = Intent1.getStringExtra("id")
+        val adapterType = Intent1.getStringExtra("adapterType")
+
+
+//        Toast.makeText(applicationContext,brand,Toast.LENGTH_SHORT).show()
+
+
+
+        someOfValidations()
+
+
+
+
+
+        btn_buy1.setOnClickListener {
+            Toast.makeText(applicationContext,"asdasds2",Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext,productId.toString(),Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext,Prefs.userId.toString(),Toast.LENGTH_SHORT).show()
+
+            ServiceVolley().createUserRequest(
+                productId.toString().toInt(),  Prefs.userId.toString().toInt() ,  1 ,applicationContext)
+
+
+            val intent = Intent(applicationContext, PreLoginActivity::class.java)
+            startActivity(intent)
+
+        } // end Buy
+
+
+
+
+
+
 
 
 
@@ -89,4 +135,32 @@ class ProductDetailsActivity : AppCompatActivity() {
         }
 
     } // end onCreate
+
+   fun someOfValidations(){
+
+       val Prefs = Prefs(this)
+       var Intent1: Intent
+       Intent1= getIntent()
+       val productId = Intent1.getStringExtra("id")
+       val adapterType = Intent1.getStringExtra("adapterType")
+
+        if(Prefs.userTypeId.equals("1")){
+            btn_delete_product.visibility= View.INVISIBLE
+        }else if (Prefs.userTypeId.equals("2")){
+            btn_buy1.visibility= View.INVISIBLE
+        }
+        else{
+            btn_delete_product.visibility= View.INVISIBLE
+            btn_buy1.visibility= View.INVISIBLE
+        }
+
+        if(adapterType.equals("user_request_adapter")){
+            btn_delete_product.visibility= View.INVISIBLE
+            btn_buy1.visibility= View.INVISIBLE
+        }
+
+
+    }
+
+
 } // end ProductDetailsActivity

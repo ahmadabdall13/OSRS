@@ -189,7 +189,8 @@ class PreLoginActivity : AppCompatActivity() {
              val getAllProductsBasePath = "http://18.219.85.157/products"
                     val TAG = ServiceVolley::class.java.simpleName
 
-             var carBrand : ArrayList<String> = arrayListOf()
+        var carIds : ArrayList<Int> = arrayListOf()
+        var carBrand : ArrayList<String> = arrayListOf()
                     var carModle : ArrayList<String> = arrayListOf()
 
                     val imageId = arrayOf(
@@ -203,17 +204,22 @@ class PreLoginActivity : AppCompatActivity() {
 
                     var carPrice:ArrayList<Double> = arrayListOf()
 
-                    val offerStatus:ArrayList<String> = arrayListOf("Pending","Canceled")
+        val offerStatus:ArrayList<String> = arrayListOf("","","","","","","","","","","","","","","","","","","","")
+        val adapterType:ArrayList<String> = arrayListOf()
+
+
 
                     var myListAdapter : ProductsCustomListAdapter=ProductsCustomListAdapter(
                         context,
                         carBrand,
+                        carIds,
                         carModle,
                         mileAge,
                         trans,
                         carPrice,
                         imageId,
-                        offerStatus
+                        offerStatus,
+                        adapterType
                     )
 
 
@@ -227,11 +233,13 @@ class PreLoginActivity : AppCompatActivity() {
                         for (i in 0 until  response.length() ){
                             val jsonObject = response.getJSONObject(i)
                             if (jsonObject.has("id")){
+                                carIds.add(i,jsonObject["id"].toString().toInt())
                                 carBrand.add(i,jsonObject["brand_name"].toString())
                                 carModle.add(i,jsonObject["model_name"].toString())
                                 mileAge.add(i,jsonObject["mileage"].toString().toDouble())
                                 trans.add(i,jsonObject["type_of_transmission"].toString())
                                 carPrice.add(i,jsonObject["price"].toString().toDouble())
+                                adapterType.add("products")
                             } // end if
                         } // end for
 
@@ -239,12 +247,14 @@ class PreLoginActivity : AppCompatActivity() {
                         myListAdapter = ProductsCustomListAdapter(
                             context,
                             carBrand,
+                            carIds,
                             carModle,
                             mileAge,
                             trans,
                             carPrice,
                             imageId,
-                            offerStatus
+                            offerStatus,
+                            adapterType
                         )
                   mainProductsLV.adapter = myListAdapter
 

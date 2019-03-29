@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.activity_my_products.*
 
 class MyProductsActivity : AppCompatActivity() {
 
+    private val carIds : ArrayList<Int> = arrayListOf(1,2)
     private val CarBrand : ArrayList<String> = arrayListOf("Audi","BMW")
     private val CarModle : ArrayList<String> = arrayListOf(
         "A7",
@@ -36,6 +37,9 @@ class MyProductsActivity : AppCompatActivity() {
     private val OfferStatus: ArrayList<String> = arrayListOf(
         "Pending","Declined"
     )
+    private val adapterType: ArrayList<String> = arrayListOf(
+    )
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,12 +48,14 @@ class MyProductsActivity : AppCompatActivity() {
         val myListAdapter = ProductsCustomListAdapter(
             this,
             CarBrand,
+            carIds,
             CarModle,
             MileAge,
             Trans,
             CarPrice,
             imageId,
-            OfferStatus
+            OfferStatus,
+            adapterType
         )
         productsLV.adapter = myListAdapter
 

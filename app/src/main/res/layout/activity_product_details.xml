@@ -131,13 +131,13 @@ android:id="@+id/proLinear">
 
 
 
-    <ListView
-            android:layout_above="@+id/btn_buy1"
-            android:layout_width="match_parent"
-            android:id="@+id/list_reviews"
-              android:layout_height="130pt">
+    <!--<ListView-->
+            <!--android:layout_above="@+id/btn_buy1"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:id="@+id/list_reviews"-->
+              <!--android:layout_height="130pt">-->
 
-    </ListView>
+    <!--</ListView>-->
 
     <Button
             android:layout_width="match_parent"
@@ -146,6 +146,17 @@ android:id="@+id/proLinear">
             android:text="Buy"
             android:id="@+id/btn_buy1"
             android:background="@color/colorPrimary"
+            android:textColor="@android:color/background_light"
+            android:layout_gravity="bottom"
+    />
+
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="Delete Product"
+            android:id="@+id/btn_delete_product"
+            android:background="@android:color/darker_gray"
             android:textColor="@android:color/background_light"
             android:layout_gravity="bottom"
     />

@@ -18,12 +18,14 @@ import com.facebook.FacebookSdk.getApplicationContext
 class ProductsCustomListAdapter(
     context: Context?,
     private val carBrandTextA: ArrayList<String>,
+    private val carIds: ArrayList<Int>,
     private val carModelTextA: ArrayList<String>,
     private val mileageTextA: ArrayList<Double>,
     private val transmissionTextA: ArrayList<String>,
     private val carPriceTextA: ArrayList<Double>,
     private val imgid: Array<Int>,
-    private val offerStatusTextA: ArrayList<String>
+    private val offerStatusTextA: ArrayList<String>,
+    private val adapterType: ArrayList<String>
 
 
 ) : ArrayAdapter<String>(context, R.layout.products_custom_list, carBrandTextA) {
@@ -55,9 +57,16 @@ class ProductsCustomListAdapter(
         imageView.setOnClickListener {
             context.applicationContext.startActivity(
                 Intent(
-                    getApplicationContext(),
+                    context.applicationContext,
                     ProductDetailsActivity::class.java
                 ).setFlags(FLAG_ACTIVITY_NEW_TASK)
+                    .putExtra("id",carIds[position].toString())
+                    .putExtra("adapterType",adapterType[position])
+//                    .putExtra("model",carModelTextA[position])
+//                    .putExtra("mileage",mileageTextA[position])
+//                    .putExtra("transmission",transmissionTextA[position])
+//                    .putExtra("price",carPriceTextA[position])
+//                    .putExtra("status",offerStatusTextA[position])
             )
         }
         return rowView
