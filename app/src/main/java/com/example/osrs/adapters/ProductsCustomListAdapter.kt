@@ -42,7 +42,6 @@ class ProductsCustomListAdapter(
         val transmissionText = rowView.findViewById(R.id.transmissionTv) as TextView
         val carPriceText = rowView.findViewById(R.id.carPriceTv) as TextView
         val offerStatusText = rowView.findViewById(R.id.offerStatusTv) as TextView
-
         val imageView = rowView.findViewById(R.id.mainCarImgView) as ImageView
 
 
@@ -62,11 +61,12 @@ class ProductsCustomListAdapter(
                 ).setFlags(FLAG_ACTIVITY_NEW_TASK)
                     .putExtra("id",carIds[position].toString())
                     .putExtra("adapterType",adapterType[position])
-//                    .putExtra("model",carModelTextA[position])
-//                    .putExtra("mileage",mileageTextA[position])
-//                    .putExtra("transmission",transmissionTextA[position])
-//                    .putExtra("price",carPriceTextA[position])
-//                    .putExtra("status",offerStatusTextA[position])
+                    .putExtra("brand",carBrandTextA[position])
+                    .putExtra("model",carModelTextA[position])
+                    .putExtra("mileage",mileageTextA[position].toString())
+                    .putExtra("transmission",transmissionTextA[position])
+                    .putExtra("price",carPriceTextA[position].toString())
+                    .putExtra("status",offerStatusTextA[position])
             )
         }
         return rowView

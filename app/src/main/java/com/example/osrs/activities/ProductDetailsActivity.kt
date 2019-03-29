@@ -12,6 +12,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.support.annotation.RequiresApi
+import android.support.v7.widget.Toolbar
 import android.transition.Slide
 import android.view.View
 import android.widget.*
@@ -19,6 +20,7 @@ import com.example.osrs.Prefs
 import com.example.osrs.services.ServiceVolley
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_pre_login.*
+import kotlinx.android.synthetic.main.activity_product_details.view.*
 
 
 class ProductDetailsActivity : AppCompatActivity() {
@@ -45,22 +47,32 @@ class ProductDetailsActivity : AppCompatActivity() {
         Intent1= getIntent()
         val productId = Intent1.getStringExtra("id")
         val adapterType = Intent1.getStringExtra("adapterType")
+        val brand = Intent1.getStringExtra("brand")
+        val model = Intent1.getStringExtra("model")
+        val mileage = Intent1.getStringExtra("mileage")+" "+"Km/H"
+        val transmission = Intent1.getStringExtra("transmission")
+        val price = Intent1.getStringExtra("price")+" "+"JOD"
+        val status = Intent1.getStringExtra("status")
 
 
-//        Toast.makeText(applicationContext,brand,Toast.LENGTH_SHORT).show()
 
-
+        tv_brand_details!!.text=brand
+        tv_model_details!!.text=model
+        tv_price_details!!.text=price
+        tv_transmission_details!!.text=transmission
+        tv_mileage_details!!.text=mileage
 
         someOfValidations()
 
-
+        setSupportActionBar(toolbar_product_details)
+        val actionBar = supportActionBar
+        actionBar?.title = "Details"
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setDisplayHomeAsUpEnabled(true)
 
 
 
         btn_buy1.setOnClickListener {
-            Toast.makeText(applicationContext,"asdasds2",Toast.LENGTH_SHORT).show()
-            Toast.makeText(applicationContext,productId.toString(),Toast.LENGTH_SHORT).show()
-            Toast.makeText(applicationContext,Prefs.userId.toString(),Toast.LENGTH_SHORT).show()
 
             ServiceVolley().createUserRequest(
                 productId.toString().toInt(),  Prefs.userId.toString().toInt() ,  1 ,applicationContext)
@@ -120,7 +132,7 @@ class ProductDetailsActivity : AppCompatActivity() {
 
             // Set a dismiss listener for popup window
             popupWindow.setOnDismissListener {
-                Toast.makeText(applicationContext,"Fuck You",Toast.LENGTH_SHORT).show()
+//                Toast.makeText(applicationContext,"haha",Toast.LENGTH_SHORT).show()
             }
 
 

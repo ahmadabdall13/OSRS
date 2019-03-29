@@ -10,12 +10,23 @@
         android:id="@+id/test"
 >
 
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_product_details"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:minHeight="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:fitsSystemWindows="true"
+    />
 
 <LinearLayout android:layout_width="match_parent"
               android:orientation="horizontal"
               android:gravity="start"
               android:layout_height="wrap_content"
-android:id="@+id/proLinear">
+              android:id="@+id/proLinear"
+              android:layout_marginTop="50dp"
+                                            >
 
     <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -37,13 +48,16 @@ android:id="@+id/proLinear">
                   android:layout_height="wrap_content"
                   android:textStyle="bold"
                   android:textSize="25sp"
-        android:text="SpaceX"
+                  android:text="SpaceX"
+                  android:id="@+id/tv_brand_details"
         />
 
 
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:text="this is tesla x 2019 gray and there are alot of another types"
+                  android:id="@+id/tv_model_details"
+
         />
 
 
@@ -54,16 +68,55 @@ android:id="@+id/proLinear">
                   android:textColor="#FFD700"
                   android:textSize="25sp"
                   android:text="250 JOD"
+                  android:id="@+id/tv_price_details"
+
         />
     </LinearLayout>
-
 
 
 </LinearLayout>
 
 
 
+
+    <RelativeLayout
+            android:layout_below="@+id/proLinear"
+            android:gravity="center"
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+
+
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textStyle="bold"
+                  android:textColor="@android:color/darker_gray"
+                  android:textSize="25sp"
+                  android:paddingRight="30px"
+                  android:text="Auto"
+                  android:id="@+id/tv_transmission_details"
+
+        />
+
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textStyle="bold"
+                  android:textColor="@android:color/darker_gray"
+                  android:textSize="25sp"
+                  android:text="200 Km/H"
+                  android:layout_toRightOf="@+id/tv_transmission_details"
+                  android:id="@+id/tv_mileage_details"
+
+        />
+
+    </RelativeLayout>
+
+
+
+
+
         <HorizontalScrollView
+                android:layout_marginTop="98px"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fillViewport="true"
@@ -131,13 +184,111 @@ android:id="@+id/proLinear">
 
 
 
-    <!--<ListView-->
-            <!--android:layout_above="@+id/btn_buy1"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:id="@+id/list_reviews"-->
-              <!--android:layout_height="130pt">-->
 
-    <!--</ListView>-->
+
+
+
+
+
+
+
+
+
+
+
+<View android:layout_width="match_parent"
+      android:layout_below="@+id/gridLinear"
+android:layout_marginTop="10px"
+      android:background="@android:color/holo_red_dark"
+      android:layout_height="1.6dp"
+      ></View>
+
+
+<RelativeLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_below="@+id/gridLinear"
+android:layout_marginTop="50px"
+>
+    <LinearLayout android:layout_width="match_parent"
+                  android:orientation="horizontal"
+                  android:gravity="start"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/proLinear"
+    >
+
+        <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profile_image"
+                android:layout_width="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_height="100dp"
+                android:src="@drawable/bussinesman"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FF000000"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+        >
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textStyle="bold"
+                      android:textSize="25sp"
+                      android:text="Mr.5o5a"
+                      android:id="@+id/tv_vendor_name"
+            />
+
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="I've more than 10 years in this industry"
+                      android:id="@+id/tv_vendor_description"
+
+            />
+
+          <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          >
+
+              <TextView
+              android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+              android:text="Call Me"
+              android:layout_marginTop="10dp"
+              android:textColor="@android:color/black"
+              android:textSize="20dp"
+               >
+
+              </TextView>
+              <ImageView
+
+                      android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:src="@mipmap/call"
+
+              />
+
+          </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>
+
+
+
+
+
 
     <Button
             android:layout_width="match_parent"
