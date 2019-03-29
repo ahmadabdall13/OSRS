@@ -76,6 +76,7 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="user_type">User Type</string>
     <string name="email">Email</string>
+    <string name="choose_a_profile_picture">Choose A Profile Picture</string>
 
     <string-array name="types_of_transmissions">
         <item>Type of Transmission</item>

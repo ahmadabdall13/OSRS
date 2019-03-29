@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.osrs.R
 import com.example.osrs.activities.ProductDetailsActivity
+import com.facebook.FacebookSdk
 import com.facebook.FacebookSdk.getApplicationContext
 
 
@@ -51,10 +52,14 @@ class ProductsCustomListAdapter(
         carPriceText.text = carPriceTextA[position].toString()
         offerStatusText.text = offerStatusTextA[position]
 
+
+
         imageView.setImageResource(imgid[position])
         imageView.setOnClickListener {
+
             context.applicationContext.startActivity(
                 Intent(
+                    // error here , maybe FacebookSdk.getSdkVersion()
                     getApplicationContext(),
                     ProductDetailsActivity::class.java
                 ).setFlags(FLAG_ACTIVITY_NEW_TASK)
