@@ -201,8 +201,9 @@ class ServiceVolley : ServiceInterface {
 
     override fun addProduct(
         brandName:String,modelName:String,yearOfMake:String,
-        typeOfEngine:String,typeOfTransmission:String,price:Double,mileage:String,externalColor:String,
+        typeOfEngine:String,typeOfTransmission:String,price:Double,mileage:Double,externalColor:String,
         internalColor:String, description:String,
+        productTypeId:Long, vendorId:Int,
         context: Context
     ) {
         val productOj = JSONObject()
@@ -215,8 +216,10 @@ class ServiceVolley : ServiceInterface {
         productOj.put("external_color", externalColor)
         productOj.put("internal_color", internalColor)
         productOj.put("description", description)
-        productOj.put("product_type_id", 3)
-        productOj.put("vendor_id", 17)
+        productOj.put("product_type_id", productTypeId)
+        productOj.put("vendor_id", vendorId)
+        productOj.put("type_of_transmission", typeOfTransmission)
+
 
 
 
@@ -273,6 +276,50 @@ class ServiceVolley : ServiceInterface {
             },
             Response.ErrorListener { error ->
                 VolleyLog.e(TAG, "/post request fail! Error: ${error.message}")
+                Toast.makeText(context, "Error :  ${error.message}", Toast.LENGTH_LONG).show()
+
+
+            }) {
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Content-Type"] = "application/json"
+                return headers
+            }
+        }
+
+        BackendVolley.instance?.addToRequestQueue(jsonObjReq, TAG)
+    } // end singUp
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    override fun deleteProduct(
+        productId:Int,
+        context: Context
+    ) {
+
+        val jsonObjReq = object : JsonObjectRequest(
+            Request.Method.PUT, basePath + "products/${productId}/to_deleted", null,
+            Response.Listener<JSONObject> { response ->
+
+                Toast.makeText(
+                    context, ", has been deleted , thank you ...  ${response} "
+                    , Toast.LENGTH_LONG
+                ).show()
+            },
+            Response.ErrorListener { error ->
+                VolleyLog.e(TAG, "/post request : ${error.message}")
                 Toast.makeText(context, "Error :  ${error.message}", Toast.LENGTH_LONG).show()
 
 

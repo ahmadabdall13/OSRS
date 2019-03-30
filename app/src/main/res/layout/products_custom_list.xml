@@ -27,14 +27,14 @@
                     android:id="@+id/carBrandTv"
                     android:textSize="20sp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="@string/car_brand"
                     android:textStyle="bold"
                     android:layout_marginStart="0dp"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
             <TextView android:layout_width="wrap_content"
-                      android:text="@string/comma"
+                      android:text=""
                       android:layout_marginStart="6dp"
                       android:textSize="20sp"
                       android:textStyle="bold"
@@ -77,17 +77,19 @@
                       android:text="@string/transmission_prompt"
                       android:id="@+id/transmissionTv"
                       android:layout_marginStart="6dp"
-                      android:textSize="15sp"/>
+                      android:textSize="12sp"/>
 
         </LinearLayout>
         <!-- End Horizontal Linear Layout for mileage and trans -->
 
         <TextView android:layout_width="wrap_content"
                   android:text="@string/car_price"
-                  android:layout_marginTop="10dp"
+                  android:layout_marginTop="4dp"
                   android:id="@+id/carPriceTv"
                   android:layout_marginStart="5dp"
                   android:textSize="15sp"
+                  android:textColor="#FFD700"
+                  android:textStyle="bold"
                   android:layout_height="wrap_content"/>
 
     </LinearLayout>

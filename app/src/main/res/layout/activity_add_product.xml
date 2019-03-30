@@ -53,7 +53,7 @@
                     android:hint="@string/car_prompt"
                     android:autofillHints="no"
                     tools:ignore="UnusedAttribute"
-                    android:inputType="date"/>
+            />
         </android.support.design.widget.TextInputLayout>
 
     <!--<Spinner-->
@@ -82,7 +82,7 @@
                     android:hint="@string/model_prompt"
                     android:autofillHints="no"
                     tools:ignore="UnusedAttribute"
-                    android:inputType="date"/>
+            />
         </android.support.design.widget.TextInputLayout>
 
         <!--<Spinner-->
@@ -123,6 +123,17 @@
                   android:layout_marginTop="30dp"
     >
 
+
+        <Spinner
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/productTypeSp"
+                android:prompt="@string/product_type"
+                android:entries="@array/productTypes"
+                android:layout_marginTop="20px"
+        />
+
+
     <Spinner
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -156,6 +167,7 @@
                 android:id="@+id/carPrice"
                 android:hint="@string/car_price"
                 tools:ignore="Autofill"
+
         />
     </android.support.design.widget.TextInputLayout>
 

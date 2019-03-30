@@ -9,8 +9,8 @@
     />
 
     <item
-            android:id="@+id/myRequestsTab"
-            android:title="@string/my_requests"
+            android:id="@+id/receivedRequests"
+            android:title="@string/vendor_requests"
     />
 
     <item

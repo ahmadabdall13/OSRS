@@ -15,11 +15,18 @@ interface ServiceInterface {
     fun loginFacebook(socialId:String,context: Context)
 
     fun addProduct(brandName:String,modelName:String,yearOfMake:String,
-                   typeOfEngine:String,typeOfTransmission:String,price:Double,mileage:String,externalColor:String,
+                   typeOfEngine:String,typeOfTransmission:String,price:Double,mileage:Double,externalColor:String,
                    internalColor:String, description:String,
+                   productTypeId:Long, vendorId:Int,
                    context: Context)
+
 
     fun createUserRequest(
         productId:Int,customer_id:Int,requestStatusId:Int,context: Context)
+
+
+    fun deleteProduct(
+        productId:Int,context: Context)
+
 
 } // end ServiceInterface

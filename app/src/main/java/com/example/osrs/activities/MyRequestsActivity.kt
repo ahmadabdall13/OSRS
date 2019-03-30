@@ -55,16 +55,6 @@ class MyRequestsActivity : AppCompatActivity() {
 
 
 
-
-
-
-
-
-
-
-
-
-
     fun getAllRequestsAsAUser(context: Context) {
         val Prefs = Prefs(this)
 
@@ -79,19 +69,11 @@ class MyRequestsActivity : AppCompatActivity() {
             var carBrand: ArrayList<String> = arrayListOf()
             var carModle: ArrayList<String> = arrayListOf()
 
-            val imageIdArray = arrayOf(
-                R.drawable.audi,
-                R.drawable.audi,
-                R.drawable.audi,
-                R.drawable.audi,
-                R.drawable.audi,
-                R.drawable.audi,
-                R.drawable.audi,
-                R.drawable.audi,
-                R.drawable.audi,
-                R.drawable.audi
-            )
+//            val imageIdArray = arrayOf(
+//                R.drawable.audi,
+//            )
 
+            var imageIdArray: ArrayList<Int> = arrayListOf()
             var mileAge: ArrayList<Double> = arrayListOf()
 
             var trans: ArrayList<String> = arrayListOf()
@@ -138,6 +120,7 @@ class MyRequestsActivity : AppCompatActivity() {
                                 carPrice.add(i, product["price"].toString().toDouble())
                                 offerStatus.add(i, request_status["status"].toString())
                                 adapterType.add("user_request_adapter")
+                                imageIdArray.add(i,R.drawable.audi)
 
 
                             } // end if

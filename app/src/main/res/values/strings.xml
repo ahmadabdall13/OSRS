@@ -7,8 +7,8 @@
 
 
     <string name="products">Products</string>
-    <string name="user_name">User Name </string>
-    <string name="password">Password </string>
+    <string name="user_name">User Name</string>
+    <string name="password">Password</string>
     <string name="sign_in">SIGN IN</string>
     <string name="car_brand">Car Brand</string>
     <string name="description">description</string>
@@ -59,6 +59,7 @@
     <string name="add_product">Add Product</string>
     <string name="add">Add</string>
     <string name="my_requests">My Requests</string>
+    <string name="vendor_requests">Recieved Requests</string>
     <string name="my_products">My Products</string>
     <string name="settings">Settings</string>
     <string name="contact_us">Contact Us</string>
@@ -76,6 +77,18 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="user_type">User Type</string>
     <string name="email">Email</string>
+    <string name="product_type">Product Type</string>
+
+
+
+    <string-array name="productTypes">
+        <item>Select</item>
+        <item>Sport</item>
+        <item>Classic</item>
+        <item>Crossover</item>
+        <item>Hatchback</item>
+        <item>Convertible</item>
+    </string-array>
 
     <string-array name="types_of_transmissions">
         <item>Type of Transmission</item>
@@ -83,7 +96,6 @@
         <item>Manual Transmission</item>
         <item>Semi-automatic Transmission</item>
     </string-array>
-
 
 
     <string-array name="type_of_brand">

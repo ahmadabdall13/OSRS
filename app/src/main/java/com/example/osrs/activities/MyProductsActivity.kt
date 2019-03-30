@@ -1,63 +1,33 @@
 package com.example.osrs.activities
 
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
+import com.android.volley.AuthFailureError
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonArrayRequest
+import com.example.osrs.Prefs
 import com.example.osrs.adapters.ProductsCustomListAdapter
 import com.example.osrs.R
+import com.example.osrs.services.BackendVolley
+import com.example.osrs.services.ServiceVolley
 import kotlinx.android.synthetic.main.activity_my_products.*
+import kotlinx.android.synthetic.main.activity_pre_login.*
+import org.json.JSONArray
 
 class MyProductsActivity : AppCompatActivity() {
 
-    private val carIds : ArrayList<Int> = arrayListOf(1,2)
-    private val CarBrand : ArrayList<String> = arrayListOf("Audi","BMW")
-    private val CarModle : ArrayList<String> = arrayListOf(
-        "A7",
-        "Tiger"
-    )
-
-    private val imageId = arrayOf(
-        R.drawable.audi,
-        R.drawable.audi
-    )
-
-    private val MileAge: ArrayList<Double> = arrayListOf(
-        13.0,0.0
-    )
-
-    private val Trans : ArrayList<String> = arrayListOf(
-        "Auto",
-        "Manual"
-    )
-
-    private val CarPrice: ArrayList<Double> = arrayListOf(
-        700_000.213,13_22_13.22
-    )
-
-    private val OfferStatus: ArrayList<String> = arrayListOf(
-        "Pending","Declined"
-    )
-    private val adapterType: ArrayList<String> = arrayListOf(
-    )
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_products)
 
-        val myListAdapter = ProductsCustomListAdapter(
-            this,
-            CarBrand,
-            carIds,
-            CarModle,
-            MileAge,
-            Trans,
-            CarPrice,
-            imageId,
-            OfferStatus,
-            adapterType
-        )
-        productsLV.adapter = myListAdapter
+
+        getMyProducts(this)
+
 
         var mToolbar: Toolbar = findViewById(R.id.too)
         setSupportActionBar(mToolbar)
@@ -76,4 +46,133 @@ class MyProductsActivity : AppCompatActivity() {
         onBackPressed()
         return true
     } // end onSupportNavigateUp
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    fun getMyProducts(context: Context) {
+
+
+        val Prefs = Prefs(this)
+
+        val userId = Prefs.userId
+        val userTypeId = Prefs.userTypeId
+
+if(userTypeId.equals("2") && !userId.equals(" ")){
+
+        val basePath = "http://18.219.85.157/"
+        val getAllProductsBasePath = "http://18.219.85.157/users/${userId}/products"
+        val TAG = ServiceVolley::class.java.simpleName
+
+        var carIds : ArrayList<Int> = arrayListOf()
+        var carBrand : ArrayList<String> = arrayListOf()
+        var carModle : ArrayList<String> = arrayListOf()
+
+
+     var imageId : ArrayList<Int> = arrayListOf()
+        var mileAge:ArrayList<Double> = arrayListOf()
+
+        var trans: ArrayList<String> = arrayListOf()
+
+        var carPrice:ArrayList<Double> = arrayListOf()
+
+        val offerStatus:ArrayList<String> = arrayListOf()
+        val adapterType:ArrayList<String> = arrayListOf()
+
+
+
+        var myListAdapter : ProductsCustomListAdapter=ProductsCustomListAdapter(
+            context,
+            carBrand,
+            carIds,
+            carModle,
+            mileAge,
+            trans,
+            carPrice,
+            imageId,
+            offerStatus,
+            adapterType
+        )
+
+
+        val jsonObjReq =
+            object : JsonArrayRequest(
+                Request.Method.GET,
+                getAllProductsBasePath,
+                null,
+                Response.Listener<JSONArray> { response ->
+
+
+                    for (i in 0 until  response.length() ){
+                        val jsonObject = response.getJSONObject(i)
+                        if (jsonObject.has("id")){
+                            carIds.add(i,jsonObject["id"].toString().toInt())
+                            carBrand.add(i,jsonObject["brand_name"].toString())
+                            carModle.add(i,jsonObject["model_name"].toString())
+                            mileAge.add(i,jsonObject["mileage"].toString().toDouble())
+                            trans.add(i,jsonObject["type_of_transmission"].toString())
+                            carPrice.add(i,jsonObject["price"].toString().toDouble())
+                            adapterType.add("products")
+                            imageId.add(i,R.drawable.maserati)
+                            offerStatus.add(i,"")
+
+                        } // end if
+                    } // end for
+
+
+                    val myListAdapter = ProductsCustomListAdapter(
+                        context,
+                        carBrand,
+                        carIds,
+                        carModle,
+                        mileAge,
+                        trans,
+                        carPrice,
+                        imageId,
+                        offerStatus,
+                        adapterType
+                    )
+                    productsLV.adapter = myListAdapter
+
+                },
+                Response.ErrorListener { error ->
+                }) {
+                @Throws(AuthFailureError::class)
+                override fun getHeaders(): Map<String, String> {
+                    val headers = HashMap<String, String>()
+                    headers["Content-Type"] = "application/json"
+                    return headers
+                }
+            }
+
+        BackendVolley.instance?.addToRequestQueue(jsonObjReq, TAG)
+
+}
+
+    } // end getAllProducts
+
+
+
+
 } // end MyProductsActivity

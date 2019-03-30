@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar
 import android.text.InputType
 import android.widget.DatePicker
 import android.widget.Toast
+import com.example.osrs.Prefs
 import com.example.osrs.R
 import com.example.osrs.services.ServiceVolley
 import kotlinx.android.synthetic.main.activity_add_product.*
@@ -27,6 +28,8 @@ class AddProductActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_product)
 
+        val Prefs = Prefs(this)
+
         var mToolbar: Toolbar = findViewById(R.id.too)
         setSupportActionBar(mToolbar)
         //actionbar
@@ -38,6 +41,15 @@ class AddProductActivity : AppCompatActivity() {
         actionbar.setDisplayHomeAsUpEnabled(true)
 
 
+
+
+
+
+
+
+
+
+
         addProductBtn.setOnClickListener {
             var CarInfo = hashMapOf<String,Any>()
 //            CarInfo["asdmkm"] = carBrandSpinner.selectedItem.toString()
@@ -45,8 +57,16 @@ class AddProductActivity : AppCompatActivity() {
 
 
 
+
+
+
             if(fieldsValidation()==true){
-                ServiceVolley().addProduct("asd","asd","asd","asd","asd",22.2,"asd","asd","asd","asd",this)
+                ServiceVolley().addProduct(carBrandEt.text.toString(),carModelEt.text.toString()
+                    ,yearOfMakeEt.text.toString(),engineCylindersSpinner.selectedItem.toString(),
+                    transmissionSpinner.selectedItem.toString(),carPrice.text.toString().toDouble(),
+                    carMileage.text.toString().toDouble(),extColor.text.toString(),intColor.text.toString(),
+                    productDescriptionEt.text.toString(),
+                    productTypeSp.selectedItemId,Prefs.userId.toInt(),this)
             }else{
                 Toast.makeText(
                     this, " Fill the fields please ",Toast.LENGTH_LONG
@@ -58,39 +78,7 @@ class AddProductActivity : AppCompatActivity() {
 
 
 
-// all the comments trying to show datepickerdialog when clicking on the editText
 
-//        yearOfMake.inputType = InputType.TYPE_NULL
-//        yearOfMake.setOnClickListener {
-//
-//            var cldr: Calendar = Calendar.getInstance()
-//            val day = cldr.get(Calendar.DAY_OF_MONTH)
-//            val month = cldr.get(Calendar.MONTH)
-//            val year = cldr.get(Calendar.YEAR)
-//
-//            picker!!.setOnDateSetListener(DatePickerDialog.OnDateSetListener(
-//             fun (view: DatePicker, year:Int, monthOfYear:Int, dayOfMonth:Int ) {
-//                  }))
-
-
-//        yearOfMake.setOnClickListener {
-//            var cal = Calendar.getInstance()
-//
-//            val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-//                cal.set(Calendar.YEAR, year)
-//                cal.set(Calendar.MONTH, monthOfYear)
-//                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-//
-//                val myFormat = "dd.MM.yyyy" // mention the format you need
-//                val sdf = SimpleDateFormat(myFormat,myFormat)
-//                yearOfMake.text = sdf.format(cal.time)
-//
-//            DatePickerDialog(this, dateSe,
-//                cal.get(Calendar.YEAR),
-//                cal.get(Calendar.MONTH),
-//                cal.get(Calendar.DAY_OF_MONTH)).show()
-//
-//            }
 // } // end yearOfMake.setOnClickListener
     } // end onCreate
 
@@ -107,6 +95,10 @@ class AddProductActivity : AppCompatActivity() {
 
 
     private fun fieldsValidation():Boolean{
+
+
+
+
         if(carBrandEt.text.toString()==""){
             return false
         }

@@ -23,7 +23,7 @@ class ProductsCustomListAdapter(
     private val mileageTextA: ArrayList<Double>,
     private val transmissionTextA: ArrayList<String>,
     private val carPriceTextA: ArrayList<Double>,
-    private val imgid: Array<Int>,
+    private val imgid: ArrayList<Int>,
     private val offerStatusTextA: ArrayList<String>,
     private val adapterType: ArrayList<String>
 
@@ -47,9 +47,9 @@ class ProductsCustomListAdapter(
 
         carBrandText.text = carBrandTextA[position]
         carModelText.text = carModelTextA[position]
-        mileageText.text = mileageTextA[position].toString()
+        mileageText.text = mileageTextA[position].toString()+" "+"mile"
         transmissionText.text = transmissionTextA[position]
-        carPriceText.text = carPriceTextA[position].toString()
+        carPriceText.text = carPriceTextA[position].toString()+" "+ "JOD"
         offerStatusText.text = offerStatusTextA[position]
 
         imageView.setImageResource(imgid[position])

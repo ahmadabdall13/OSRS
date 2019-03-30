@@ -43,12 +43,13 @@ class APIController constructor(serviceInjection: ServiceInterface , productsCus
 
     override fun addProduct(
         brandName:String,modelName:String,yearOfMake:String,
-        typeOfEngine:String,typeOfTransmission:String,price:Double,mileage:String,externalColor:String,
+        typeOfEngine:String,typeOfTransmission:String,price:Double,mileage:Double,externalColor:String,
         internalColor:String, description:String,
+        productTypeId:Long, vendorId:Int,
         context: Context
     ) {
         service.addProduct(brandName,modelName,yearOfMake,typeOfEngine,
-            typeOfTransmission,price,mileage,externalColor,internalColor,description,context)
+            typeOfTransmission,price,mileage,externalColor,internalColor,description,productTypeId,vendorId,context)
     } // end singUp
 
 
@@ -59,4 +60,11 @@ class APIController constructor(serviceInjection: ServiceInterface , productsCus
         service.createUserRequest(productId,customer_id,requestStatusId,context)
     } // end singUp
 
+
+    override fun deleteProduct(
+        productId:Int,context: Context
+    )
+    {
+        service.deleteProduct(productId,context)
+    } // end singUp
 } // end APIController

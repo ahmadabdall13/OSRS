@@ -49,7 +49,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         val adapterType = Intent1.getStringExtra("adapterType")
         val brand = Intent1.getStringExtra("brand")
         val model = Intent1.getStringExtra("model")
-        val mileage = Intent1.getStringExtra("mileage")+" "+"Km/H"
+        val mileage = Intent1.getStringExtra("mileage")+" "+"mile"
         val transmission = Intent1.getStringExtra("transmission")
         val price = Intent1.getStringExtra("price")+" "+"JOD"
         val status = Intent1.getStringExtra("status")
@@ -144,6 +144,15 @@ class ProductDetailsActivity : AppCompatActivity() {
                 0, // X offset
                 0 // Y offset
             )
+        }
+
+
+
+        btn_delete_product.setOnClickListener{
+            ServiceVolley().deleteProduct(
+                productId.toString().toInt(),applicationContext)
+            val intent = Intent(applicationContext, PreLoginActivity::class.java)
+            startActivity(intent)
         }
 
     } // end onCreate

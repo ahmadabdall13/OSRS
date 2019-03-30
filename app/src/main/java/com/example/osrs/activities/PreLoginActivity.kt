@@ -7,14 +7,12 @@ import android.os.Bundle
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.View
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_pre_login.*
 import android.view.Menu
 import android.view.MenuItem
 import com.android.volley.AuthFailureError
 import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.VolleyLog
 import com.android.volley.toolbox.JsonArrayRequest
 import com.example.osrs.Prefs
 import com.example.osrs.R
@@ -99,6 +97,14 @@ class PreLoginActivity : AppCompatActivity() {
                         val intent = Intent(applicationContext, MyRequestsActivity::class.java)
                         startActivity(intent)
                     }
+
+                    // new by zaidar
+                    R.id.receivedRequests -> {
+                        val intent = Intent(applicationContext, VendorRequestsActivity::class.java)
+                        startActivity(intent)
+                    }
+
+
 
                     R.id.myProductsTab -> {
                         val intent = Intent(applicationContext, MyProductsActivity::class.java)
@@ -193,18 +199,14 @@ class PreLoginActivity : AppCompatActivity() {
         var carBrand : ArrayList<String> = arrayListOf()
                     var carModle : ArrayList<String> = arrayListOf()
 
-                    val imageId = arrayOf(
-                        R.drawable.audi,
-                        R.drawable.audi
-                    )
-
-                    var mileAge:ArrayList<Double> = arrayListOf()
+        var imageId:ArrayList<Int> = arrayListOf()
+        var mileAge:ArrayList<Double> = arrayListOf()
 
                     var trans: ArrayList<String> = arrayListOf()
 
                     var carPrice:ArrayList<Double> = arrayListOf()
 
-        val offerStatus:ArrayList<String> = arrayListOf("","","","","","","","","","","","","","","","","","","","")
+        val offerStatus:ArrayList<String> = arrayListOf()
         val adapterType:ArrayList<String> = arrayListOf()
 
 
@@ -240,6 +242,8 @@ class PreLoginActivity : AppCompatActivity() {
                                 trans.add(i,jsonObject["type_of_transmission"].toString())
                                 carPrice.add(i,jsonObject["price"].toString().toDouble())
                                 adapterType.add("products")
+                                imageId.add(i,R.drawable.tesla1)
+                                offerStatus.add(i,"")
                             } // end if
                         } // end for
 
