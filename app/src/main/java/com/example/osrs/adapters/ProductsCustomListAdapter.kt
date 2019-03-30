@@ -13,6 +13,7 @@ import android.widget.TextView
 import com.example.osrs.R
 import com.example.osrs.activities.ProductDetailsActivity
 import com.facebook.FacebookSdk.getApplicationContext
+import org.json.JSONObject
 
 
 class ProductsCustomListAdapter(
@@ -25,7 +26,9 @@ class ProductsCustomListAdapter(
     private val carPriceTextA: ArrayList<Double>,
     private val imgid: ArrayList<Int>,
     private val offerStatusTextA: ArrayList<String>,
-    private val adapterType: ArrayList<String>
+    private val adapterType: ArrayList<String>,
+    private val vendors: ArrayList<JSONObject>
+
 
 
 ) : ArrayAdapter<String>(context, R.layout.products_custom_list, carBrandTextA) {
@@ -67,6 +70,7 @@ class ProductsCustomListAdapter(
                     .putExtra("transmission",transmissionTextA[position])
                     .putExtra("price",carPriceTextA[position].toString())
                     .putExtra("status",offerStatusTextA[position])
+                    .putExtra("vendor",vendors[position].toString())
             )
         }
         return rowView

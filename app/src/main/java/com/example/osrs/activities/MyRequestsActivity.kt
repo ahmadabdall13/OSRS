@@ -16,6 +16,7 @@ import com.example.osrs.services.ServiceVolley
 import kotlinx.android.synthetic.main.activity_my_requests.*
 import kotlinx.android.synthetic.main.activity_pre_login.*
 import org.json.JSONArray
+import org.json.JSONObject
 
 class MyRequestsActivity : AppCompatActivity() {
 
@@ -82,6 +83,7 @@ class MyRequestsActivity : AppCompatActivity() {
 
             val offerStatus: ArrayList<String> = arrayListOf()
             val adapterType: ArrayList<String> = arrayListOf()
+            val vendors: ArrayList<JSONObject> = arrayListOf()
 
 
 
@@ -95,7 +97,8 @@ class MyRequestsActivity : AppCompatActivity() {
                 carPrice,
                 imageIdArray,
                 offerStatus,
-                adapterType
+                adapterType,
+                vendors
             )
 
 
@@ -121,6 +124,7 @@ class MyRequestsActivity : AppCompatActivity() {
                                 offerStatus.add(i, request_status["status"].toString())
                                 adapterType.add("user_request_adapter")
                                 imageIdArray.add(i,R.drawable.audi)
+                                vendors.add(i,jsonObject)
 
 
                             } // end if
@@ -137,7 +141,8 @@ class MyRequestsActivity : AppCompatActivity() {
                             carPrice,
                             imageIdArray,
                             offerStatus,
-                            adapterType
+                            adapterType,
+                            vendors
                         )
                         productsLV.adapter = myListAdapter
 

@@ -16,6 +16,7 @@ import com.example.osrs.services.ServiceVolley
 import kotlinx.android.synthetic.main.activity_my_products.*
 import kotlinx.android.synthetic.main.activity_pre_login.*
 import org.json.JSONArray
+import org.json.JSONObject
 
 class MyProductsActivity : AppCompatActivity() {
 
@@ -98,7 +99,8 @@ if(userTypeId.equals("2") && !userId.equals(" ")){
         var carPrice:ArrayList<Double> = arrayListOf()
 
         val offerStatus:ArrayList<String> = arrayListOf()
-        val adapterType:ArrayList<String> = arrayListOf()
+    val adapterType:ArrayList<String> = arrayListOf()
+    val vendors:ArrayList<JSONObject> = arrayListOf()
 
 
 
@@ -112,7 +114,8 @@ if(userTypeId.equals("2") && !userId.equals(" ")){
             carPrice,
             imageId,
             offerStatus,
-            adapterType
+            adapterType,
+            vendors
         )
 
 
@@ -136,6 +139,7 @@ if(userTypeId.equals("2") && !userId.equals(" ")){
                             adapterType.add("products")
                             imageId.add(i,R.drawable.maserati)
                             offerStatus.add(i,"")
+                            vendors.add(i,jsonObject)
 
                         } // end if
                     } // end for
@@ -151,7 +155,8 @@ if(userTypeId.equals("2") && !userId.equals(" ")){
                         carPrice,
                         imageId,
                         offerStatus,
-                        adapterType
+                        adapterType,
+                        vendors
                     )
                     productsLV.adapter = myListAdapter
 

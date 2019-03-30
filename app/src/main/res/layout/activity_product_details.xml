@@ -242,12 +242,12 @@ android:layout_marginTop="50px"
             />
 
 
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="I've more than 10 years in this industry"
-                      android:id="@+id/tv_vendor_description"
+            <!--<TextView android:layout_width="wrap_content"-->
+                      <!--android:layout_height="wrap_content"-->
+                      <!--android:text="I've more than 10 years in this industry"-->
+                      <!--android:id="@+id/tv_vendor_description"-->
 
-            />
+            <!--/>-->
 
           <LinearLayout
           android:layout_width="match_parent"
@@ -269,6 +269,7 @@ android:layout_marginTop="50px"
 
                       android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:src="@mipmap/call"
+                      android:id="@+id/call_vendor"
 
               />
 

@@ -20,6 +20,7 @@ import com.example.osrs.adapters.ProductsCustomListAdapter
 import com.example.osrs.services.BackendVolley
 import com.example.osrs.services.ServiceVolley
 import org.json.JSONArray
+import org.json.JSONObject
 
 
 class PreLoginActivity : AppCompatActivity() {
@@ -208,6 +209,7 @@ class PreLoginActivity : AppCompatActivity() {
 
         val offerStatus:ArrayList<String> = arrayListOf()
         val adapterType:ArrayList<String> = arrayListOf()
+        val vendors:ArrayList<JSONObject> = arrayListOf()
 
 
 
@@ -221,8 +223,10 @@ class PreLoginActivity : AppCompatActivity() {
                         carPrice,
                         imageId,
                         offerStatus,
-                        adapterType
-                    )
+                        adapterType,
+                        vendors
+
+                        )
 
 
                     val jsonObjReq =
@@ -234,6 +238,7 @@ class PreLoginActivity : AppCompatActivity() {
 
                         for (i in 0 until  response.length() ){
                             val jsonObject = response.getJSONObject(i)
+                            val vendor = jsonObject.getJSONObject("vendor")
                             if (jsonObject.has("id")){
                                 carIds.add(i,jsonObject["id"].toString().toInt())
                                 carBrand.add(i,jsonObject["brand_name"].toString())
@@ -244,6 +249,7 @@ class PreLoginActivity : AppCompatActivity() {
                                 adapterType.add("products")
                                 imageId.add(i,R.drawable.tesla1)
                                 offerStatus.add(i,"")
+                                vendors.add(i,vendor)
                             } // end if
                         } // end for
 
@@ -258,8 +264,9 @@ class PreLoginActivity : AppCompatActivity() {
                             carPrice,
                             imageId,
                             offerStatus,
-                            adapterType
-                        )
+                            adapterType,
+                            vendors
+                            )
                   mainProductsLV.adapter = myListAdapter
 
 

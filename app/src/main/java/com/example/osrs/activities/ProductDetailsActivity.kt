@@ -1,6 +1,5 @@
 package com.example.osrs.activities
 
-import android.annotation.SuppressLint
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.transition.TransitionManager
@@ -21,7 +20,17 @@ import com.example.osrs.services.ServiceVolley
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_pre_login.*
 import kotlinx.android.synthetic.main.activity_product_details.view.*
-
+import org.json.JSONObject
+import android.net.Uri
+import android.content.pm.PackageManager
+import android.support.v4.content.ContextCompat
+import android.util.Log
+import android.provider.ContactsContract
+import android.provider.MediaStore
+import io.vrinda.kotlinpermissions.PermissionCallBack
+import io.vrinda.kotlinpermissions.PermissionsActivity
+import android.Manifest
+import android.annotation.SuppressLint
 
 class ProductDetailsActivity : AppCompatActivity() {
 
@@ -35,6 +44,17 @@ class ProductDetailsActivity : AppCompatActivity() {
 
 
 //    private var id = 0;
+
+    var mobileNumber : Any? = null
+    var CAMERAMODE:Int=1
+    var GALLERYMODE:Int=2
+    var CALLMODE:Int=3
+    var CONATACTMODE:Int=4
+    var boolean_camera:Boolean=false
+    var boolean_gallery:Boolean=false
+    var boolean_call:Boolean=false
+    var boolean_contact:Boolean=false
+
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     @SuppressLint("InflateParams")
@@ -54,7 +74,15 @@ class ProductDetailsActivity : AppCompatActivity() {
         val price = Intent1.getStringExtra("price")+" "+"JOD"
         val status = Intent1.getStringExtra("status")
 
+        val vendor = Intent1.getStringExtra("vendor")
+        val json = JSONObject(vendor)
+        val email_address= json["email_address"].toString()
+        val first_name= json["first_name"].toString()
+        val last_name= json["last_name"].toString()
+        mobileNumber=json["mobile_number"].toString()
 
+        tv_vendor_name.text=first_name +" "+ last_name
+        Toast.makeText(applicationContext,vendor,Toast.LENGTH_SHORT).show()
 
         tv_brand_details!!.text=brand
         tv_model_details!!.text=model
@@ -62,7 +90,6 @@ class ProductDetailsActivity : AppCompatActivity() {
         tv_transmission_details!!.text=transmission
         tv_mileage_details!!.text=mileage
 
-        someOfValidations()
 
         setSupportActionBar(toolbar_product_details)
         val actionBar = supportActionBar
@@ -70,6 +97,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
+//        setupPermissions()
 
 
         btn_buy1.setOnClickListener {
@@ -87,7 +115,19 @@ class ProductDetailsActivity : AppCompatActivity() {
 
 
 
+        call_vendor.setOnClickListener{
+            Toast.makeText(applicationContext,mobileNumber.toString(),Toast.LENGTH_SHORT).show()
+//
+//            val intent = Intent(Intent.ACTION_CALL);
+//            intent.data = Uri.parse("tel:$mobileNumber")
+//            startActivity(intent)
 
+//            if (boolean_call) {
+//                phonecall()
+//            }else {
+//                fn_permission(Manifest.permission.CALL_PHONE,CALLMODE)
+//            }
+        }
 
 
 
@@ -182,6 +222,9 @@ class ProductDetailsActivity : AppCompatActivity() {
 
 
     }
+
+
+
 
 
 } // end ProductDetailsActivity
