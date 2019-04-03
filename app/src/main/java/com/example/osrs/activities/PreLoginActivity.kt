@@ -194,6 +194,8 @@ class PreLoginActivity : AppCompatActivity() {
 
                     val imageId = arrayOf(
                         R.drawable.audi,
+                        R.drawable.audi,
+                        R.drawable.audi,
                         R.drawable.audi
                     )
 
@@ -203,21 +205,12 @@ class PreLoginActivity : AppCompatActivity() {
 
                     var carPrice:ArrayList<Double> = arrayListOf()
 
-                    val offerStatus:ArrayList<String> = arrayListOf("Pending","Canceled")
+                    val offerStatus:ArrayList<String> = arrayListOf("Pending","Canceled","Approved","Not So Much")
 
-                    var myListAdapter : ProductsCustomListAdapter=ProductsCustomListAdapter(
-                        context,
-                        carBrand,
-                        carModle,
-                        mileAge,
-                        trans,
-                        carPrice,
-                        imageId,
-                        offerStatus
-                    )
+            var myListAdapter: ProductsCustomListAdapter
 
 
-                    val jsonObjReq =
+        val jsonObjReq =
                         object : JsonArrayRequest(Request.Method.GET,
                             getAllProductsBasePath,
                             null,

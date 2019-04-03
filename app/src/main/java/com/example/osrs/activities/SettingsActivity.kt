@@ -11,7 +11,7 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        var mToolbar: Toolbar = findViewById(R.id.too)
+        val mToolbar: Toolbar = findViewById(R.id.too)
         setSupportActionBar(mToolbar)
         //actionbar
         val actionbar = supportActionBar
