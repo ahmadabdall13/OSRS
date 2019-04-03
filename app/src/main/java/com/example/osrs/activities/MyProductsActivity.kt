@@ -101,10 +101,12 @@ if(userTypeId.equals("2") && !userId.equals(" ")){
         val offerStatus:ArrayList<String> = arrayListOf()
     val adapterType:ArrayList<String> = arrayListOf()
     val vendors:ArrayList<JSONObject> = arrayListOf()
+    var productTypes:ArrayList<Int> = arrayListOf()
 
 
 
-        var myListAdapter : ProductsCustomListAdapter=ProductsCustomListAdapter(
+
+    var myListAdapter : ProductsCustomListAdapter=ProductsCustomListAdapter(
             context,
             carBrand,
             carIds,
@@ -115,7 +117,8 @@ if(userTypeId.equals("2") && !userId.equals(" ")){
             imageId,
             offerStatus,
             adapterType,
-            vendors
+            vendors,
+        productTypes
         )
 
 
@@ -140,6 +143,8 @@ if(userTypeId.equals("2") && !userId.equals(" ")){
                             imageId.add(i,R.drawable.maserati)
                             offerStatus.add(i,"")
                             vendors.add(i,jsonObject)
+                            productTypes.add(i,jsonObject["product_type_id"].toString().toInt())
+
 
                         } // end if
                     } // end for
@@ -156,7 +161,8 @@ if(userTypeId.equals("2") && !userId.equals(" ")){
                         imageId,
                         offerStatus,
                         adapterType,
-                        vendors
+                        vendors,
+                        productTypes
                     )
                     productsLV.adapter = myListAdapter
 

@@ -9,4 +9,18 @@
             app:showAsAction="ifRoom" android:title="">
 
     </item>
+
+
+
+
+    <item
+            android:title="Search"
+            android:id="@+id/menu_search"
+            android:icon="@android:drawable/ic_menu_search"
+            app:showAsAction="always|collapseActionView"
+            app:actionViewClass="android.support.v7.widget.SearchView"
+    />
+
+
+
 </menu>

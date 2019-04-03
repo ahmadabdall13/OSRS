@@ -84,6 +84,7 @@ class MyRequestsActivity : AppCompatActivity() {
             val offerStatus: ArrayList<String> = arrayListOf()
             val adapterType: ArrayList<String> = arrayListOf()
             val vendors: ArrayList<JSONObject> = arrayListOf()
+            var productTypes:ArrayList<Int> = arrayListOf()
 
 
 
@@ -98,7 +99,8 @@ class MyRequestsActivity : AppCompatActivity() {
                 imageIdArray,
                 offerStatus,
                 adapterType,
-                vendors
+                vendors,
+                productTypes
             )
 
 
@@ -125,6 +127,8 @@ class MyRequestsActivity : AppCompatActivity() {
                                 adapterType.add("user_request_adapter")
                                 imageIdArray.add(i,R.drawable.audi)
                                 vendors.add(i,jsonObject)
+                                productTypes.add(i,jsonObject["product_type_id"].toString().toInt())
+
 
 
                             } // end if
@@ -142,7 +146,8 @@ class MyRequestsActivity : AppCompatActivity() {
                             imageIdArray,
                             offerStatus,
                             adapterType,
-                            vendors
+                            vendors,
+                            productTypes
                         )
                         productsLV.adapter = myListAdapter
 

@@ -73,6 +73,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         val transmission = Intent1.getStringExtra("transmission")
         val price = Intent1.getStringExtra("price")+" "+"JOD"
         val status = Intent1.getStringExtra("status")
+        val productType=Intent1.getStringExtra("productType").toString()
 
         val vendor = Intent1.getStringExtra("vendor")
         val json = JSONObject(vendor)
@@ -99,6 +100,7 @@ class ProductDetailsActivity : AppCompatActivity() {
 
 //        setupPermissions()
 
+        someOfValidations()
 
         btn_buy1.setOnClickListener {
 
@@ -117,6 +119,7 @@ class ProductDetailsActivity : AppCompatActivity() {
 
         call_vendor.setOnClickListener{
             Toast.makeText(applicationContext,mobileNumber.toString(),Toast.LENGTH_SHORT).show()
+
 //
 //            val intent = Intent(Intent.ACTION_CALL);
 //            intent.data = Uri.parse("tel:$mobileNumber")
@@ -195,6 +198,20 @@ class ProductDetailsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+        fav_tv.setOnClickListener{
+            Toast.makeText(applicationContext,Prefs.userId.toString(),Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext,productType,Toast.LENGTH_SHORT).show()
+
+        }
+        favourite_iv.setOnClickListener{
+            Toast.makeText(applicationContext,Prefs.userId.toString(),Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext,productType,Toast.LENGTH_SHORT).show()
+
+        }
+
+
+
     } // end onCreate
 
    fun someOfValidations(){
@@ -209,10 +226,16 @@ class ProductDetailsActivity : AppCompatActivity() {
             btn_delete_product.visibility= View.INVISIBLE
         }else if (Prefs.userTypeId.equals("2")){
             btn_buy1.visibility= View.INVISIBLE
+            fav_tv.visibility=View.INVISIBLE
+            favourite_iv.visibility=View.INVISIBLE
+
         }
         else{
             btn_delete_product.visibility= View.INVISIBLE
             btn_buy1.visibility= View.INVISIBLE
+            fav_tv.visibility=View.INVISIBLE
+            favourite_iv.visibility=View.INVISIBLE
+
         }
 
         if(adapterType.equals("user_request_adapter")){

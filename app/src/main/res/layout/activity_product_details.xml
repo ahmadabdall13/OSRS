@@ -93,6 +93,7 @@
                   android:textSize="15sp"
                   android:paddingRight="30px"
                   android:text="Auto"
+                  android:layout_marginTop="10dp"
                   android:id="@+id/tv_transmission_details"
 
         />
@@ -104,8 +105,36 @@
                   android:textColor="@android:color/darker_gray"
                   android:textSize="15sp"
                   android:text="200 Km/H"
+                  android:layout_marginTop="10dp"
+
                   android:layout_toRightOf="@+id/tv_transmission_details"
                   android:id="@+id/tv_mileage_details"
+
+        />
+
+
+
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/favourite_iv"
+android:layout_marginLeft="15dp"
+                android:src="@mipmap/favourite"
+                android:contentDescription="@string/todo"
+                android:layout_toRightOf="@+id/tv_mileage_details"
+        />
+
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textStyle="bold"
+                  android:textColor="@android:color/background_dark"
+                  android:textSize="15sp"
+                  android:text="Like"
+                  android:layout_marginTop="10dp"
+                  android:layout_toRightOf="@+id/favourite_iv"
+                  android:id="@+id/fav_tv"
 
         />
 

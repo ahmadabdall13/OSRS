@@ -10,6 +10,7 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_pre_login.*
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.android.volley.AuthFailureError
 import com.android.volley.Request
 import com.android.volley.Response
@@ -22,8 +23,37 @@ import com.example.osrs.services.ServiceVolley
 import org.json.JSONArray
 import org.json.JSONObject
 
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.SearchView
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.EditText
+
+
 
 class PreLoginActivity : AppCompatActivity() {
+
+
+
+
+//    var mywebview : WebView? = null
+    var carIds : ArrayList<Int> = arrayListOf()
+    var carBrand : ArrayList<String> = arrayListOf()
+    var carModle : ArrayList<String> = arrayListOf()
+
+    var imageId:ArrayList<Int> = arrayListOf()
+    var mileAge:ArrayList<Double> = arrayListOf()
+    var trans: ArrayList<String> = arrayListOf()
+    var carPrice:ArrayList<Double> = arrayListOf()
+
+    val offerStatus:ArrayList<String> = arrayListOf()
+    val adapterType:ArrayList<String> = arrayListOf()
+    val vendors:ArrayList<JSONObject> = arrayListOf()
+    var productTypes:ArrayList<Int> = arrayListOf()
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -134,6 +164,13 @@ class PreLoginActivity : AppCompatActivity() {
 
 
 
+//        val searchItem = menu.findItem(R.id.searchBar)
+//        searchView = searchItem.actionView as SearchView
+//        searchView.setQueryHint("Search View Hint")
+
+
+
+
     } // end ofCreate
 
 
@@ -153,6 +190,105 @@ class PreLoginActivity : AppCompatActivity() {
             menuInflater.inflate(R.menu.login_menu,menu)
         else
             menuInflater.inflate(R.menu.signout_menu,menu)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        val searchItem = menu.findItem(R.id.menu_search)
+        if(searchItem != null){
+            val searchView = searchItem.actionView as SearchView
+            val editext = searchView.findViewById<EditText>(android.support.v7.appcompat.R.id.search_src_text)
+            editext.hint = "Search here..."
+            var carBrandFiltered : ArrayList<String> = arrayListOf()
+
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+
+                    carBrandFiltered.clear()
+                    if(newText!!.isNotEmpty()){
+                        for (i in carBrand) {
+                            if(i.toLowerCase().contains(newText.toString())){
+                                carBrandFiltered.add(i)
+                            }
+                        }
+
+                        var myListAdapter = ProductsCustomListAdapter(
+                            applicationContext,
+                            carBrandFiltered,
+                            carIds,
+                            carModle,
+                            mileAge,
+                            trans,
+                            carPrice,
+                            imageId,
+                            offerStatus,
+                            adapterType,
+                            vendors,
+                            productTypes
+                        )
+                        mainProductsLV.adapter = myListAdapter
+
+
+
+
+                    }else{
+                        var myListAdapter = ProductsCustomListAdapter(
+                            applicationContext,
+                            carBrand,
+                            carIds,
+                            carModle,
+                            mileAge,
+                            trans,
+                            carPrice,
+                            imageId,
+                            offerStatus,
+                            adapterType,
+                            vendors,
+                            productTypes
+                        )
+                        mainProductsLV.adapter = myListAdapter
+
+                    }
+
+                    return true
+                }
+
+            })
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         return true
     } // end onCreateOptionsMenu
@@ -190,26 +326,24 @@ class PreLoginActivity : AppCompatActivity() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
     fun getAllProducts(context: Context) {
 
              val basePath = "http://18.219.85.157/"
              val getAllProductsBasePath = "http://18.219.85.157/products"
                     val TAG = ServiceVolley::class.java.simpleName
 
-        var carIds : ArrayList<Int> = arrayListOf()
-        var carBrand : ArrayList<String> = arrayListOf()
-                    var carModle : ArrayList<String> = arrayListOf()
 
-        var imageId:ArrayList<Int> = arrayListOf()
-        var mileAge:ArrayList<Double> = arrayListOf()
-
-                    var trans: ArrayList<String> = arrayListOf()
-
-                    var carPrice:ArrayList<Double> = arrayListOf()
-
-        val offerStatus:ArrayList<String> = arrayListOf()
-        val adapterType:ArrayList<String> = arrayListOf()
-        val vendors:ArrayList<JSONObject> = arrayListOf()
 
 
 
@@ -224,8 +358,8 @@ class PreLoginActivity : AppCompatActivity() {
                         imageId,
                         offerStatus,
                         adapterType,
-                        vendors
-
+                        vendors,
+                        productTypes
                         )
 
 
@@ -250,6 +384,7 @@ class PreLoginActivity : AppCompatActivity() {
                                 imageId.add(i,R.drawable.tesla1)
                                 offerStatus.add(i,"")
                                 vendors.add(i,vendor)
+                                productTypes.add(i,jsonObject["product_type_id"].toString().toInt())
                             } // end if
                         } // end for
 
@@ -265,7 +400,8 @@ class PreLoginActivity : AppCompatActivity() {
                             imageId,
                             offerStatus,
                             adapterType,
-                            vendors
+                            vendors,
+                            productTypes
                             )
                   mainProductsLV.adapter = myListAdapter
 

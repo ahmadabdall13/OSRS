@@ -27,7 +27,10 @@ class ProductsCustomListAdapter(
     private val imgid: ArrayList<Int>,
     private val offerStatusTextA: ArrayList<String>,
     private val adapterType: ArrayList<String>,
-    private val vendors: ArrayList<JSONObject>
+    private val vendors: ArrayList<JSONObject>,
+    private val productTypes: ArrayList<Int>
+
+
 
 
 
@@ -71,6 +74,7 @@ class ProductsCustomListAdapter(
                     .putExtra("price",carPriceTextA[position].toString())
                     .putExtra("status",offerStatusTextA[position])
                     .putExtra("vendor",vendors[position].toString())
+                    .putExtra("productType",productTypes[position].toString())
             )
         }
         return rowView
