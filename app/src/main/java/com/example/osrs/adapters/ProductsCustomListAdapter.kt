@@ -53,9 +53,9 @@ class ProductsCustomListAdapter(
 
         carBrandText.text = carBrandTextA[position]
         carModelText.text = carModelTextA[position]
-        mileageText.text = mileageTextA[position].toString()+" "+"mile"
+        mileageText.text = mileageTextA[position].toString() + " " + "mile"
         transmissionText.text = transmissionTextA[position]
-        carPriceText.text = carPriceTextA[position].toString()+" "+ "JOD"
+        carPriceText.text = carPriceTextA[position].toString() + " " + "JOD"
         offerStatusText.text = offerStatusTextA[position]
 
         imageView.setImageResource(imgid[position])
@@ -65,16 +65,16 @@ class ProductsCustomListAdapter(
                     context.applicationContext,
                     ProductDetailsActivity::class.java
                 ).setFlags(FLAG_ACTIVITY_NEW_TASK)
-                    .putExtra("id",carIds[position].toString())
-                    .putExtra("adapterType",adapterType[position])
-                    .putExtra("brand",carBrandTextA[position])
-                    .putExtra("model",carModelTextA[position])
-                    .putExtra("mileage",mileageTextA[position].toString())
-                    .putExtra("transmission",transmissionTextA[position])
-                    .putExtra("price",carPriceTextA[position].toString())
-                    .putExtra("status",offerStatusTextA[position])
-                    .putExtra("vendor",vendors[position].toString())
-                    .putExtra("productType",productTypes[position].toString())
+                    .putExtra("id", carIds[position].toString())
+                    .putExtra("adapterType", adapterType[position])
+                    .putExtra("brand", carBrandTextA[position])
+                    .putExtra("model", carModelTextA[position])
+                    .putExtra("mileage", mileageTextA[position].toString())
+                    .putExtra("transmission", transmissionTextA[position])
+                    .putExtra("price", carPriceTextA[position].toString())
+                    .putExtra("status", offerStatusTextA[position])
+                    .putExtra("vendor", vendors[position].toString())
+                    .putExtra("productType", productTypes[position].toString())
             )
         }
         return rowView

@@ -180,13 +180,6 @@ class PreLoginActivity : AppCompatActivity() {
     } // end ofCreate
 
 
-
-    // Extension function to show toast message easily
-    private fun Context.toast(message:String){
-    } // end Context.toast
-
-
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
          val Prefs = Prefs(this)
         val ss =Prefs.userTypeId
@@ -334,42 +327,33 @@ class PreLoginActivity : AppCompatActivity() {
 
 
 
+        fun getAllProducts(context: Context) {
+
+            val basePath = "http://18.219.85.157/"
+            val getAllProductsBasePath = "http://18.219.85.157/products"
+            val TAG = ServiceVolley::class.java.simpleName
+
+            var myListAdapter : ProductsCustomListAdapter=ProductsCustomListAdapter(
+                context,
+                carBrand,
+                carIds,
+                carModle,
+                mileAge,
+                trans,
+                carPrice,
+                imageId,
+                offerStatus,
+                adapterType,
+                vendors,
+                productTypes
+            )
 
 
-
-
-
-
-
-
-
-    fun getAllProducts(context: Context) {
-
-             val basePath = "http://18.219.85.157/"
-             val getAllProductsBasePath = "http://18.219.85.157/products"
-                    val TAG = ServiceVolley::class.java.simpleName
-
-                    var myListAdapter : ProductsCustomListAdapter=ProductsCustomListAdapter(
-                        context,
-                        carBrand,
-                        carIds,
-                        carModle,
-                        mileAge,
-                        trans,
-                        carPrice,
-                        imageId,
-                        offerStatus,
-                        adapterType,
-                        vendors,
-                        productTypes
-                        )
-
-
-                    val jsonObjReq =
-                        object : JsonArrayRequest(Request.Method.GET,
-                            getAllProductsBasePath,
-                            null,
-                            Response.Listener<JSONArray> { response ->
+            val jsonObjReq =
+                object : JsonArrayRequest(Request.Method.GET,
+                    getAllProductsBasePath,
+                    null,
+                    Response.Listener<JSONArray> { response ->
 
 
                         for (i in 0 until  response.length() ){
@@ -407,28 +391,37 @@ class PreLoginActivity : AppCompatActivity() {
                             adapterType,
                             vendors,
                             productTypes
-                            )
-                  mainProductsLV.adapter = myListAdapter
+                        )
+                        mainProductsLV.adapter = myListAdapter
 
 
-                            },
-                            Response.ErrorListener { error ->
-                            }) {
-                            @Throws(AuthFailureError::class)
-                            override fun getHeaders(): Map<String, String> {
-                                val headers = HashMap<String, String>()
-                                headers["Content-Type"] = "application/json"
-                                return headers
-                            }
-                        }
+                    },
+                    Response.ErrorListener { error ->
+                    }) {
+                    @Throws(AuthFailureError::class)
+                    override fun getHeaders(): Map<String, String> {
+                        val headers = HashMap<String, String>()
+                        headers["Content-Type"] = "application/json"
+                        return headers
+                    }
+                }
 
-                    BackendVolley.instance?.addToRequestQueue(jsonObjReq, TAG)
+            BackendVolley.instance?.addToRequestQueue(jsonObjReq, TAG)
 
-                } // end getAllProducts
+        } // end getAllProducts
 
 
 
-    fun predectMostLikleyHood (context: Context){
+
+
+
+
+
+
+
+
+
+        fun predectMostLikleyHood (context: Context){
         val Prefs = Prefs(this)
         val userId = Prefs.userId
 
@@ -472,29 +465,8 @@ class PreLoginActivity : AppCompatActivity() {
 
    fun filterList(context:Context){
 
-       //       var carIds : ArrayList<Int> = arrayListOf()
-//       var carBrand : ArrayList<String> = arrayListOf()
-//       var carModle : ArrayList<String> = arrayListOf()
-//       var imageId:ArrayList<Int> = arrayListOf()
-//       var mileAge:ArrayList<Double> = arrayListOf()
-//       var trans: ArrayList<String> = arrayListOf()
-//       var carPrice:ArrayList<Double> = arrayListOf()
-//       val offerStatus:ArrayList<String> = arrayListOf()
-//       val adapterType:ArrayList<String> = arrayListOf()
-//       val vendors:ArrayList<JSONObject> = arrayListOf()
-
-//       var productTypes:ArrayList<Int> = arrayListOf()
-//
-//       var predictedProductIds : ArrayList<Int> = arrayListOf()
-
-       //           Toast.makeText(
-//               context, "Hi   i => ${productTypes.get(i)} "
-//               , Toast.LENGTH_LONG
-//           ).show()
-
        for (i in 0 until  productTypes.size ){
            for (j in 0 until predictedProductIds.size){
-
 
                 if(productTypes.get(i) == predictedProductIds.get(j)){
 

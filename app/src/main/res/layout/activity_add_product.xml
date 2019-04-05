@@ -251,14 +251,113 @@
                 tools:ignore="Autofill"
         />
     </android.support.design.widget.TextInputLayout>
+
+
+        <LinearLayout android:layout_width="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_marginTop="30dp"
+                      android:layout_height="wrap_content">
+
+            <Button android:text="@string/addMainImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/addProductMainImageBtn"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:background="@android:color/holo_red_light"
+                    android:textColor="@android:color/background_light"/>
+
+            <ImageView android:layout_width="100dp"
+                       android:src="@drawable/audi"
+                       android:id="@+id/mainProductPhotoIMG"
+                       android:layout_height="100dp"
+                       android:layout_marginStart="50dp"
+                       android:contentDescription="@string/todo"/>
+
+        </LinearLayout>
+
+
+            <Button android:text="@string/addSubImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/addProductSubImageBtn"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:background="@android:color/holo_red_light"
+                    android:textColor="@android:color/background_light"/>
+
+
+        <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true"
+                android:id="@+id/gridLinear"
+                android:layout_marginTop="30dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp">
+
+            <GridLayout android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:columnCount="5"
+                        android:rowCount="1"
+                        android:orientation="horizontal"
+                        android:scrollbars="horizontal"
+            >
+
+                <ImageView
+                        android:id="@+id/subImage1"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:contentDescription="@string/todo"
+                        android:layout_marginStart="5dp"/>
+
+                <ImageView
+                        android:id="@+id/subImage2"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:contentDescription="@string/todo"
+                        android:layout_marginStart="5dp"
+                />
+
+                <ImageView
+                        android:id="@+id/subImage3"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:contentDescription="@string/todo"
+                        android:layout_marginStart="5dp"
+                        />
+
+                <ImageView
+                        android:id="@+id/subImage4"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:contentDescription="@string/todo"
+                        android:layout_marginStart="5dp"/>
+
+                <ImageView
+                        android:id="@+id/subImage5"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:contentDescription="@string/todo"
+                        android:layout_marginStart="5dp"/>
+
+
+            </GridLayout>
+        </HorizontalScrollView>
+
+
+
+
         <Button
                 android:text="@string/add"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/addProductBtn"
-        android:layout_gravity="center"
+                android:layout_gravity="center"
                 android:layout_marginTop="30dp"
-        android:background="@android:color/holo_red_light"
-        android:textColor="@android:color/background_light"/>
+                android:background="@android:color/holo_red_light"
+                android:textColor="@android:color/background_light"/>
     </LinearLayout>
 </ScrollView>
