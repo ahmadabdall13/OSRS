@@ -58,6 +58,8 @@
     <string name="year_of_make">Year Of Make :</string>
     <string name="add_product">Add Product</string>
     <string name="add">Add</string>
+    <string name="addMainImage">Add Main Image</string>
+    <string name="addSubImage">Add Sub Image</string>
     <string name="my_requests">My Requests</string>
     <string name="my_products">My Products</string>
     <string name="settings">Settings</string>

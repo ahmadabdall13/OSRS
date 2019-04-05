@@ -130,13 +130,6 @@ class PreLoginActivity : AppCompatActivity() {
     } // end ofCreate
 
 
-
-    // Extension function to show toast message easily
-    private fun Context.toast(message:String){
-    } // end Context.toast
-
-
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
          val Prefs = Prefs(this)
         val ss =Prefs.userTypeId
@@ -183,14 +176,14 @@ class PreLoginActivity : AppCompatActivity() {
 
 
 
-    fun getAllProducts(context: Context) {
+    private fun getAllProducts(context: Context) {
 
              val basePath = "http://18.219.85.157/"
              val getAllProductsBasePath = "http://18.219.85.157/products"
                     val TAG = ServiceVolley::class.java.simpleName
 
-             var carBrand : ArrayList<String> = arrayListOf()
-                    var carModle : ArrayList<String> = arrayListOf()
+             val carBrand : ArrayList<String> = arrayListOf()
+                    val carModle : ArrayList<String> = arrayListOf()
 
                     val imageId = arrayOf(
                         R.drawable.audi,
@@ -199,11 +192,11 @@ class PreLoginActivity : AppCompatActivity() {
                         R.drawable.audi
                     )
 
-                    var mileAge:ArrayList<Double> = arrayListOf()
+                    val mileAge:ArrayList<Double> = arrayListOf()
 
-                    var trans: ArrayList<String> = arrayListOf()
+                    val trans: ArrayList<String> = arrayListOf()
 
-                    var carPrice:ArrayList<Double> = arrayListOf()
+                    val carPrice:ArrayList<Double> = arrayListOf()
 
                     val offerStatus:ArrayList<String> = arrayListOf("Pending","Canceled","Approved","Not So Much")
 

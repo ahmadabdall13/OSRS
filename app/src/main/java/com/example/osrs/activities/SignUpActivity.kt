@@ -91,11 +91,6 @@ class SignUpActivity : AppCompatActivity() {
                         result.addOnSuccessListener {
 
                             val imageLink = it.toString()
-                            Picasso
-                                .with(this) // give it the context
-                                .load(imageLink) // load the image
-                                .into(profilePictureIMG) // select the ImageView to load it into
-
 
 
                         } // end result.addOnSuccessListener
@@ -183,26 +178,8 @@ class SignUpActivity : AppCompatActivity() {
         ).apply {
             // Save a file: path for use with ACTION_VIEW intents
             mCurrentPhotoPath = absolutePath
-
-            // add pic to gallery
-            Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE).also { mediaScanIntent ->
-                val f = File(mCurrentPhotoPath)
-                mediaScanIntent.data = Uri.fromFile(f)
-                sendBroadcast(mediaScanIntent)
-            }
-
-
-        }
+        } // end apply
     } // end createImageFile
-
-    private fun galleryAddPic() {
-        Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE).also { mediaScanIntent ->
-            val f = File(mCurrentPhotoPath)
-            mediaScanIntent.data = Uri.fromFile(f)
-            sendBroadcast(mediaScanIntent)
-        }
-    } // end galleryAddPic
-
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -235,9 +212,6 @@ class SignUpActivity : AppCompatActivity() {
             profilePictureIMG.setImageBitmap(bitmap)
 
         } // end if
-
-
-
 
     } // end onActivityResult
 
@@ -275,8 +249,8 @@ class SignUpActivity : AppCompatActivity() {
     } // end checkNull
 
     companion object {
-    private val REQUEST_TAKE_PHOTO = 1
-    private val REQUEST_SELECT_IMAGE_IN_ALBUM = 0
+    private const val REQUEST_TAKE_PHOTO = 1
+    private const val REQUEST_SELECT_IMAGE_IN_ALBUM = 0
 }
 
 } // end SignUpActivity
