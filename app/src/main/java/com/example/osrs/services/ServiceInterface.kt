@@ -29,4 +29,8 @@ interface ServiceInterface {
         productId:Int,context: Context)
 
 
+    fun likeProductType(
+        productTypeId:Int,userId:Int,context: Context)
+
+
 } // end ServiceInterface

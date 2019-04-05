@@ -67,4 +67,13 @@ class APIController constructor(serviceInjection: ServiceInterface , productsCus
     {
         service.deleteProduct(productId,context)
     } // end singUp
+
+
+    override fun likeProductType(
+        productId:Int,userId:Int,context: Context
+    )
+    {
+        service.likeProductType(productId,userId,context)
+    } // end singUp
+
 } // end APIController

@@ -29,7 +29,8 @@ import android.support.v7.widget.SearchView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.EditText
-
+import com.android.volley.toolbox.JsonObjectRequest
+import java.util.stream.IntStream
 
 
 class PreLoginActivity : AppCompatActivity() {
@@ -52,6 +53,7 @@ class PreLoginActivity : AppCompatActivity() {
     val vendors:ArrayList<JSONObject> = arrayListOf()
     var productTypes:ArrayList<Int> = arrayListOf()
 
+    var predictedProductIds : ArrayList<Int> = arrayListOf()
 
 
 
@@ -61,6 +63,10 @@ class PreLoginActivity : AppCompatActivity() {
 
         // Fetching All Products In The Database
         getAllProducts(this)
+
+
+
+
 
         // Configure action bar
         setSupportActionBar(toolbar)
@@ -343,10 +349,6 @@ class PreLoginActivity : AppCompatActivity() {
              val getAllProductsBasePath = "http://18.219.85.157/products"
                     val TAG = ServiceVolley::class.java.simpleName
 
-
-
-
-
                     var myListAdapter : ProductsCustomListAdapter=ProductsCustomListAdapter(
                         context,
                         carBrand,
@@ -386,6 +388,9 @@ class PreLoginActivity : AppCompatActivity() {
                                 vendors.add(i,vendor)
                                 productTypes.add(i,jsonObject["product_type_id"].toString().toInt())
                             } // end if
+                            if(i == response.length()-1)
+                                predectMostLikleyHood(this)
+
                         } // end for
 
 
@@ -421,7 +426,170 @@ class PreLoginActivity : AppCompatActivity() {
 
                 } // end getAllProducts
 
+
+
+    fun predectMostLikleyHood (context: Context){
+        val Prefs = Prefs(this)
+        val userId = Prefs.userId
+
+        if(userId.toString().equals("2")){
+
+            val basePath = "http://18.219.85.157/"
+            val getAllProductsBasePath = "http://18.219.85.157/predictions"
+            val TAG = ServiceVolley::class.java.simpleName
+
+
+            val jsonObjReq =
+                object : JsonObjectRequest(Request.Method.GET,
+                    getAllProductsBasePath,
+                    null,
+                    Response.Listener<JSONObject> { response ->
+
+                        val getJSONArray = response.getJSONArray("predicted_products")
+                        for (i in 0 until  getJSONArray.length() ){
+                            predictedProductIds.add(getJSONArray.get(i).toString().toInt())
+
+                            if(i == getJSONArray.length()-1 )
+                               filterList(this)
+                        } // end for
+
+                    },
+                    Response.ErrorListener { error ->
+                    }) {
+                    @Throws(AuthFailureError::class)
+                    override fun getHeaders(): Map<String, String> {
+                        val headers = HashMap<String, String>()
+                        headers["Content-Type"] = "application/json"
+                        return headers
+                    }
+                }
+
+            BackendVolley.instance?.addToRequestQueue(jsonObjReq, TAG)
+
+        }
+
+    }
+
+   fun filterList(context:Context){
+
+       //       var carIds : ArrayList<Int> = arrayListOf()
+//       var carBrand : ArrayList<String> = arrayListOf()
+//       var carModle : ArrayList<String> = arrayListOf()
+//       var imageId:ArrayList<Int> = arrayListOf()
+//       var mileAge:ArrayList<Double> = arrayListOf()
+//       var trans: ArrayList<String> = arrayListOf()
+//       var carPrice:ArrayList<Double> = arrayListOf()
+//       val offerStatus:ArrayList<String> = arrayListOf()
+//       val adapterType:ArrayList<String> = arrayListOf()
+//       val vendors:ArrayList<JSONObject> = arrayListOf()
+
+//       var productTypes:ArrayList<Int> = arrayListOf()
+//
+//       var predictedProductIds : ArrayList<Int> = arrayListOf()
+
+       //           Toast.makeText(
+//               context, "Hi   i => ${productTypes.get(i)} "
+//               , Toast.LENGTH_LONG
+//           ).show()
+
+       for (i in 0 until  productTypes.size ){
+           for (j in 0 until predictedProductIds.size){
+
+
+                if(productTypes.get(i) == predictedProductIds.get(j)){
+
+                    Toast.makeText(
+                        context, "item  => ${productTypes.get(i)} "
+                        , Toast.LENGTH_LONG
+                    ).show()
+
+                    Toast.makeText(
+                        context, "predicted => ${predictedProductIds.get(j)} "
+                        , Toast.LENGTH_LONG
+                    ).show()
+
+                    // set the item in the top of the stack
+                    var carBrand1 = carBrand.get(i)
+                    var carModle1 = carModle.get(i)
+                    var imageId1 = imageId.get(i)
+                    var mileAge1 = mileAge.get(i)
+                    var trans1 = trans.get(i)
+                    var carPrice1 = carPrice.get(i)
+                    var offerStatus1 = offerStatus.get(i)
+                    var adapterType1 = adapterType.get(i)
+                    var vendors1 = vendors.get(i)
+                    var productType1 = productTypes.get(i)
+                    carBrand.removeAt(i)
+                    carModle.removeAt(i)
+                    imageId.removeAt(i)
+                    mileAge.removeAt(i)
+                    trans.removeAt(i)
+                    carPrice.removeAt(i)
+                    offerStatus.removeAt(i)
+                    adapterType.removeAt(i)
+                    vendors.removeAt(i)
+                    productTypes.removeAt(i)
+
+
+
+                    carBrand.add(0, carBrand1)
+                    carModle.add(0, carModle1)
+                    imageId.add(0, imageId1)
+                    mileAge.add(0, mileAge1)
+                    trans.add(0, trans1)
+                    carPrice.add(0, carPrice1)
+                    vendors.add(0, vendors1)
+                    offerStatus.add(0, offerStatus1)
+                    adapterType.add(0, adapterType1)
+                    vendors.add(0, vendors1)
+                    productTypes.add(0, productType1)
+
+
+
+
+                    var myListAdapter : ProductsCustomListAdapter=ProductsCustomListAdapter(
+                        context,
+                        carBrand,
+                        carIds,
+                        carModle,
+                        mileAge,
+                        trans,
+                        carPrice,
+                        imageId,
+                        offerStatus,
+                        adapterType,
+                        vendors,
+                        productTypes
+                    )
+
+                    myListAdapter = ProductsCustomListAdapter(
+                        context,
+                        carBrand,
+                        carIds,
+                        carModle,
+                        mileAge,
+                        trans,
+                        carPrice,
+                        imageId,
+                        offerStatus,
+                        adapterType,
+                        vendors,
+                        productTypes
+                    )
+                    mainProductsLV.adapter = myListAdapter
+
+
+                }
+           }
+       } // end for
+
+
+   }
+
+
+
      }
+
 
 
 

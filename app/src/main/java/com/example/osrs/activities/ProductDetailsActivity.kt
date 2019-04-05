@@ -31,6 +31,7 @@ import io.vrinda.kotlinpermissions.PermissionCallBack
 import io.vrinda.kotlinpermissions.PermissionsActivity
 import android.Manifest
 import android.annotation.SuppressLint
+import android.support.v4.app.ActivityCompat
 
 class ProductDetailsActivity : AppCompatActivity() {
 
@@ -98,7 +99,6 @@ class ProductDetailsActivity : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
-//        setupPermissions()
 
         someOfValidations()
 
@@ -120,16 +120,8 @@ class ProductDetailsActivity : AppCompatActivity() {
         call_vendor.setOnClickListener{
             Toast.makeText(applicationContext,mobileNumber.toString(),Toast.LENGTH_SHORT).show()
 
-//
-//            val intent = Intent(Intent.ACTION_CALL);
-//            intent.data = Uri.parse("tel:$mobileNumber")
-//            startActivity(intent)
+            checkPermission()
 
-//            if (boolean_call) {
-//                phonecall()
-//            }else {
-//                fn_permission(Manifest.permission.CALL_PHONE,CALLMODE)
-//            }
         }
 
 
@@ -205,9 +197,10 @@ class ProductDetailsActivity : AppCompatActivity() {
 
         }
         favourite_iv.setOnClickListener{
-            Toast.makeText(applicationContext,Prefs.userId.toString(),Toast.LENGTH_SHORT).show()
-            Toast.makeText(applicationContext,productType,Toast.LENGTH_SHORT).show()
-
+//            Toast.makeText(applicationContext,Prefs.userId.toString(),Toast.LENGTH_SHORT).show()
+//            Toast.makeText(applicationContext,productType,Toast.LENGTH_SHORT).show()
+            ServiceVolley().likeProductType(
+                productType.toString().toInt(),  Prefs.userId.toString().toInt() ,applicationContext)
         }
 
 
@@ -248,6 +241,54 @@ class ProductDetailsActivity : AppCompatActivity() {
 
 
 
+
+
+
+
+
+
+    fun checkPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CALL_PHONE)
+            != PackageManager.PERMISSION_GRANTED) {
+
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.CALL_PHONE)) {
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.CALL_PHONE),
+                    42)
+            }
+        } else {
+            // Permission has already been granted
+            callPhone()
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
+        if (requestCode == 42) {
+            // If request is cancelled, the result arrays are empty.
+            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                // permission was granted, yay!
+                callPhone()
+            } else {
+                // permission denied, boo! Disable the
+                // functionality
+            }
+            return
+        }
+    }
+    fun callPhone(){
+        val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mobileNumber.toString()))
+        startActivity(intent)
+    }
 
 
 } // end ProductDetailsActivity

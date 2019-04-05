@@ -127,7 +127,7 @@ class MyRequestsActivity : AppCompatActivity() {
                                 adapterType.add("user_request_adapter")
                                 imageIdArray.add(i,R.drawable.audi)
                                 vendors.add(i,jsonObject)
-                                productTypes.add(i,jsonObject["product_type_id"].toString().toInt())
+                                productTypes.add(i,product["product_type_id"].toString().toInt())
 
 
 
