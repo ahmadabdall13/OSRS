@@ -19,6 +19,16 @@
     />
 
     <item
+            android:id="@+id/possibleChats"
+            android:title="Possible Chats"
+    />
+
+
+    <item
+            android:id="@+id/activeChats"
+            android:title="Active Chats"
+    />
+    <item
             android:id="@+id/settingsTab"
             android:title="@string/settings"
     />

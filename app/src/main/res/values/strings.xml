@@ -82,7 +82,6 @@
     <string name="product_type">Product Type</string>
 
 
-
     <string-array name="productTypes">
         <item>Select</item>
         <item>Sport</item>

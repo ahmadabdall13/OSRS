@@ -141,6 +141,18 @@ class PreLoginActivity : AppCompatActivity() {
                         startActivity(intent)
                     }
 
+                    R.id.possibleChats -> {
+                        val intent = Intent(applicationContext, ChatListActivity::class.java)
+                        startActivity(intent)
+
+                    }
+
+                    R.id.activeChats -> {
+                        val intent = Intent(applicationContext, ActiveChatsActivity::class.java)
+                        startActivity(intent)
+
+                    }
+
 
 
                     R.id.myProductsTab -> {
