@@ -78,4 +78,11 @@ class APIController constructor(serviceInjection: ServiceInterface , productsCus
 
 
 
+    override fun sendMsg(
+        msg:String,userId:Int,channel_id:Int,context: Context
+    )
+    {
+        service.sendMsg(msg,userId,channel_id,context)
+    } // end si
+
 } // end APIController

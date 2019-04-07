@@ -43,9 +43,6 @@ class ActiveChatsActivity : AppCompatActivity() {
     fun getActiveChannels(context: Context) {
 //
         val Prefs = Prefs(this)
-        var titles : ArrayList<String> = arrayListOf()
-        var productIds:ArrayList<Int> = arrayListOf()
-        var channelIds:ArrayList<Int> = arrayListOf()
 
 //        http://18.219.85.157/vendors/17/channels
 
@@ -54,6 +51,9 @@ class ActiveChatsActivity : AppCompatActivity() {
         if(Prefs.userTypeId.equals("1")){
 
             val TAG = ServiceVolley::class.java.simpleName
+            var titles : ArrayList<String> = arrayListOf()
+            var productIds:ArrayList<Int> = arrayListOf()
+            var channelIds:ArrayList<Int> = arrayListOf()
 
             var myListAdapter : ActiveChatAdapter = ActiveChatAdapter(
                 context,
@@ -75,7 +75,7 @@ class ActiveChatsActivity : AppCompatActivity() {
                             if (jsonObject.has("channel_id")){
                                 productIds.add(i,1)
                                 titles.add(i,"Active Conversation")
-                                productIds.add(i,jsonObject["channel_id"].toString().toInt())
+                                channelIds.add(i,jsonObject["channel_id"].toString().toInt())
                             } // end if
                         } // end for
 
@@ -105,6 +105,9 @@ class ActiveChatsActivity : AppCompatActivity() {
 
 
             val TAG = ServiceVolley::class.java.simpleName
+            var titles : ArrayList<String> = arrayListOf()
+            var productIds:ArrayList<Int> = arrayListOf()
+            var channelIds:ArrayList<Int> = arrayListOf()
 
             var myListAdapter : ActiveChatAdapter = ActiveChatAdapter(
                 context,
@@ -126,7 +129,7 @@ class ActiveChatsActivity : AppCompatActivity() {
                             if (jsonObject.has("id")){
                                 productIds.add(i,jsonObject["product_id"].toString().toInt())
                                 titles.add(i,"Active Conversation")
-                                productIds.add(i,jsonObject["id"].toString().toInt())
+                                channelIds.add(i,jsonObject["id"].toString().toInt())
                             } // end if
                         } // end for
 

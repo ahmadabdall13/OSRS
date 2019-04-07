@@ -16,12 +16,23 @@ import com.example.osrs.services.ServiceVolley
 import kotlinx.android.synthetic.main.activity_active_chats.*
 import org.json.JSONArray
 import android.content.Context
+import android.content.Intent
+import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class ConversationActivity : AppCompatActivity() {
+
+    var channel_id : Any? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_conversation)
+
+
+        val Prefs = Prefs(this)
+        var Intent1: Intent
+        Intent1= getIntent()
+        channel_id = Intent1.getStringExtra("channel_id")
 
 
         setSupportActionBar(toolbar_conversation)
@@ -31,7 +42,21 @@ class ConversationActivity : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
 
+//        {
+//            msg:””,
+//            user_id:1,
+//            channel_id:22
+//        }
         getConversations(this)
+
+        sendMsgIv.setOnClickListener{
+
+            ServiceVolley().sendMsg(
+                editTextConversation.text.toString(), Prefs.userId.toString().toInt(),channel_id.toString().toInt(), this
+            )
+            getConversations(this)
+
+        }
 
     }
 
@@ -44,7 +69,7 @@ class ConversationActivity : AppCompatActivity() {
         var ids:ArrayList<Int> = arrayListOf()
 
 
-        val getConversations = "http://18.219.85.157/channels/2/chats"
+        val getConversations = "http://18.219.85.157/channels/${channel_id}/chats"
 
             val TAG = ServiceVolley::class.java.simpleName
 

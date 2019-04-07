@@ -48,6 +48,8 @@ class ActiveChatAdapter(
                     context.applicationContext,
                     ConversationActivity::class.java
                 ).setFlags(FLAG_ACTIVITY_NEW_TASK)
+                    .putExtra("channel_id", ids[position].toString())
+
             )
         }
 

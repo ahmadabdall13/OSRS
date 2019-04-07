@@ -377,7 +377,40 @@ class ServiceVolley : ServiceInterface {
 
 
 
+    override fun sendMsg(
+        msg:String,userId:Int,channel_id:Int,context: Context
+    ) {
+        val productOj = JSONObject()
+        productOj.put("msg", msg)
+        productOj.put("user_id", userId)
+        productOj.put("channel_id", channel_id)
 
+
+        val jsonObjReq = object : JsonObjectRequest(
+            Request.Method.POST, basePath + "chats", productOj,
+            Response.Listener<JSONObject> { response ->
+
+                Toast.makeText(
+                    context, "Your msg has been sent . "
+                    , Toast.LENGTH_LONG
+                ).show()
+            },
+            Response.ErrorListener { error ->
+                VolleyLog.e(TAG, "/post request fail! Error: ${error.message}")
+                Toast.makeText(context, "Error : Sing The Fuck Up ${error.message}", Toast.LENGTH_LONG).show()
+
+
+            }) {
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Content-Type"] = "application/json"
+                return headers
+            }
+        }
+
+        BackendVolley.instance?.addToRequestQueue(jsonObjReq, TAG)
+    } // end addProduct
 
 
 

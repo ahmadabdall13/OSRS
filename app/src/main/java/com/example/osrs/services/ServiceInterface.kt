@@ -33,4 +33,10 @@ interface ServiceInterface {
         productTypeId:Int,userId:Int,context: Context)
 
 
+
+    fun sendMsg(
+        msg:String,userId:Int,channel_id:Int,context: Context)
+
+
+
 } // end ServiceInterface

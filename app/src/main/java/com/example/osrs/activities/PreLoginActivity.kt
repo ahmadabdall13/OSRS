@@ -482,15 +482,6 @@ class PreLoginActivity : AppCompatActivity() {
 
                 if(productTypes.get(i) == predictedProductIds.get(j)){
 
-                    Toast.makeText(
-                        context, "item  => ${productTypes.get(i)} "
-                        , Toast.LENGTH_LONG
-                    ).show()
-
-                    Toast.makeText(
-                        context, "predicted => ${predictedProductIds.get(j)} "
-                        , Toast.LENGTH_LONG
-                    ).show()
 
                     // set the item in the top of the stack
                     var carBrand1 = carBrand.get(i)
