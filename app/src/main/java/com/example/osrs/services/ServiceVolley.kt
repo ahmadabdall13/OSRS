@@ -207,6 +207,10 @@ class ServiceVolley : ServiceInterface {
         context: Context
     ) {
         val productOj = JSONObject()
+        val subImagesArrayList :MutableList<String> = arrayListOf()
+        subImagesArrayList.add("sub1")
+        subImagesArrayList.add("sub2")
+        subImagesArrayList.add("sub3")
         productOj.put("brand_name", brandName)
         productOj.put("model_name", modelName)
         productOj.put("year_of_make", yearOfMake)
@@ -219,8 +223,8 @@ class ServiceVolley : ServiceInterface {
         productOj.put("product_type_id", productTypeId)
         productOj.put("vendor_id", vendorId)
         productOj.put("type_of_transmission", typeOfTransmission)
-
-
+        productOj.put("image", "png")
+        productOj.put("images", JSONArray(subImagesArrayList))
 
 
         val jsonObjReq = object : JsonObjectRequest(

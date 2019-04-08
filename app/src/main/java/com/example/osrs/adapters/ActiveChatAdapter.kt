@@ -31,7 +31,6 @@ class ActiveChatAdapter(
 
     @SuppressLint("ViewHolder", "InflateParams", "ServiceCast")
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
-
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val rowView = inflater.inflate(R.layout.active_chat_custom, null, true)
 

@@ -90,33 +90,33 @@ class AddProductActivity : AppCompatActivity() {
                 ).show()
             }
 
-            if (filePath != null) {
-                val progressDialog = ProgressDialog(this)
-                progressDialog.setTitle("Uploading Bitch , Wait")
-                progressDialog.show()
-
-
-                if (tag == 12) {
-
-                    val imageRef = storageReference!!.child("images/" + UUID.randomUUID().toString())
-                    imageRef.putFile(filePath!!)
-                        .addOnSuccessListener {
-                            val result = it.metadata!!.reference!!.downloadUrl
-                            result.addOnSuccessListener {
-
-                                mainImageURL = it.toString()
-
-
-                            } // end result.addOnSuccessListener
-
-                        } // end imageRef.putFile(filePath!!).addOnSuccessListener
-
-                        .addOnFailureListener { }
-                } // end first inner if
-
-//             if (tag==13) {
-//                } // end second inner if
-            } // end if
+//            if (filePath != null) {
+//                val progressDialog = ProgressDialog(this)
+//                progressDialog.setTitle("Uploading Bitch , Wait")
+//                progressDialog.show()
+//
+//
+//                if (tag == 12) {
+//
+//                    val imageRef = storageReference!!.child("images/" + UUID.randomUUID().toString())
+//                    imageRef.putFile(filePath!!)
+//                        .addOnSuccessListener {
+//                            val result = it.metadata!!.reference!!.downloadUrl
+//                            result.addOnSuccessListener {
+//
+//                                mainImageURL = it.toString()
+//
+//
+//                            } // end result.addOnSuccessListener
+//
+//                        } // end imageRef.putFile(filePath!!).addOnSuccessListener
+//
+//                        .addOnFailureListener { }
+//                } // end first inner if
+//
+////             if (tag==13) {
+////                } // end second inner if
+//            } // end if
         }
 
 
