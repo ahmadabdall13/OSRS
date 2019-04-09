@@ -419,4 +419,64 @@ class ServiceVolley : ServiceInterface {
 
 
 
+    override fun hireRequest(
+    requestId:Int,context: Context
+    ) {
+
+        val jsonObjReq = object : JsonObjectRequest(
+            Request.Method.PUT, basePath + "requests/${requestId}/to_completed", null,
+            Response.Listener<JSONObject> { response ->
+
+                Toast.makeText(
+                    context, ", has been hired , thank you ...  ${response} "
+                    , Toast.LENGTH_LONG
+                ).show()
+            },
+            Response.ErrorListener { error ->
+                VolleyLog.e(TAG, "/post request : ${error.message}")
+//                Toast.makeText(context, "Error :  ${error.message}", Toast.LENGTH_LONG).show()
+            }) {
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Content-Type"] = "application/json"
+                return headers
+            }
+        }
+
+        BackendVolley.instance?.addToRequestQueue(jsonObjReq, TAG)
+    } // end
+
+
+
+
+
+
+    override fun declineRequest(
+        requestId:Int,context: Context
+    ) {
+
+        val jsonObjReq = object : JsonObjectRequest(
+            Request.Method.PUT, basePath + "requests/${requestId}/to_cancelled", null,
+            Response.Listener<JSONObject> { response ->
+                Toast.makeText(
+                    context, ", has been declined , thank you ...  ${response} "
+                    , Toast.LENGTH_LONG
+                ).show()
+            },
+            Response.ErrorListener { error ->
+                VolleyLog.e(TAG, "/post request : ${error.message}")
+//                Toast.makeText(context, "Error :  ${error.message}", Toast.LENGTH_LONG).show()
+            }) {
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Content-Type"] = "application/json"
+                return headers
+            }
+        }
+
+        BackendVolley.instance?.addToRequestQueue(jsonObjReq, TAG)
+    } // end
+
 } // end ServiceVolley

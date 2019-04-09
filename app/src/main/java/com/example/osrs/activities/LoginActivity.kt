@@ -41,29 +41,26 @@ class LoginActivity : AppCompatActivity() {
         val btnLoginFacebook = findViewById<Button>(R.id.login_facebook_button)
 
         btnLoginFacebook.setOnClickListener {
-            // comments by zaid jajajaj from here
-//            callbackManager = CallbackManager.Factory.create()
-//            LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"))
-//            LoginManager.getInstance().registerCallback(callbackManager,
-//                object : FacebookCallback<LoginResult> {
-//                    override fun onSuccess(loginResult: LoginResult) {
-//
-//                        Log.d("Batool BITCH", "Facebook token: " + loginResult.accessToken.token)
-//                        Log.d("Batool FUCK HER PUSSY", "Facebook userId: " + loginResult.accessToken.userId)
-//
-                        ServiceVolley().loginFacebook("asd122",this)
-//                    }
-//
-//                    override fun onCancel() {
-//                        Log.e("CancelFB", "Facebook onCancel.")
-//                    }
-//
-//                    override fun onError(error: FacebookException) {
-//                        Log.e("ErorFB", "Facebook onError.$error")
-//                    }
-//
-//                })
-            // comments by zaid jajajaj to here
+            callbackManager = CallbackManager.Factory.create()
+            LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"))
+            LoginManager.getInstance().registerCallback(callbackManager,
+                object : FacebookCallback<LoginResult> {
+                    override fun onSuccess(loginResult: LoginResult) {
+
+                        Log.d("Batool BITCH", "Facebook token: " + loginResult.accessToken.token)
+                        Log.d("Batool FUCK HER PUSSY", "Facebook userId: " + loginResult.accessToken.userId)
+                        ServiceVolley().loginFacebook(loginResult.accessToken.userId , applicationContext)
+                    }
+
+                    override fun onCancel() {
+                        Log.e("CancelFB", "Facebook onCancel.")
+                    }
+
+                    override fun onError(error: FacebookException) {
+                        Log.e("ErorFB", "Facebook onError.$error")
+                    }
+
+                })
 
         } // end
 

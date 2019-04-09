@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_pre_login.*
 import kotlinx.android.synthetic.main.activity_vendor_requests.*
 
 import org.json.JSONArray
+import org.json.JSONObject
 
 class VendorRequestsActivity : AppCompatActivity() {
 
@@ -72,6 +73,8 @@ class VendorRequestsActivity : AppCompatActivity() {
         var carBrand : ArrayList<String> = arrayListOf()
         var carPrice:ArrayList<Double> = arrayListOf()
             val usersNames:ArrayList<String> = arrayListOf()
+            val vendors: ArrayList<JSONObject> = arrayListOf()
+            var ids : ArrayList<Int> = arrayListOf()
 
 
 
@@ -82,7 +85,9 @@ class VendorRequestsActivity : AppCompatActivity() {
             imageId,
             usersNames,
             carPrice,
-            offers
+            offers,
+            vendors,
+            ids
         )
 
 
@@ -99,13 +104,14 @@ class VendorRequestsActivity : AppCompatActivity() {
                         if (jsonObject.has("id")){
 
                             val product = jsonObject.getJSONObject("product")
-//                            val request_status = jsonObject.getJSONObject("request_status")
+                            ids.add(i,jsonObject["id"].toString().toInt())
                             carBrand.add(i,product["brand_name"].toString())
                             carIds.add(i,product["id"].toString().toInt())
                             imageId.add(i,R.drawable.man)
                             usersNames.add(i,"Zaidar Sallam")
                             carPrice.add(i,product["price"].toString().toDouble())
                             offers.add("#offer ${i+1}")
+                            vendors.add(product.getJSONObject("vendor"))
                         } // end if
                     } // end for
 
@@ -117,7 +123,9 @@ class VendorRequestsActivity : AppCompatActivity() {
                         imageId,
                         usersNames,
                         carPrice,
-                        offers
+                        offers,
+                        vendors,
+                        ids
                     )
                     recievedRequestsLV.adapter = myListAdapter
 

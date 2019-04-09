@@ -38,5 +38,11 @@ interface ServiceInterface {
         msg:String,userId:Int,channel_id:Int,context: Context)
 
 
+    fun hireRequest(
+        requestId:Int,context: Context)
+
+    fun declineRequest(
+        requestId:Int,context: Context)
+
 
 } // end ServiceInterface

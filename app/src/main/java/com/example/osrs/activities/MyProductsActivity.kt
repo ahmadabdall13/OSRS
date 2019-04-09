@@ -142,7 +142,7 @@ if(userTypeId.equals("2") && !userId.equals(" ")){
                             adapterType.add("products")
                             imageId.add(i,R.drawable.maserati)
                             offerStatus.add(i,"")
-                            vendors.add(i,jsonObject)
+                            vendors.add(i,jsonObject.getJSONObject("vendor"))
                             productTypes.add(i,jsonObject["product_type_id"].toString().toInt())
 
 

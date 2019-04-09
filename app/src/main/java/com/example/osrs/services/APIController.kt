@@ -85,4 +85,22 @@ class APIController constructor(serviceInjection: ServiceInterface , productsCus
         service.sendMsg(msg,userId,channel_id,context)
     } // end si
 
+
+    override fun hireRequest(
+        requestId:Int,context: Context
+    )
+    {
+        service.hireRequest(requestId,context)
+    } // end si
+
+
+    override fun declineRequest(
+        requestId:Int,context: Context
+    )
+    {
+        service.declineRequest(requestId,context)
+    } // end si
+
+
+
 } // end APIController
