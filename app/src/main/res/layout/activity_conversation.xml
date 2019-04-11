@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+            xmlns:tools="http://schemas.android.com/tools"
+                                       android:layout_height="wrap_content"
+                                       xmlns:android="http://schemas.android.com/apk/res/android"
+                                       android:layout_width="match_parent"
+                                       tools:targetApi="lollipop"
+                                       android:background="@android:color/holo_red_light"
+                                       android:id="@+id/toolbar_conversation"
+    >    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+    >
+
+
+
+        <ListView android:id="@+id/conversationsListView1"
+                  android:layout_height="fill_parent"
+                  android:layout_width="fill_parent"
+                  android:dividerHeight="2px">
+        </ListView>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="145px"
+    >
+
+
+        <EditText
+                android:hint="write here ...."
+                android:id="@+id/editTextConversation"
+                android:layout_width="300dp"
+                android:layout_height="fill_parent"
+                android:paddingRight="20px"
+        />
+
+        <ImageView
+
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+android:src="@mipmap/send_msg"
+                android:id="@+id/sendMsgIv"
+                android:layout_alignParentRight="true"
+                android:text="send"
+        ></ImageView>
+
+    </LinearLayout>
+</LinearLayout>

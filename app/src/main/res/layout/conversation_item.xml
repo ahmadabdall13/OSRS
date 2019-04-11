@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                            android:orientation="vertical"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent">
+
+
+    <TextView
+android:layout_marginTop="20dp"
+android:layout_marginLeft="20dp"
+            android:text="hi man, how are you?"
+            android:background="@drawable/msg_round"
+            android:layout_width="wrap_content"
+            android:id="@+id/user_msg"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textColor="@android:color/holo_red_dark"
+            />
+
+    <TextView
+            android:layout_below="@+id/user_msg"
+            android:text="hi man, how are you?"
+            android:layout_width="wrap_content"
+            android:id="@+id/user_id_msg"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="6dp"
+            android:textColor="@android:color/darker_gray"
+            />
+</RelativeLayout>
