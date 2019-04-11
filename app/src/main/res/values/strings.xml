@@ -59,7 +59,7 @@
     <string name="add_product">Add Product</string>
     <string name="add">Add</string>
     <string name="addMainImage">Add Main Image</string>
-    <string name="addSubImage">Add Sub Image</string>
+    <string name="addSubImage">Add Sub Images</string>
     <string name="my_requests">My Requests</string>
     <string name="my_products">My Products</string>
     <string name="settings">Settings</string>
@@ -79,6 +79,8 @@
     <string name="user_type">User Type</string>
     <string name="email">Email</string>
     <string name="choose_a_profile_picture">Choose A Profile Picture</string>
+    <string name="add_main_product_picture">Add Main Product Picture</string>
+    <string name="add_profile_picture">Add Profile Picture</string>
 
     <string-array name="types_of_transmissions">
         <item>Type of Transmission</item>
@@ -102,4 +104,13 @@
         <item>Vendor</item>
     </string-array>
 
+    <string name="product_type">Product Type</string>
+    <string-array name="productTypes">
+        <item>Select</item>
+        <item>Sport</item>
+        <item>Classic</item>
+        <item>Crossover</item>
+        <item>Hatchback</item>
+        <item>Convertible</item>
+    </string-array>
 </resources>

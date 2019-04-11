@@ -38,8 +38,6 @@ class ServiceVolley : ServiceInterface {
         val loginJO = JSONObject()
         loginJO.put("email_address", Email)
         loginJO.put("password", Password)
-        val Prefs = Prefs(context)
-
 
         val jsonObjReq = object : JsonObjectRequest(
             Request.Method.POST, basePath + "login", loginJO,
@@ -56,6 +54,7 @@ class ServiceVolley : ServiceInterface {
                     Prefs.firstName = response["first_name"].toString()
                     Prefs.lastName = response["last_name"].toString()
                     Prefs.userTypeId = response["user_type_id"].toString()
+                    Prefs.userImage = response["image"].toString()
 
 //                    val userId = Prefs.userId
 //                    val firstName = Prefs.firstName
@@ -91,6 +90,7 @@ class ServiceVolley : ServiceInterface {
 
 
     override fun singUp(
+        ProfilePic:String,
         Email: String,
         Password: String,
         FirstName: String,
@@ -101,6 +101,7 @@ class ServiceVolley : ServiceInterface {
         context: Context
     ) {
         val signUpJO = JSONObject()
+        signUpJO.put("profile_picture",ProfilePic)
         signUpJO.put("email_address", Email)
         signUpJO.put("password", Password)
         signUpJO.put("first_name", FirstName)
@@ -200,11 +201,13 @@ class ServiceVolley : ServiceInterface {
 
 
     override fun addProduct(
-        brandName:String,modelName:String,yearOfMake:String,
-        typeOfEngine:String,typeOfTransmission:String,price:Double,mileage:String,externalColor:String,
+        productMainImage :String , subImages:MutableList<String>,brandName:String,modelName:String,yearOfMake:String,
+        typeOfEngine:String,typeOfTransmission:String,price:Double,mileage:Double,externalColor:String,
         internalColor:String, description:String,
+        productTypeId:Long, vendorId:Int,
         context: Context
     ) {
+        val subImagesArrayList :MutableList<String> = subImages
         val productOj = JSONObject()
         productOj.put("brand_name", brandName)
         productOj.put("model_name", modelName)
@@ -215,8 +218,11 @@ class ServiceVolley : ServiceInterface {
         productOj.put("external_color", externalColor)
         productOj.put("internal_color", internalColor)
         productOj.put("description", description)
-        productOj.put("product_type_id", 3)
-        productOj.put("vendor_id", 17)
+        productOj.put("product_type_id", productTypeId)
+        productOj.put("vendor_id", vendorId)
+        productOj.put("type_of_transmission", typeOfTransmission)
+        productOj.put("image", productMainImage)
+        productOj.put("images", JSONArray(subImagesArrayList))
 
 
 
@@ -225,7 +231,7 @@ class ServiceVolley : ServiceInterface {
             Response.Listener<JSONObject> { response ->
 
                 Toast.makeText(
-                    context, ", Welcome ${response} "
+                    context, ", Welcome $response "
                     , Toast.LENGTH_LONG
                 ).show()
             },

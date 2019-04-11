@@ -21,10 +21,30 @@ import com.example.osrs.R
 import com.example.osrs.adapters.ProductsCustomListAdapter
 import com.example.osrs.services.BackendVolley
 import com.example.osrs.services.ServiceVolley
+import com.squareup.picasso.Picasso
 import org.json.JSONArray
+import org.json.JSONObject
 
 
 class PreLoginActivity : AppCompatActivity() {
+
+
+    var carIds : ArrayList<Int> = arrayListOf()
+    var carBrand : ArrayList<String> = arrayListOf()
+    var carModle : ArrayList<String> = arrayListOf()
+
+    var imageId:ArrayList<String> = arrayListOf()
+    var subProductImages  :ArrayList<String> = arrayListOf()
+
+    var mileAge:ArrayList<Double> = arrayListOf()
+    var trans: ArrayList<String> = arrayListOf()
+    var carPrice:ArrayList<Double> = arrayListOf()
+
+    val offerStatus:ArrayList<String> = arrayListOf()
+    val adapterType:ArrayList<String> = arrayListOf()
+    val vendors:ArrayList<JSONObject> = arrayListOf()
+    var productTypes:ArrayList<Int> = arrayListOf()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,10 +95,10 @@ class PreLoginActivity : AppCompatActivity() {
         drawerToggle.syncState()
 
 
-        if(Prefs.userTypeId.equals("1")){
+        if(Prefs.userTypeId == "1"){
             navigation_view.menu.clear()
             navigation_view.inflateMenu(R.menu.customer_menu)
-        }else if (Prefs.userTypeId.equals("2")){
+        }else if (Prefs.userTypeId == "2"){
             navigation_view.menu.clear()
             navigation_view.inflateMenu(R.menu.vendor_menu)
         }
@@ -137,8 +157,15 @@ class PreLoginActivity : AppCompatActivity() {
         // Inflate the login_menu; this adds items to the action bar if it is present.
         if(Prefs.userTypeId == "")
             menuInflater.inflate(R.menu.login_menu,menu)
-        else
+        else{
             menuInflater.inflate(R.menu.signout_menu,menu)
+            userNameInDrawerTV.text = Prefs.firstName
+            Picasso
+                .with(this) // give it the context
+                .load(Prefs.userImage) // load the image
+                .into(userImageInDrawerTV)
+
+        }// end else
 
         return true
     } // end onCreateOptionsMenu
@@ -178,85 +205,79 @@ class PreLoginActivity : AppCompatActivity() {
 
     private fun getAllProducts(context: Context) {
 
-             val basePath = "http://18.219.85.157/"
-             val getAllProductsBasePath = "http://18.219.85.157/products"
-                    val TAG = ServiceVolley::class.java.simpleName
 
-             val carBrand : ArrayList<String> = arrayListOf()
-                    val carModle : ArrayList<String> = arrayListOf()
+        val getAllProductsBasePath = "http://18.219.85.157/products"
+        val TAG = ServiceVolley::class.java.simpleName
+        val myListAdapter =ProductsCustomListAdapter(
+            context,
+            carBrand,
+            carIds,
+            carModle,
+            mileAge,
+            trans,
+            carPrice,
+            imageId,
+            offerStatus,
+            adapterType,
+            vendors,
+            productTypes,
+            subProductImages
+        )
 
-                    val imageId = arrayOf(
-                        R.drawable.audi,
-                        R.drawable.audi,
-                        R.drawable.audi,
-                        R.drawable.audi
-                    )
-
-                    val mileAge:ArrayList<Double> = arrayListOf()
-
-                    val trans: ArrayList<String> = arrayListOf()
-
-                    val carPrice:ArrayList<Double> = arrayListOf()
-
-                    val offerStatus:ArrayList<String> = arrayListOf("Pending","Canceled","Approved","Not So Much")
-
-            var myListAdapter: ProductsCustomListAdapter
 
 
         val jsonObjReq =
-                        object : JsonArrayRequest(Request.Method.GET,
-                            getAllProductsBasePath,
-                            null,
-                            Response.Listener<JSONArray> { response ->
+            object : JsonArrayRequest(Request.Method.GET,
+                getAllProductsBasePath,
+                null,
+                Response.Listener<JSONArray> { response ->
 
 
-                        for (i in 0 until  response.length() ){
-                            val jsonObject = response.getJSONObject(i)
-                            if (jsonObject.has("id")){
-                                carBrand.add(i,jsonObject["brand_name"].toString())
-                                carModle.add(i,jsonObject["model_name"].toString())
-                                mileAge.add(i,jsonObject["mileage"].toString().toDouble())
-                                trans.add(i,jsonObject["type_of_transmission"].toString())
-                                carPrice.add(i,jsonObject["price"].toString().toDouble())
-                            } // end if
-                        } // end for
+                    for (i in 0 until  response.length() ){
+                        val jsonObject = response.getJSONObject(i)
+                        val vendor = jsonObject.getJSONObject("vendor")
+                        val jsonArray: JSONArray = jsonObject.getJSONArray("images")
+                        if (jsonObject.has("id")){
+                            carIds.add(i,jsonObject["id"].toString().toInt())
+                            carBrand.add(i,jsonObject["brand_name"].toString())
+                            carModle.add(i,jsonObject["model_name"].toString())
+                            mileAge.add(i,jsonObject["mileage"].toString().toDouble())
+                            trans.add(i,jsonObject["type_of_transmission"].toString())
+                            carPrice.add(i,jsonObject["price"].toString().toDouble())
+                            adapterType.add("products")
+                            imageId.add(i,jsonObject["image"].toString())
+                            offerStatus.add(i,"")
+                            vendors.add(i,vendor)
+                            productTypes.add(i,jsonObject["product_type_id"].toString().toInt())
 
+                            for(j in 0 until jsonArray.length()){
+                                val jsonInner: JSONObject = jsonArray.getJSONObject(i)
+                                subProductImages.add(i,jsonInner["image"].toString())
 
-                        myListAdapter = ProductsCustomListAdapter(
-                            context,
-                            carBrand,
-                            carModle,
-                            mileAge,
-                            trans,
-                            carPrice,
-                            imageId,
-                            offerStatus
-                        )
-                  mainProductsLV.adapter = myListAdapter
+                            } // end for
 
+                        } // end if
 
-                            },
-                            Response.ErrorListener { error ->
-                            }) {
-                            @Throws(AuthFailureError::class)
-                            override fun getHeaders(): Map<String, String> {
-                                val headers = HashMap<String, String>()
-                                headers["Content-Type"] = "application/json"
-                                return headers
-                            }
-                        }
-
-                    BackendVolley.instance?.addToRequestQueue(jsonObjReq, TAG)
-
-                } // end getAllProducts
-
-     }
+                    } // end for
 
 
 
+                    mainProductsLV.adapter = myListAdapter
 
 
+                },
+                Response.ErrorListener { error ->
+                }) {
+                @Throws(AuthFailureError::class)
+                override fun getHeaders(): Map<String, String> {
+                    val headers = HashMap<String, String>()
+                    headers["Content-Type"] = "application/json"
+                    return headers
+                }
+            }
 
+        BackendVolley.instance?.addToRequestQueue(jsonObjReq, TAG)
 
+    } // end getAllProducts
 
-
+} // end PreLoginActivity

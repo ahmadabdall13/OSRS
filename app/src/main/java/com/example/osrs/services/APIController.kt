@@ -19,6 +19,7 @@ class APIController constructor(serviceInjection: ServiceInterface , productsCus
 
 
     override fun singUp(
+        ProfilePic:String,
         Email: String,
         Password: String,
         FirstName: String,
@@ -28,7 +29,7 @@ class APIController constructor(serviceInjection: ServiceInterface , productsCus
         socialId:String,
         context: Context
     ) {
-        service.singUp(Email,Password,FirstName,LastName, MobileNumber,UserType,socialId,context)
+        service.singUp(ProfilePic, Email,Password,FirstName,LastName, MobileNumber,UserType,socialId,context)
     } // end singUp
 
 
@@ -42,13 +43,15 @@ class APIController constructor(serviceInjection: ServiceInterface , productsCus
 
 
     override fun addProduct(
-        brandName:String,modelName:String,yearOfMake:String,
-        typeOfEngine:String,typeOfTransmission:String,price:Double,mileage:String,externalColor:String,
+        productMainImage :String , subImages:MutableList<String>,brandName:String,modelName:String,yearOfMake:String,
+        typeOfEngine:String,typeOfTransmission:String,price:Double,mileage:Double,externalColor:String,
         internalColor:String, description:String,
+        productTypeId:Long, vendorId:Int,
         context: Context
     ) {
-        service.addProduct(brandName,modelName,yearOfMake,typeOfEngine,
-            typeOfTransmission,price,mileage,externalColor,internalColor,description,context)
+        service.addProduct(productMainImage,subImages, brandName, modelName, yearOfMake, typeOfEngine,
+            typeOfTransmission,price, mileage, externalColor, internalColor, description, productTypeId, vendorId, context)
+
     } // end singUp
 
 

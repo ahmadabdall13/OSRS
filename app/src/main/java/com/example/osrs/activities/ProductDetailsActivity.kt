@@ -13,16 +13,17 @@ import android.os.Build
 import android.support.annotation.RequiresApi
 import android.transition.Slide
 import android.widget.*
-
-
-
-
+import com.facebook.FacebookSdk
+import com.squareup.picasso.Picasso
 
 
 class ProductDetailsActivity : AppCompatActivity() {
 
 
 
+
+    val productSubImages : ArrayList<String> = intent.getStringArrayListExtra("productSubImages")
+    val productMainImage = intent.getStringExtra("productMainImage")
 
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
@@ -31,7 +32,36 @@ class ProductDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_details)
 
+        Picasso
+            .with(this) // give it the context
+            .load(productMainImage) // load the image
+            .into(productMainImageIMG)
 
+        for (i in 0 until productSubImages.size){
+            when (i) {
+                0 -> Picasso
+                    .with(this) // give it the context
+                    .load(productSubImages[i]) // load the image
+                    .into(subImage1)
+                1 -> Picasso
+                    .with(this) // give it the context
+                    .load(productSubImages[i]) // load the image
+                    .into(subImage2)
+                2 -> Picasso
+                    .with(this) // give it the context
+                    .load(productSubImages[i]) // load the image
+                    .into(subImage3)
+                3 -> Picasso
+                    .with(this) // give it the context
+                    .load(productSubImages[i]) // load the image
+                    .into(subImage4)
+                4 -> Picasso
+                    .with(this) // give it the context
+                    .load(productSubImages[i]) // load the image
+                    .into(subImage5)
+            } // end when
+
+        } // end for
 
         subImage1.setOnClickListener{
 

@@ -19,7 +19,7 @@ android:id="@+id/proLinear">
 
     <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/profile_image"
+            android:id="@+id/productMainImageIMG"
             android:layout_width="100dp"
             android:layout_margin="20dp"
             android:layout_height="110dp"
@@ -37,7 +37,7 @@ android:id="@+id/proLinear">
                   android:layout_height="wrap_content"
                   android:textStyle="bold"
                   android:textSize="25sp"
-        android:text="SpaceX"
+                  android:text="SpaceX"
         />
 
 

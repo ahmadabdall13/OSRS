@@ -19,6 +19,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.Toast
+import com.example.osrs.Prefs
 import com.example.osrs.R
 import com.example.osrs.services.ServiceVolley
 import com.google.firebase.FirebaseApp
@@ -49,6 +50,8 @@ class AddProductActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_product)
 
+        val Prefs = Prefs(this)
+
         val mToolbar: Toolbar = findViewById(R.id.too)
         setSupportActionBar(mToolbar)
         //actionbar
@@ -64,10 +67,9 @@ class AddProductActivity : AppCompatActivity() {
         storage= FirebaseStorage.getInstance()
         storageReference=storage!!.reference
 
-        addProductMainImageBtn.setOnClickListener {
-            tag=12
-            showPictureDialog()
-        } // end addProductMainImageBtn.setOnClickListener
+     //   addProductMainImageBtn.setOnClickListener {
+        //
+        // } // end addProductMainImageBtn.setOnClickListener
 
 
 
@@ -80,13 +82,19 @@ class AddProductActivity : AppCompatActivity() {
         addProductBtn.setOnClickListener {
             var CarInfo = hashMapOf<String,Any>()
 
-            if(fieldsValidation()){
-                ServiceVolley().addProduct("asd","asd","asd","asd"
-                    ,"asd",22.2,"asd","asd","asd","asd",this)
-            }
-            else{
+            if (fieldsValidation()) {
+                ServiceVolley().addProduct(
+                    mainImageURL,subImagesArrayList,
+                    carBrandEt.text.toString(), carModelEt.text.toString()
+                    , yearOfMakeEt.text.toString(), engineCylindersSpinner.selectedItem.toString(),
+                    transmissionSpinner.selectedItem.toString(), carPrice.text.toString().toDouble(),
+                    carMileage.text.toString().toDouble(), extColor.text.toString(), intColor.text.toString(),
+                    productDescriptionEt.text.toString(),
+                    productTypeSp.selectedItemId, Prefs.userId.toInt(), this
+                )
+            } else {
                 Toast.makeText(
-                    this, " Fill the fields please ",Toast.LENGTH_LONG
+                    this, " Fill the fields please ", Toast.LENGTH_LONG
                 ).show()
             }
 
@@ -106,7 +114,6 @@ class AddProductActivity : AppCompatActivity() {
 
                                 mainImageURL = it.toString()
 
-
                             } // end result.addOnSuccessListener
 
                         } // end imageRef.putFile(filePath!!).addOnSuccessListener
@@ -114,8 +121,6 @@ class AddProductActivity : AppCompatActivity() {
                         .addOnFailureListener {  }
                 } // end first inner if
 
-//             if (tag==13) {
-//                } // end second inner if
             } // end if
 
 
@@ -284,11 +289,11 @@ class AddProductActivity : AppCompatActivity() {
                 try {
                     val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
                     when {
-                        subImagesArrayList.size == 0 -> subImage1.setImageBitmap(bitmap)
-                        subImagesArrayList.size == 1 -> subImage2.setImageBitmap(bitmap)
-                        subImagesArrayList.size == 2 -> subImage3.setImageBitmap(bitmap)
-                        subImagesArrayList.size == 3 -> subImage4.setImageBitmap(bitmap)
-                        subImagesArrayList.size == 4 -> {subImage5.setImageBitmap(bitmap)
+                        subImagesArrayList.size == 0 -> addProductSubImage1.setImageBitmap(bitmap)
+                        subImagesArrayList.size == 1 -> addProductSubImage2.setImageBitmap(bitmap)
+                        subImagesArrayList.size == 2 -> addProductSubImage3.setImageBitmap(bitmap)
+                        subImagesArrayList.size == 3 -> addProductSubImage4.setImageBitmap(bitmap)
+                        subImagesArrayList.size == 4 -> {addProductSubImage5.setImageBitmap(bitmap)
                             addProductSubImageBtn.visibility= View.INVISIBLE}
                     } // end when
 
@@ -318,11 +323,11 @@ class AddProductActivity : AppCompatActivity() {
 
                 val bitmap: Bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath)
                 when {
-                    subImagesArrayList.size == 0 -> subImage1.setImageBitmap(bitmap)
-                    subImagesArrayList.size == 1 -> subImage2.setImageBitmap(bitmap)
-                    subImagesArrayList.size == 2 -> subImage3.setImageBitmap(bitmap)
-                    subImagesArrayList.size == 3 -> subImage4.setImageBitmap(bitmap)
-                    subImagesArrayList.size == 4 -> {subImage5.setImageBitmap(bitmap)
+                    subImagesArrayList.size == 0 -> addProductSubImage1.setImageBitmap(bitmap)
+                    subImagesArrayList.size == 1 -> addProductSubImage2.setImageBitmap(bitmap)
+                    subImagesArrayList.size == 2 -> addProductSubImage3.setImageBitmap(bitmap)
+                    subImagesArrayList.size == 3 -> addProductSubImage4.setImageBitmap(bitmap)
+                    subImagesArrayList.size == 4 -> {addProductSubImage5.setImageBitmap(bitmap)
                         addProductSubImageBtn.visibility= View.INVISIBLE}
 
                 } // end when
@@ -351,6 +356,12 @@ class AddProductActivity : AppCompatActivity() {
         private const val REQUEST_TAKE_PHOTO = 1
         private const val REQUEST_SELECT_IMAGE_IN_ALBUM = 0
     }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun changeMainProductImage(v:View ){
+        tag=12
+        showPictureDialog()
+    } // end changeMainProductImage
 
 
 

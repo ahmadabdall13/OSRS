@@ -25,6 +25,8 @@ import android.os.Environment
 import android.support.annotation.RequiresApi
 import android.support.v4.content.FileProvider
 import android.support.v7.app.AlertDialog
+import android.view.View
+import com.example.osrs.Prefs
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.storage.FileDownloadTask
 import com.squareup.picasso.Picasso
@@ -38,6 +40,7 @@ class SignUpActivity : AppCompatActivity() {
     private var storage : FirebaseStorage? = null
     private var storageReference : StorageReference? = null
     private var mCurrentPhotoPath: String = ""
+    private var imageLink = ""
 
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -49,6 +52,7 @@ class SignUpActivity : AppCompatActivity() {
         val intent: Intent = intent
         val socialId = intent.getStringExtra("social_id")
 
+        val Prefs = Prefs(this)
 
 
         setSupportActionBar(sp_toolbar)
@@ -65,9 +69,9 @@ class SignUpActivity : AppCompatActivity() {
         storageReference=storage!!.reference
 
 
-        chooseProfilePictureBTN.setOnClickListener {
-            showPictureDialog()
-        } // end chooseProfilePictureBTN.setOnClickListener
+        //chooseProfilePictureBTN.setOnClickListener {
+
+        //} // end chooseProfilePictureBTN.setOnClickListener
 
         signUpBTN.setOnClickListener {
 
@@ -90,7 +94,9 @@ class SignUpActivity : AppCompatActivity() {
                         val result = it.metadata!!.reference!!.downloadUrl
                         result.addOnSuccessListener {
 
-                            val imageLink = it.toString()
+                            imageLink = it.toString()
+                            // save it in pref here
+//                            Prefs.userImage = imageLink
 
 
                         } // end result.addOnSuccessListener
@@ -109,7 +115,7 @@ class SignUpActivity : AppCompatActivity() {
             else {
 
                 ServiceVolley().singUp(
-                    signUpEmailAddressET.text.toString(), signUpPasswordET.text.toString()
+                    imageLink,signUpEmailAddressET.text.toString(), signUpPasswordET.text.toString()
                     , firstNameET.text.toString(), lastNameET.text.toString(), mobileNumberET.text.toString(),userTypeID,socialId, this
                 )
             } // end else
@@ -253,4 +259,8 @@ class SignUpActivity : AppCompatActivity() {
     private const val REQUEST_SELECT_IMAGE_IN_ALBUM = 0
 }
 
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun changeProfileImage (v : View){
+        showPictureDialog()
+    } // end changeProfileImage
 } // end SignUpActivity

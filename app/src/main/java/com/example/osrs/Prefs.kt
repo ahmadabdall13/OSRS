@@ -1,8 +1,6 @@
 package com.example.osrs
 
 import android.content.Context
-import android.content.SharedPreferences
-import android.graphics.Color
 import android.preference.PreferenceManager
 
 
@@ -12,13 +10,14 @@ class Prefs(context: Context){
         private const val FIRST_NAME = "FIRST_NAME"
         private const val LAST_NAME = "LAST_NAME"
         private const val USER_TYPE_ID = "USER_TYPE_ID"
+        private const val USER_IMAGE = "USER_IMAGE"
+        private const val PRODUCT_MAIN_IMAGE = "PRODUCT_MAIN_IMAGE"
+
     }
-     val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+     private val preferences = PreferenceManager.getDefaultSharedPreferences(context)
 
     var userId = preferences.getString(USER_ID, "")
         set(value) = preferences.edit().putString(USER_ID,value).apply()
-
-
 
     var firstName = preferences.getString(FIRST_NAME, "")
         set(value) = preferences.edit().putString(FIRST_NAME,value).apply()
@@ -32,4 +31,7 @@ class Prefs(context: Context){
     var userTypeId = preferences.getString(USER_TYPE_ID, "")
         set(value) = preferences.edit().putString(USER_TYPE_ID,value).apply()
 
-}
+    var userImage = preferences.getString(USER_IMAGE, "")
+        set(value) = preferences.edit().putString(USER_IMAGE,value).apply()
+
+    }
