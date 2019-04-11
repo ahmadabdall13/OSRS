@@ -38,6 +38,7 @@ class SignUpActivity : AppCompatActivity() {
     private var storage : FirebaseStorage? = null
     private var storageReference : StorageReference? = null
     private var mCurrentPhotoPath: String = ""
+    private var imageLink = ""
 
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -65,9 +66,9 @@ class SignUpActivity : AppCompatActivity() {
         storageReference=storage!!.reference
 
 
-        chooseProfilePictureBTN.setOnClickListener {
-            showPictureDialog()
-        } // end chooseProfilePictureBTN.setOnClickListener
+//        chooseProfilePictureBTN.setOnClickListener {
+//            showPictureDialog()
+//        } // end chooseProfilePictureBTN.setOnClickListener
 
         signUpBTN.setOnClickListener {
 
@@ -83,21 +84,15 @@ class SignUpActivity : AppCompatActivity() {
                 val progressDialog = ProgressDialog(this)
                 progressDialog.setTitle("Uploading Bitch , Wait")
                 progressDialog.show()
-
                 val imageRef = storageReference!!.child("images/"+ UUID.randomUUID().toString() )
                 imageRef.putFile(filePath!!)
                     .addOnSuccessListener {
                         val result = it.metadata!!.reference!!.downloadUrl
                         result.addOnSuccessListener {
-
-                            val imageLink = it.toString()
-
-
+                            imageLink = it.toString()
                         } // end result.addOnSuccessListener
                         progressDialog.dismiss()
-
                     } // end imageRef.putFile(filePath!!).addOnSuccessListener
-
                     .addOnFailureListener{ progressDialog.dismiss() }
 
             } // end if
@@ -107,10 +102,16 @@ class SignUpActivity : AppCompatActivity() {
                     , Toast.LENGTH_LONG).show()
             } // end if
             else {
-
                 ServiceVolley().singUp(
-                    signUpEmailAddressET.text.toString(), signUpPasswordET.text.toString()
-                    , firstNameET.text.toString(), lastNameET.text.toString(), mobileNumberET.text.toString(),userTypeID,socialId, this
+                    imageLink,
+                    signUpEmailAddressET.text.toString(),
+                    signUpPasswordET.text.toString()
+                    , firstNameET.text.toString(),
+                    lastNameET.text.toString(),
+                    mobileNumberET.text.toString(),
+                    userTypeID,
+                    socialId,
+                    this
                 )
             } // end else
 
@@ -247,6 +248,14 @@ class SignUpActivity : AppCompatActivity() {
         }
         return true
     } // end checkNull
+
+
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun changeProfileImage (v : View){
+        showPictureDialog()
+    } // end changeProfileImage
+
 
     companion object {
     private const val REQUEST_TAKE_PHOTO = 1

@@ -91,6 +91,12 @@
         <item>Convertible</item>
     </string-array>
     <string name="choose_a_profile_picture">Choose A Profile Picture</string>
+    <string name="add_main_product_picture">Add Main Product Picture</string>
+    <string name="add_profile_picture">Add Profile Picture</string>
+
+
+
+
 
     <string-array name="types_of_transmissions">
         <item>Type of Transmission</item>

@@ -89,8 +89,8 @@ class ServiceVolley : ServiceInterface {
 
 
 
-
     override fun singUp(
+        ProfilePic:String,
         Email: String,
         Password: String,
         FirstName: String,
@@ -101,6 +101,7 @@ class ServiceVolley : ServiceInterface {
         context: Context
     ) {
         val signUpJO = JSONObject()
+        signUpJO.put("profile_picture",ProfilePic)
         signUpJO.put("email_address", Email)
         signUpJO.put("password", Password)
         signUpJO.put("first_name", FirstName)
@@ -145,6 +146,11 @@ class ServiceVolley : ServiceInterface {
         BackendVolley.instance?.addToRequestQueue(jsonObjReq, TAG)
 
     } // end ServiceVolley
+
+
+
+
+
 
 
     override fun loginFacebook(socialId: String, context: Context) {
@@ -195,22 +201,15 @@ class ServiceVolley : ServiceInterface {
 
 
 
-
-
-
-
     override fun addProduct(
-        brandName:String,modelName:String,yearOfMake:String,
+        productMainImage :String , subImages:MutableList<String>,brandName:String,modelName:String,yearOfMake:String,
         typeOfEngine:String,typeOfTransmission:String,price:Double,mileage:Double,externalColor:String,
         internalColor:String, description:String,
         productTypeId:Long, vendorId:Int,
         context: Context
     ) {
+        val subImagesArrayList :MutableList<String> = subImages
         val productOj = JSONObject()
-        val subImagesArrayList :MutableList<String> = arrayListOf()
-        subImagesArrayList.add("sub1")
-        subImagesArrayList.add("sub2")
-        subImagesArrayList.add("sub3")
         productOj.put("brand_name", brandName)
         productOj.put("model_name", modelName)
         productOj.put("year_of_make", yearOfMake)
@@ -223,8 +222,9 @@ class ServiceVolley : ServiceInterface {
         productOj.put("product_type_id", productTypeId)
         productOj.put("vendor_id", vendorId)
         productOj.put("type_of_transmission", typeOfTransmission)
-        productOj.put("image", "png")
+        productOj.put("image", productMainImage)
         productOj.put("images", JSONArray(subImagesArrayList))
+
 
 
         val jsonObjReq = object : JsonObjectRequest(
@@ -232,7 +232,7 @@ class ServiceVolley : ServiceInterface {
             Response.Listener<JSONObject> { response ->
 
                 Toast.makeText(
-                    context, ", Welcome ${response} "
+                    context, ", Welcome $response "
                     , Toast.LENGTH_LONG
                 ).show()
             },
@@ -251,7 +251,14 @@ class ServiceVolley : ServiceInterface {
         }
 
         BackendVolley.instance?.addToRequestQueue(jsonObjReq, TAG)
-    } // end addProduct
+    } // end singUp
+
+
+
+
+
+
+
 
 
 

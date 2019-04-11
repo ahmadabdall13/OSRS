@@ -31,6 +31,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import com.android.volley.toolbox.JsonObjectRequest
 import java.util.stream.IntStream
+import com.squareup.picasso.Picasso
 
 
 class PreLoginActivity : AppCompatActivity() {
@@ -43,7 +44,10 @@ class PreLoginActivity : AppCompatActivity() {
     var carBrand : ArrayList<String> = arrayListOf()
     var carModle : ArrayList<String> = arrayListOf()
 
-    var imageId:ArrayList<Int> = arrayListOf()
+    var imageId:ArrayList<String> = arrayListOf()
+    var subProductImages  :ArrayList<String> = arrayListOf()
+
+
     var mileAge:ArrayList<Double> = arrayListOf()
     var trans: ArrayList<String> = arrayListOf()
     var carPrice:ArrayList<Double> = arrayListOf()
@@ -197,23 +201,19 @@ class PreLoginActivity : AppCompatActivity() {
         val ss =Prefs.userTypeId
 
         // Inflate the login_menu; this adds items to the action bar if it is present.
-        if(Prefs.userTypeId == "")
+        if(Prefs.userTypeId == ""){
             menuInflater.inflate(R.menu.login_menu,menu)
-        else
+        }
+
+        else{
             menuInflater.inflate(R.menu.signout_menu,menu)
+            userNameInDrawerTV.text = Prefs.firstName
+            Picasso
+                .with(this) // give it the context
+                .load(Prefs.userImage) // load the image
+                .into(userImageInDrawerTV)
 
-
-
-
-
-
-
-
-
-
-
-
-
+        }
 
 
 
@@ -251,7 +251,8 @@ class PreLoginActivity : AppCompatActivity() {
                             offerStatus,
                             adapterType,
                             vendors,
-                            productTypes
+                            productTypes,
+                            subProductImages
                         )
                         mainProductsLV.adapter = myListAdapter
 
@@ -271,7 +272,8 @@ class PreLoginActivity : AppCompatActivity() {
                             offerStatus,
                             adapterType,
                             vendors,
-                            productTypes
+                            productTypes,
+                            subProductImages
                         )
                         mainProductsLV.adapter = myListAdapter
 
@@ -357,7 +359,8 @@ class PreLoginActivity : AppCompatActivity() {
                 offerStatus,
                 adapterType,
                 vendors,
-                productTypes
+                productTypes,
+                subProductImages
             )
 
 
@@ -371,6 +374,8 @@ class PreLoginActivity : AppCompatActivity() {
                         for (i in 0 until  response.length() ){
                             val jsonObject = response.getJSONObject(i)
                             val vendor = jsonObject.getJSONObject("vendor")
+                            val jsonArray: JSONArray = jsonObject.getJSONArray("images")
+
                             if (jsonObject.has("id")){
                                 carIds.add(i,jsonObject["id"].toString().toInt())
                                 carBrand.add(i,jsonObject["brand_name"].toString())
@@ -379,10 +384,19 @@ class PreLoginActivity : AppCompatActivity() {
                                 trans.add(i,jsonObject["type_of_transmission"].toString())
                                 carPrice.add(i,jsonObject["price"].toString().toDouble())
                                 adapterType.add("products")
-                                imageId.add(i,R.drawable.tesla1)
+//                                imageId.add(i,R.drawable.tesla1)
                                 offerStatus.add(i,"")
                                 vendors.add(i,vendor)
                                 productTypes.add(i,jsonObject["product_type_id"].toString().toInt())
+                                imageId.add(i,jsonObject["image"].toString())
+
+                                for(j in 0 until jsonArray.length()){
+                                    val jsonInner: JSONObject = jsonArray.getJSONObject(i)
+                                    subProductImages.add(i,jsonInner["image"].toString())
+                                } // end for
+
+
+
                             } // end if
                             if(i == response.length()-1)
                                 predectMostLikleyHood(this)

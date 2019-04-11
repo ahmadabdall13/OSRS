@@ -11,12 +11,12 @@
 
     <LinearLayout
             android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".activities.AddProductActivity"
-        android:orientation="vertical"
-        android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            tools:context=".activities.AddProductActivity"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
 
->
+    >
 
 
         <android.support.v7.widget.Toolbar xmlns:tools="http://schemas.android.com/tools"
@@ -24,39 +24,59 @@
                                            xmlns:android="http://schemas.android.com/apk/res/android"
                                            android:layout_width="match_parent"
                                            tools:targetApi="lollipop"
+                                           android:backgroundTint="@android:color/holo_red_light"
                                            android:background="@android:color/holo_red_light"
                                            android:id="@+id/too"
-        >    </android.support.v7.widget.Toolbar>
-
-    <LinearLayout android:layout_width="400px"
-                  android:layout_height="wrap_content"
-                  android:orientation="vertical"
-                  android:gravity="center"
-                  android:layout_gravity="center"
-                  android:layout_marginTop="30dp"
-    >
+        />
 
 
-
-        <android.support.design.widget.TextInputLayout
+        <TextView
+                android:text="@string/add_main_product_picture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center"
+        />
+        <ImageView android:layout_width="100dp"
+                   android:src="@drawable/add_photo"
+                   android:id="@+id/mainProductPhotoIMG"
+                   android:layout_height="100dp"
+                   android:layout_marginTop="15dp"
+                   android:onClick="changeMainProductImage"
+                   android:layout_gravity="center"
+                   android:contentDescription="@string/todo"/>
+
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical"
+                      android:gravity="center"
+                      android:layout_gravity="center"
+                      android:layout_marginTop="30dp"
         >
-            <EditText
-                    android:id="@+id/carBrandEt"
+
+
+
+            <android.support.design.widget.TextInputLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="@string/car_prompt"
-                    android:autofillHints="no"
-                    tools:ignore="UnusedAttribute"
-            />
-        </android.support.design.widget.TextInputLayout>
+                    android:textAlignment="center"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="30dp"
+            >
+                <EditText
+                        android:id="@+id/carBrandEt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="@string/car_prompt"
+                        android:autofillHints="no"
+                        tools:ignore="UnusedAttribute"
+                        android:inputType="date"/>
+            </android.support.design.widget.TextInputLayout>
 
-    <!--<Spinner-->
+            <!--<Spinner-->
             <!--android:layout_width="fill_parent"-->
             <!--android:layout_height="wrap_content"-->
             <!--android:id="@+id/carBrandSpinner"-->
@@ -64,8 +84,38 @@
             <!--android:prompt="@string/car_prompt"-->
             <!--android:entries="@array/type_of_brand"-->
 
-    <!--/>-->
+            <!--/>-->
 
+
+            <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="30dp"
+            >
+                <EditText
+                        android:id="@+id/carModelEt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="@string/model_prompt"
+                        android:autofillHints="no"
+                        tools:ignore="UnusedAttribute"
+                        android:inputType="date"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <!--<Spinner-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/carModelSpinner"-->
+            <!--android:layout_marginTop="40px"-->
+            <!--android:prompt="@string/model_prompt"-->
+            <!--android:entries="@array/type_of_model"-->
+
+            <!--/>-->
+
+        </LinearLayout>
 
         <android.support.design.widget.TextInputLayout
                 android:layout_width="wrap_content"
@@ -75,119 +125,85 @@
                 android:layout_marginTop="30dp"
         >
             <EditText
-                    android:id="@+id/carModelEt"
+                    android:id="@+id/yearOfMakeEt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="@string/model_prompt"
+                    android:hint="@string/year_of_make"
                     android:autofillHints="no"
                     tools:ignore="UnusedAttribute"
+                    android:inputType="date"/>
+        </android.support.design.widget.TextInputLayout>
+        <LinearLayout
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_width="200dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+        >
+            <Spinner
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/productTypeSp"
+                    android:prompt="@string/product_type"
+                    android:entries="@array/productTypes"
+                    android:layout_marginTop="10dp"
+            />
+
+            <Spinner
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/engineCylindersSpinner"
+                    android:prompt="@string/sign_in"
+                    android:entries="@array/types_of_engine"
+
+            />
+
+            <Spinner
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/transmissionSpinner"
+                    android:prompt="@string/transmission_prompt"
+                    android:entries="@array/types_of_transmissions"
+                    android:layout_marginTop="15dp"
+            />
+        </LinearLayout>
+        <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+        >
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:ems="10"
+                    android:id="@+id/carPrice"
+                    android:hint="@string/car_price"
+                    tools:ignore="Autofill"
             />
         </android.support.design.widget.TextInputLayout>
 
-        <!--<Spinner-->
-                <!--android:layout_width="fill_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:id="@+id/carModelSpinner"-->
-                <!--android:layout_marginTop="40px"-->
-                <!--android:prompt="@string/model_prompt"-->
-                <!--android:entries="@array/type_of_model"-->
-
-        <!--/>-->
-
-    </LinearLayout>
-
-    <android.support.design.widget.TextInputLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-    >
-    <EditText
-            android:id="@+id/yearOfMakeEt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/year_of_make"
-            android:autofillHints="no"
-            tools:ignore="UnusedAttribute"
-            android:inputType="date"/>
-    </android.support.design.widget.TextInputLayout>
-    <LinearLayout
-                  android:layout_height="wrap_content"
-                  android:orientation="vertical"
-                  android:layout_width="400px"
-                  android:gravity="center"
-                  android:layout_gravity="center"
-                  android:layout_marginTop="30dp"
-    >
-
-
-        <Spinner
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/productTypeSp"
-                android:prompt="@string/product_type"
-                android:entries="@array/productTypes"
-                android:layout_marginTop="20px"
-        />
-
-
-    <Spinner
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/engineCylindersSpinner"
-            android:prompt="@string/sign_in"
-            android:entries="@array/types_of_engine"
-            android:layout_marginTop="20px"
-    />
-
-    <Spinner
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/transmissionSpinner"
-            android:prompt="@string/transmission_prompt"
-            android:entries="@array/types_of_transmissions"
-            android:layout_marginTop="40px"
-    />
-    </LinearLayout>
-    <android.support.design.widget.TextInputLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-    >
-        <EditText
+        <android.support.design.widget.TextInputLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:ems="10"
-                android:id="@+id/carPrice"
-                android:hint="@string/car_price"
-                tools:ignore="Autofill"
-
-        />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-    >
-        <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:ems="10"
-                android:id="@+id/carMileage"
-                android:hint="@string/mileage"
-                tools:ignore="Autofill"
-        />
-    </android.support.design.widget.TextInputLayout>
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+        >
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:ems="10"
+                    android:id="@+id/carMileage"
+                    android:hint="@string/mileage"
+                    tools:ignore="Autofill"
+            />
+        </android.support.design.widget.TextInputLayout>
 
 
 
@@ -234,57 +250,33 @@
         </android.support.design.widget.TextInputLayout>
 
 
-    <android.support.design.widget.TextInputLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-    >
-        <EditText
+        <android.support.design.widget.TextInputLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="textLongMessage"
-                android:ems="10"
-                android:id="@+id/productDescriptionEt"
-                android:hint="@string/product_description"
-                tools:ignore="Autofill"
-        />
-    </android.support.design.widget.TextInputLayout>
-
-
-        <LinearLayout android:layout_width="wrap_content"
-                      android:orientation="horizontal"
-                      android:layout_marginTop="30dp"
-                      android:layout_height="wrap_content">
-
-            <Button android:text="@string/addMainImage"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+        >
+            <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/addProductMainImageBtn"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="30dp"
-                    android:background="@android:color/holo_red_light"
-                    android:textColor="@android:color/background_light"/>
-
-            <ImageView android:layout_width="100dp"
-                       android:src="@drawable/audi"
-                       android:id="@+id/mainProductPhotoIMG"
-                       android:layout_height="100dp"
-                       android:layout_marginStart="50dp"
-                       android:contentDescription="@string/todo"/>
-
-        </LinearLayout>
+                    android:inputType="textLongMessage"
+                    android:ems="10"
+                    android:id="@+id/productDescriptionEt"
+                    android:hint="@string/product_description"
+                    tools:ignore="Autofill"
+            />
+        </android.support.design.widget.TextInputLayout>
 
 
-            <Button android:text="@string/addSubImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/addProductSubImageBtn"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="30dp"
-                    android:background="@android:color/holo_red_light"
-                    android:textColor="@android:color/background_light"/>
+        <Button android:text="@string/addSubImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/addProductSubImageBtn"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:background="@android:color/holo_red_light"
+                android:textColor="@android:color/background_light"/>
 
 
         <HorizontalScrollView
@@ -307,14 +299,14 @@
             >
 
                 <ImageView
-                        android:id="@+id/subImage1"
+                        android:id="@+id/addProductSubImage1"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:contentDescription="@string/todo"
                         android:layout_marginStart="5dp"/>
 
                 <ImageView
-                        android:id="@+id/subImage2"
+                        android:id="@+id/addProductSubImage2"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:contentDescription="@string/todo"
@@ -322,22 +314,22 @@
                 />
 
                 <ImageView
-                        android:id="@+id/subImage3"
+                        android:id="@+id/addProductSubImage3"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:contentDescription="@string/todo"
                         android:layout_marginStart="5dp"
-                        />
+                />
 
                 <ImageView
-                        android:id="@+id/subImage4"
+                        android:id="@+id/addProductSubImage4"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:contentDescription="@string/todo"
                         android:layout_marginStart="5dp"/>
 
                 <ImageView
-                        android:id="@+id/subImage5"
+                        android:id="@+id/addProductSubImage5"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:contentDescription="@string/todo"
@@ -361,3 +353,4 @@
                 android:textColor="@android:color/background_light"/>
     </LinearLayout>
 </ScrollView>
+

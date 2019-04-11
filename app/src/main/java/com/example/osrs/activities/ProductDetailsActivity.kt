@@ -32,6 +32,7 @@ import io.vrinda.kotlinpermissions.PermissionsActivity
 import android.Manifest
 import android.annotation.SuppressLint
 import android.support.v4.app.ActivityCompat
+import com.squareup.picasso.Picasso
 
 class ProductDetailsActivity : AppCompatActivity() {
 
@@ -55,6 +56,12 @@ class ProductDetailsActivity : AppCompatActivity() {
     var boolean_gallery:Boolean=false
     var boolean_call:Boolean=false
     var boolean_contact:Boolean=false
+
+    val productSubImages : ArrayList<String> = intent.getStringArrayListExtra("productSubImages")
+    val productMainImage = intent.getStringExtra("productMainImage")
+
+
+
 
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
@@ -202,6 +209,51 @@ class ProductDetailsActivity : AppCompatActivity() {
             ServiceVolley().likeProductType(
                 productType.toString().toInt(),  Prefs.userId.toString().toInt() ,applicationContext)
         }
+
+
+
+
+
+
+
+
+        Picasso
+            .with(this) // give it the context
+            .load(productMainImage) // load the image
+            .into(productMainImageIMG)
+
+
+
+        for (i in 0 until productSubImages.size){
+            when (i) {
+                0 -> Picasso
+                    .with(this) // give it the context
+                    .load(productSubImages[i]) // load the image
+                    .into(subImage1)
+                1 -> Picasso
+                    .with(this) // give it the context
+                    .load(productSubImages[i]) // load the image
+                    .into(subImage2)
+                2 -> Picasso
+                    .with(this) // give it the context
+                    .load(productSubImages[i]) // load the image
+                    .into(subImage3)
+                3 -> Picasso
+                    .with(this) // give it the context
+                    .load(productSubImages[i]) // load the image
+                    .into(subImage4)
+                4 -> Picasso
+                    .with(this) // give it the context
+                    .load(productSubImages[i]) // load the image
+                    .into(subImage5)
+            } // end when
+
+        } // end for
+
+
+
+
+
 
 
 

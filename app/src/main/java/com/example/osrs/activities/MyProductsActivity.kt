@@ -91,7 +91,7 @@ if(userTypeId.equals("2") && !userId.equals(" ")){
         var carModle : ArrayList<String> = arrayListOf()
 
 
-     var imageId : ArrayList<Int> = arrayListOf()
+     var imageId : ArrayList<String> = arrayListOf()
         var mileAge:ArrayList<Double> = arrayListOf()
 
         var trans: ArrayList<String> = arrayListOf()
@@ -102,6 +102,7 @@ if(userTypeId.equals("2") && !userId.equals(" ")){
     val adapterType:ArrayList<String> = arrayListOf()
     val vendors:ArrayList<JSONObject> = arrayListOf()
     var productTypes:ArrayList<Int> = arrayListOf()
+    var subProductImages  :ArrayList<String> = arrayListOf()
 
 
 
@@ -118,7 +119,8 @@ if(userTypeId.equals("2") && !userId.equals(" ")){
             offerStatus,
             adapterType,
             vendors,
-        productTypes
+        productTypes,
+        subProductImages
         )
 
 
@@ -132,6 +134,8 @@ if(userTypeId.equals("2") && !userId.equals(" ")){
 
                     for (i in 0 until  response.length() ){
                         val jsonObject = response.getJSONObject(i)
+                        val jsonArray: JSONArray = jsonObject.getJSONArray("images")
+
                         if (jsonObject.has("id")){
                             carIds.add(i,jsonObject["id"].toString().toInt())
                             carBrand.add(i,jsonObject["brand_name"].toString())
@@ -140,10 +144,16 @@ if(userTypeId.equals("2") && !userId.equals(" ")){
                             trans.add(i,jsonObject["type_of_transmission"].toString())
                             carPrice.add(i,jsonObject["price"].toString().toDouble())
                             adapterType.add("products")
-                            imageId.add(i,R.drawable.maserati)
+                            imageId.add(i,jsonObject["image"].toString())
                             offerStatus.add(i,"")
                             vendors.add(i,jsonObject.getJSONObject("vendor"))
                             productTypes.add(i,jsonObject["product_type_id"].toString().toInt())
+
+                            for(j in 0 until jsonArray.length()){
+                                val jsonInner: JSONObject = jsonArray.getJSONObject(i)
+                                subProductImages.add(i,jsonInner["image"].toString())
+                            } // end for
+
 
 
                         } // end if
@@ -162,7 +172,8 @@ if(userTypeId.equals("2") && !userId.equals(" ")){
                         offerStatus,
                         adapterType,
                         vendors,
-                        productTypes
+                        productTypes,
+                        subProductImages
                     )
                     productsLV.adapter = myListAdapter
 

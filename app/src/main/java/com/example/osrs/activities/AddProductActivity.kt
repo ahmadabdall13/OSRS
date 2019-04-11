@@ -73,55 +73,52 @@ class AddProductActivity : AppCompatActivity() {
 
 
         addProductBtn.setOnClickListener {
-            var CarInfo = hashMapOf<String, Any>()
 
             if (fieldsValidation() == true) {
                 ServiceVolley().addProduct(
+                    mainImageURL,subImagesArrayList,
                     carBrandEt.text.toString(), carModelEt.text.toString()
                     , yearOfMakeEt.text.toString(), engineCylindersSpinner.selectedItem.toString(),
                     transmissionSpinner.selectedItem.toString(), carPrice.text.toString().toDouble(),
                     carMileage.text.toString().toDouble(), extColor.text.toString(), intColor.text.toString(),
                     productDescriptionEt.text.toString(),
-                    productTypeSp.selectedItemId, Prefs.userId.toInt(), this
-                )
+                    productTypeSp.selectedItemId, Prefs.userId.toInt(), this)
             } else {
                 Toast.makeText(
                     this, " Fill the fields please ", Toast.LENGTH_LONG
                 ).show()
             }
 
-//            if (filePath != null) {
-//                val progressDialog = ProgressDialog(this)
-//                progressDialog.setTitle("Uploading Bitch , Wait")
-//                progressDialog.show()
-//
-//
-//                if (tag == 12) {
-//
-//                    val imageRef = storageReference!!.child("images/" + UUID.randomUUID().toString())
-//                    imageRef.putFile(filePath!!)
-//                        .addOnSuccessListener {
-//                            val result = it.metadata!!.reference!!.downloadUrl
-//                            result.addOnSuccessListener {
-//
-//                                mainImageURL = it.toString()
-//
-//
-//                            } // end result.addOnSuccessListener
-//
-//                        } // end imageRef.putFile(filePath!!).addOnSuccessListener
-//
-//                        .addOnFailureListener { }
-//                } // end first inner if
-//
-////             if (tag==13) {
-////                } // end second inner if
-//            } // end if
+            if(filePath != null){
+                val progressDialog = ProgressDialog(this)
+                progressDialog.setTitle("Uploading Bitch , Wait")
+                progressDialog.show()
+
+
+                if (tag==12) {
+
+                    val imageRef = storageReference!!.child("images/" + UUID.randomUUID().toString())
+                    imageRef.putFile(filePath!!)
+                        .addOnSuccessListener {
+                            val result = it.metadata!!.reference!!.downloadUrl
+                            result.addOnSuccessListener {
+
+                                mainImageURL = it.toString()
+
+                            } // end result.addOnSuccessListener
+
+                        } // end imageRef.putFile(filePath!!).addOnSuccessListener
+
+                        .addOnFailureListener {  }
+                } // end first inner if
+
+            } // end if
+
         }
 
 
 
-        addProductMainImageBtn.setOnClickListener {
+        mainProductPhotoIMG.setOnClickListener {
             tag=12
             showPictureDialog()
         } // end addProductMainImageBtn.setOnClickListener
@@ -144,8 +141,6 @@ class AddProductActivity : AppCompatActivity() {
     } // end onSupportNavigateUp
 
     private fun fieldsValidation():Boolean{
-
-
 
 
         if(carBrandEt.text.toString()==""){
@@ -187,6 +182,11 @@ class AddProductActivity : AppCompatActivity() {
         return true
     } // end checkNull
 
+
+
+
+
+
     @RequiresApi(Build.VERSION_CODES.N)
     private fun showPictureDialog() {
         val pictureDialog = AlertDialog.Builder(this)
@@ -202,10 +202,11 @@ class AddProductActivity : AppCompatActivity() {
         pictureDialog.show()
     } // end showPictureDialog
 
+
+
+
     @RequiresApi(Build.VERSION_CODES.N)
     private fun takePhotoFromCamera() {
-
-
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val file: File = createImageFile()
 
@@ -249,6 +250,8 @@ class AddProductActivity : AppCompatActivity() {
         } // end apply
 
     } // end createImageFile
+
+
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -299,11 +302,11 @@ class AddProductActivity : AppCompatActivity() {
                 try {
                     val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
                     when {
-                        subImagesArrayList.size == 0 -> subImage1.setImageBitmap(bitmap)
-                        subImagesArrayList.size == 1 -> subImage2.setImageBitmap(bitmap)
-                        subImagesArrayList.size == 2 -> subImage3.setImageBitmap(bitmap)
-                        subImagesArrayList.size == 3 -> subImage4.setImageBitmap(bitmap)
-                        subImagesArrayList.size == 4 -> {subImage5.setImageBitmap(bitmap)
+                        subImagesArrayList.size == 0 -> addProductSubImage1.setImageBitmap(bitmap)
+                        subImagesArrayList.size == 1 -> addProductSubImage2.setImageBitmap(bitmap)
+                        subImagesArrayList.size == 2 -> addProductSubImage3.setImageBitmap(bitmap)
+                        subImagesArrayList.size == 3 -> addProductSubImage4.setImageBitmap(bitmap)
+                        subImagesArrayList.size == 4 -> {addProductSubImage5.setImageBitmap(bitmap)
                             addProductSubImageBtn.visibility= View.INVISIBLE}
                     } // end when
 
@@ -333,11 +336,11 @@ class AddProductActivity : AppCompatActivity() {
 
                 val bitmap: Bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath)
                 when {
-                    subImagesArrayList.size == 0 -> subImage1.setImageBitmap(bitmap)
-                    subImagesArrayList.size == 1 -> subImage2.setImageBitmap(bitmap)
-                    subImagesArrayList.size == 2 -> subImage3.setImageBitmap(bitmap)
-                    subImagesArrayList.size == 3 -> subImage4.setImageBitmap(bitmap)
-                    subImagesArrayList.size == 4 -> {subImage5.setImageBitmap(bitmap)
+                    subImagesArrayList.size == 0 -> addProductSubImage1.setImageBitmap(bitmap)
+                    subImagesArrayList.size == 1 -> addProductSubImage2.setImageBitmap(bitmap)
+                    subImagesArrayList.size == 2 -> addProductSubImage3.setImageBitmap(bitmap)
+                    subImagesArrayList.size == 3 -> addProductSubImage4.setImageBitmap(bitmap)
+                    subImagesArrayList.size == 4 -> {addProductSubImage5.setImageBitmap(bitmap)
                         addProductSubImageBtn.visibility= View.INVISIBLE}
 
                 } // end when
@@ -366,6 +369,20 @@ class AddProductActivity : AppCompatActivity() {
         private const val REQUEST_TAKE_PHOTO = 1
         private const val REQUEST_SELECT_IMAGE_IN_ALBUM = 0
     }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun changeMainProductImage(v:View ){
+        tag=12
+        showPictureDialog()
+    } // end changeMainProductImage
+
+
+
+
+
+
+
+
 
 
 

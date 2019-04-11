@@ -24,11 +24,13 @@ class ProductsCustomListAdapter(
     private val mileageTextA: ArrayList<Double>,
     private val transmissionTextA: ArrayList<String>,
     private val carPriceTextA: ArrayList<Double>,
-    private val imgid: ArrayList<Int>,
+    private val imgid: ArrayList<String>,
     private val offerStatusTextA: ArrayList<String>,
     private val adapterType: ArrayList<String>,
     private val vendors: ArrayList<JSONObject>,
-    private val productTypes: ArrayList<Int>
+    private val productTypes: ArrayList<Int>,
+    private val subImages :ArrayList<String>
+
 
 
 
@@ -58,7 +60,14 @@ class ProductsCustomListAdapter(
         carPriceText.text = carPriceTextA[position].toString() + " " + "JOD"
         offerStatusText.text = offerStatusTextA[position]
 
-        imageView.setImageResource(imgid[position])
+//        imageView.setImageResource(imgid[position])
+        Picasso
+            .with(getApplicationContext()) // give it the context
+            .load(imgid[position]) // load the image
+            .into(imageView)
+
+
+
         imageView.setOnClickListener {
             context.applicationContext.startActivity(
                 Intent(
@@ -75,6 +84,9 @@ class ProductsCustomListAdapter(
                     .putExtra("status", offerStatusTextA[position])
                     .putExtra("vendor", vendors[position].toString())
                     .putExtra("productType", productTypes[position].toString())
+                    .putExtra("productMainImage", imgid[position])
+                    .putExtra("productSubImages", subImages)
+
             )
         }
         return rowView

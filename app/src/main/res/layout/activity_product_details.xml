@@ -30,14 +30,15 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/profile_image"
+            android:id="@+id/productMainImageIMG"
             android:layout_width="100dp"
             android:layout_margin="20dp"
             android:layout_height="110dp"
             android:src="@drawable/audi"
             app:civ_border_width="2dp"
             app:civ_border_color="#FF000000"/>
-    
+
+
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -100,6 +101,7 @@
 
 
 
+
         <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -109,8 +111,8 @@
                 android:paddingRight="0dp"
                 android:paddingTop="0dp"
                 android:paddingBottom="0dp"
-
-        >
+                android:layout_below="@+id/proLinear"
+                android:layout_above="@+id/list_reviews">
 
             <GridLayout android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -164,6 +166,9 @@
 
             </GridLayout>
         </HorizontalScrollView>
+
+
+
 
 
 
