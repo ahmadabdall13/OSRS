@@ -16,7 +16,7 @@ interface ServiceInterface {
 
     fun loginFacebook(socialId:String,context: Context)
 
-    fun addProduct(productMainImage :String , subImages:MutableList<String>,brandName:String,modelName:String,yearOfMake:String,
+    fun addProduct(productMainImage :String , subImages:java.util.HashMap<String, String>,brandName:String,modelName:String,yearOfMake:String,
                    typeOfEngine:String,typeOfTransmission:String,price:Double,mileage:Double,externalColor:String,
                    internalColor:String, description:String,
                    productTypeId:Long, vendorId:Int,

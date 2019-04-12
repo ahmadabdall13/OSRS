@@ -16,22 +16,22 @@ class Prefs(context: Context){
     }
     private val preferences = PreferenceManager.getDefaultSharedPreferences(context)
 
-    var userId = preferences.getString(USER_ID, "")
+    var userId = preferences.getString(USER_ID, "null")
         set(value) = preferences.edit().putString(USER_ID,value).apply()
 
-    var firstName = preferences.getString(FIRST_NAME, "")
+    var firstName = preferences.getString(FIRST_NAME, "null")
         set(value) = preferences.edit().putString(FIRST_NAME,value).apply()
 
 
 
-    var lastName = preferences.getString(LAST_NAME, "")
+    var lastName = preferences.getString(LAST_NAME, "null")
         set(value) = preferences.edit().putString(LAST_NAME,value).apply()
 
 
-    var userTypeId = preferences.getString(USER_TYPE_ID, "")
+    var userTypeId = preferences.getString(USER_TYPE_ID, "null")
         set(value) = preferences.edit().putString(USER_TYPE_ID,value).apply()
 
-    var userImage = preferences.getString(USER_IMAGE, "")
+    var userImage = preferences.getString(USER_IMAGE, "R.drawable.tesla")
         set(value) = preferences.edit().putString(USER_IMAGE,value).apply()
 
 }

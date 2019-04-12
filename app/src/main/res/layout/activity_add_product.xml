@@ -44,7 +44,6 @@
                    android:id="@+id/mainProductPhotoIMG"
                    android:layout_height="100dp"
                    android:layout_marginTop="15dp"
-                   android:onClick="changeMainProductImage"
                    android:layout_gravity="center"
                    android:contentDescription="@string/todo"/>
 
@@ -71,9 +70,9 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:hint="@string/car_prompt"
-                        android:autofillHints="no"
+                        android:autofillHints="yes"
                         tools:ignore="UnusedAttribute"
-                        android:inputType="date"/>
+                        android:inputType="textShortMessage"/>
             </android.support.design.widget.TextInputLayout>
 
             <!--<Spinner-->
@@ -100,9 +99,9 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:hint="@string/model_prompt"
-                        android:autofillHints="no"
+                        android:autofillHints="yes"
                         tools:ignore="UnusedAttribute"
-                        android:inputType="date"/>
+                        android:inputType="textShortMessage"/>
             </android.support.design.widget.TextInputLayout>
 
             <!--<Spinner-->

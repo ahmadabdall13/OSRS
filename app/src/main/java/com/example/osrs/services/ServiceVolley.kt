@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.res.Resources
 import android.os.Build
 import android.support.annotation.RequiresApi
+import android.util.Log
 import android.widget.ListView
 import android.widget.Toast
 import com.android.volley.AuthFailureError
@@ -124,14 +125,14 @@ class ServiceVolley : ServiceInterface {
                     context.startActivity(intent)
                 }
                 else{
-                    Toast.makeText(context,"Please Sign The Fuck Up", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context,"Something Went Wrong You're Not Registered", Toast.LENGTH_LONG).show()
                 }
 
 
             },
             Response.ErrorListener { error ->
                 VolleyLog.e(TAG, "/post request fail! Error: ${error.message}")
-                Toast.makeText(context, "Error : Sing The Fuck Up ${error.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Error : Registration Failed ${error.message}", Toast.LENGTH_LONG).show()
 
 
             }) {
@@ -174,11 +175,8 @@ class ServiceVolley : ServiceInterface {
 
                     val intent = Intent(context, SignUpActivity::class.java)
                     intent.putExtra("social_id", socialId)
-
                     context.startActivity(intent)
-
                 }
-
             },
             Response.ErrorListener { error ->
                 VolleyLog.e(TAG, "/post request fail! Error: ${error.message}")
@@ -202,13 +200,13 @@ class ServiceVolley : ServiceInterface {
 
 
     override fun addProduct(
-        productMainImage :String , subImages:MutableList<String>,brandName:String,modelName:String,yearOfMake:String,
-        typeOfEngine:String,typeOfTransmission:String,price:Double,mileage:Double,externalColor:String,
+        productMainImage :String, subImages: java.util.HashMap<String, String>, brandName:String, modelName:String, yearOfMake:String,
+        typeOfEngine:String, typeOfTransmission:String, price:Double, mileage:Double, externalColor:String,
         internalColor:String, description:String,
         productTypeId:Long, vendorId:Int,
         context: Context
     ) {
-        val subImagesArrayList :MutableList<String> = subImages
+        val subImagesArrayList : java.util.HashMap<String, String> = subImages
         val productOj = JSONObject()
         productOj.put("brand_name", brandName)
         productOj.put("model_name", modelName)
@@ -223,8 +221,12 @@ class ServiceVolley : ServiceInterface {
         productOj.put("vendor_id", vendorId)
         productOj.put("type_of_transmission", typeOfTransmission)
         productOj.put("image", productMainImage)
-        productOj.put("images", JSONArray(subImagesArrayList))
+//        productOj.put("images", subImagesArrayList.values)
 
+        Toast.makeText(
+            context, ""+ JSONArray(subImagesArrayList.values)
+            , Toast.LENGTH_LONG
+        ).show()
 
 
         val jsonObjReq = object : JsonObjectRequest(
@@ -232,15 +234,14 @@ class ServiceVolley : ServiceInterface {
             Response.Listener<JSONObject> { response ->
 
                 Toast.makeText(
-                    context, ", Welcome $response "
+                    context, "Product Added Successfully "
                     , Toast.LENGTH_LONG
                 ).show()
             },
             Response.ErrorListener { error ->
                 VolleyLog.e(TAG, "/post request fail! Error: ${error.message}")
-                Toast.makeText(context, "Error : Sing The Fuck Up ${error.message}", Toast.LENGTH_LONG).show()
-
-
+                Toast.makeText(context, "Error While Adding Product ${error.message}", Toast.LENGTH_LONG).show()
+                Log.e(TAG,error.message)
             }) {
             @Throws(AuthFailureError::class)
             override fun getHeaders(): Map<String, String> {
@@ -252,13 +253,6 @@ class ServiceVolley : ServiceInterface {
 
         BackendVolley.instance?.addToRequestQueue(jsonObjReq, TAG)
     } // end singUp
-
-
-
-
-
-
-
 
 
 

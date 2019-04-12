@@ -14,7 +14,6 @@ import com.example.osrs.R
 import com.example.osrs.services.BackendVolley
 import com.example.osrs.services.ServiceVolley
 import kotlinx.android.synthetic.main.activity_my_products.*
-import kotlinx.android.synthetic.main.activity_pre_login.*
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -30,7 +29,7 @@ class MyProductsActivity : AppCompatActivity() {
         getMyProducts(this)
 
 
-        var mToolbar: Toolbar = findViewById(R.id.too)
+        val mToolbar: Toolbar = findViewById(R.id.too)
         setSupportActionBar(mToolbar)
         //actionbar
         val actionbar = supportActionBar
@@ -50,28 +49,6 @@ class MyProductsActivity : AppCompatActivity() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     fun getMyProducts(context: Context) {
 
 
@@ -80,79 +57,82 @@ class MyProductsActivity : AppCompatActivity() {
         val userId = Prefs.userId
         val userTypeId = Prefs.userTypeId
 
-if(userTypeId.equals("2") && !userId.equals(" ")){
-
-        val basePath = "http://18.219.85.157/"
-        val getAllProductsBasePath = "http://18.219.85.157/users/${userId}/products"
-        val TAG = ServiceVolley::class.java.simpleName
-
-        var carIds : ArrayList<Int> = arrayListOf()
-        var carBrand : ArrayList<String> = arrayListOf()
-        var carModle : ArrayList<String> = arrayListOf()
+        if(userTypeId == "2" && userId != " "){
 
 
-     var imageId : ArrayList<String> = arrayListOf()
-        var mileAge:ArrayList<Double> = arrayListOf()
+            val basePath = "http://18.219.85.157/"
+            val getAllProductsBasePath = "http://18.219.85.157/users/${userId}/products"
+            val TAG = ServiceVolley::class.java.simpleName
 
-        var trans: ArrayList<String> = arrayListOf()
-
-        var carPrice:ArrayList<Double> = arrayListOf()
-
-        val offerStatus:ArrayList<String> = arrayListOf()
-    val adapterType:ArrayList<String> = arrayListOf()
-    val vendors:ArrayList<JSONObject> = arrayListOf()
-    var productTypes:ArrayList<Int> = arrayListOf()
-    var subProductImages  :ArrayList<String> = arrayListOf()
+            val carIds : ArrayList<Int> = arrayListOf()
+            val carBrand : ArrayList<String> = arrayListOf()
+            val carModle : ArrayList<String> = arrayListOf()
 
 
 
+            val mileAge:ArrayList<Double> = arrayListOf()
+            val trans: ArrayList<String> = arrayListOf()
+            val carPrice:ArrayList<Double> = arrayListOf()
+            val offerStatus:ArrayList<String> = arrayListOf()
+            val adapterType:ArrayList<String> = arrayListOf()
+            val vendors:ArrayList<JSONObject> = arrayListOf()
+            val productTypes:ArrayList<Int> = arrayListOf()
 
-    var myListAdapter : ProductsCustomListAdapter=ProductsCustomListAdapter(
-            context,
-            carBrand,
-            carIds,
-            carModle,
-            mileAge,
-            trans,
-            carPrice,
-            imageId,
-            offerStatus,
-            adapterType,
-            vendors,
-        productTypes,
-        subProductImages
-        )
+            val mainProductImage : ArrayList<String> = arrayListOf()
+            val subProductImages  :ArrayList<String> = arrayListOf()
 
 
-        val jsonObjReq =
-            object : JsonArrayRequest(
-                Request.Method.GET,
-                getAllProductsBasePath,
-                null,
-                Response.Listener<JSONArray> { response ->
 
 
-                    for (i in 0 until  response.length() ){
-                        val jsonObject = response.getJSONObject(i)
-                        val jsonArray: JSONArray = jsonObject.getJSONArray("images")
+        var myListAdapter =ProductsCustomListAdapter(
+                context,
+                carBrand,
+                carIds,
+                carModle,
+                mileAge,
+                trans,
+                carPrice,
+                mainProductImage,
+                offerStatus,
+                adapterType,
+                vendors,
+            productTypes,
+            subProductImages
+            )
 
-                        if (jsonObject.has("id")){
-                            carIds.add(i,jsonObject["id"].toString().toInt())
-                            carBrand.add(i,jsonObject["brand_name"].toString())
-                            carModle.add(i,jsonObject["model_name"].toString())
-                            mileAge.add(i,jsonObject["mileage"].toString().toDouble())
-                            trans.add(i,jsonObject["type_of_transmission"].toString())
-                            carPrice.add(i,jsonObject["price"].toString().toDouble())
-                            adapterType.add("products")
-                            imageId.add(i,jsonObject["image"].toString())
-                            offerStatus.add(i,"")
-                            vendors.add(i,jsonObject.getJSONObject("vendor"))
-                            productTypes.add(i,jsonObject["product_type_id"].toString().toInt())
 
-                            for(j in 0 until jsonArray.length()){
-                                val jsonInner: JSONObject = jsonArray.getJSONObject(i)
-                                subProductImages.add(i,jsonInner["image"].toString())
-                            } // end for
+            val jsonObjReq =
+                object : JsonArrayRequest(
+                    Request.Method.GET,
+                    getAllProductsBasePath,
+                    null,
+                    Response.Listener<JSONArray> { response ->
+
+
+                        for (i in 0 until  response.length() ){
+                            val jsonObject = response.getJSONObject(i)
+                            val jsonArray: JSONArray = jsonObject.getJSONArray("images")
+
+                            if (jsonObject.has("id")){
+                                carIds.add(i,jsonObject["id"].toString().toInt())
+                                carBrand.add(i,jsonObject["brand_name"].toString())
+                                carModle.add(i,jsonObject["model_name"].toString())
+                                mileAge.add(i,jsonObject["mileage"].toString().toDouble())
+                                trans.add(i,jsonObject["type_of_transmission"].toString())
+                                carPrice.add(i,jsonObject["price"].toString().toDouble())
+                                adapterType.add("products")
+
+                                offerStatus.add(i,"")
+                                vendors.add(i,jsonObject.getJSONObject("vendor"))
+                                productTypes.add(i,jsonObject["product_type_id"].toString().toInt())
+
+                                mainProductImage.add(i,if (jsonObject["image"] == null)  "null"
+                                else jsonObject["image"].toString())
+
+                                for(j in 0 until jsonArray.length()){
+                                    val jsonInner: JSONObject = jsonArray.getJSONObject(j)
+                                    subProductImages.add(i,jsonInner["image"].toString())
+                                } // end for
 
 
 
@@ -168,7 +148,7 @@ if(userTypeId.equals("2") && !userId.equals(" ")){
                         mileAge,
                         trans,
                         carPrice,
-                        imageId,
+                        mainProductImage,
                         offerStatus,
                         adapterType,
                         vendors,
@@ -178,7 +158,7 @@ if(userTypeId.equals("2") && !userId.equals(" ")){
                     productsLV.adapter = myListAdapter
 
                 },
-                Response.ErrorListener { error ->
+                Response.ErrorListener {
                 }) {
                 @Throws(AuthFailureError::class)
                 override fun getHeaders(): Map<String, String> {

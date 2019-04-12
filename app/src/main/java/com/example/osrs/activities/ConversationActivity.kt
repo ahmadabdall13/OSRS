@@ -73,14 +73,9 @@ class ConversationActivity : AppCompatActivity() {
 
             val TAG = ServiceVolley::class.java.simpleName
 
-            var myListAdapter : MsgsAdapter = MsgsAdapter(
-                context,
-                msgs,
-                userIds,
-                ids
-            )
+        var myListAdapter: MsgsAdapter
 
-            val jsonObjReq =
+        val jsonObjReq =
                 object : JsonArrayRequest(
                     Request.Method.GET,
                     getConversations,

@@ -25,6 +25,8 @@ import android.os.Environment
 import android.support.annotation.RequiresApi
 import android.support.v4.content.FileProvider
 import android.support.v7.app.AlertDialog
+import android.view.View
+import com.example.osrs.Prefs
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.storage.FileDownloadTask
 import com.squareup.picasso.Picasso
@@ -50,7 +52,7 @@ class SignUpActivity : AppCompatActivity() {
         val intent: Intent = intent
         val socialId = intent.getStringExtra("social_id")
 
-
+        val Prefs = Prefs(this)
 
         setSupportActionBar(sp_toolbar)
         val actionBar = supportActionBar
@@ -66,9 +68,9 @@ class SignUpActivity : AppCompatActivity() {
         storageReference=storage!!.reference
 
 
-//        chooseProfilePictureBTN.setOnClickListener {
-//            showPictureDialog()
-//        } // end chooseProfilePictureBTN.setOnClickListener
+        profilePictureIMG.setOnClickListener {
+            showPictureDialog()
+        } // end chooseProfilePictureBTN.setOnClickListener
 
         signUpBTN.setOnClickListener {
 
@@ -86,10 +88,33 @@ class SignUpActivity : AppCompatActivity() {
                 progressDialog.show()
                 val imageRef = storageReference!!.child("images/"+ UUID.randomUUID().toString() )
                 imageRef.putFile(filePath!!)
-                    .addOnSuccessListener {
-                        val result = it.metadata!!.reference!!.downloadUrl
+                    .addOnSuccessListener { itBigger ->
+                        val result = itBigger.metadata!!.reference!!.downloadUrl
+//                            imageLink = result.toString()
+//                            Prefs.userImage = imageLink
                         result.addOnSuccessListener {
                             imageLink = it.toString()
+                            Prefs.userImage = imageLink
+
+                            if (!checkNull()){
+                                Toast.makeText(applicationContext,"please try again ! "
+                                    , Toast.LENGTH_LONG).show()
+                            } // end if
+                            else {
+                                ServiceVolley().singUp(
+                                    imageLink,
+                                    signUpEmailAddressET.text.toString(),
+                                    signUpPasswordET.text.toString()
+                                    , firstNameET.text.toString(),
+                                    lastNameET.text.toString(),
+                                    mobileNumberET.text.toString(),
+                                    userTypeID,
+                                    socialId,
+                                    this
+                                )
+                            } // end else
+
+
                         } // end result.addOnSuccessListener
                         progressDialog.dismiss()
                     } // end imageRef.putFile(filePath!!).addOnSuccessListener
@@ -97,23 +122,6 @@ class SignUpActivity : AppCompatActivity() {
 
             } // end if
 
-            if (!checkNull()){
-                Toast.makeText(applicationContext,"please try again ! "
-                    , Toast.LENGTH_LONG).show()
-            } // end if
-            else {
-                ServiceVolley().singUp(
-                    imageLink,
-                    signUpEmailAddressET.text.toString(),
-                    signUpPasswordET.text.toString()
-                    , firstNameET.text.toString(),
-                    lastNameET.text.toString(),
-                    mobileNumberET.text.toString(),
-                    userTypeID,
-                    socialId,
-                    this
-                )
-            } // end else
 
 
         } // end signUpBTN.setOnClickListener
@@ -248,14 +256,6 @@ class SignUpActivity : AppCompatActivity() {
         }
         return true
     } // end checkNull
-
-
-
-    @RequiresApi(Build.VERSION_CODES.N)
-    fun changeProfileImage (v : View){
-        showPictureDialog()
-    } // end changeProfileImage
-
 
     companion object {
     private const val REQUEST_TAKE_PHOTO = 1

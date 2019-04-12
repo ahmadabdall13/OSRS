@@ -11,24 +11,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.support.annotation.RequiresApi
-import android.support.v7.widget.Toolbar
 import android.transition.Slide
 import android.view.View
 import android.widget.*
 import com.example.osrs.Prefs
 import com.example.osrs.services.ServiceVolley
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_pre_login.*
-import kotlinx.android.synthetic.main.activity_product_details.view.*
 import org.json.JSONObject
 import android.net.Uri
 import android.content.pm.PackageManager
 import android.support.v4.content.ContextCompat
-import android.util.Log
-import android.provider.ContactsContract
-import android.provider.MediaStore
-import io.vrinda.kotlinpermissions.PermissionCallBack
-import io.vrinda.kotlinpermissions.PermissionsActivity
 import android.Manifest
 import android.annotation.SuppressLint
 import android.support.v4.app.ActivityCompat
@@ -36,61 +27,43 @@ import com.squareup.picasso.Picasso
 
 class ProductDetailsActivity : AppCompatActivity() {
 
-//    .putExtra("id",carIds[position])
-//    .putExtra("brand",carBrandTextA[position])
-//    .putExtra("model",carModelTextA[position])
-//    .putExtra("mileage",mileageTextA[position])
-//    .putExtra("transmission",transmissionTextA[position])
-//    .putExtra("price",carPriceTextA[position])
-//    .putExtra("status",offerStatusTextA[position])
 
-
-//    private var id = 0;
-
-    var mobileNumber : Any? = null
-    var CAMERAMODE:Int=1
-    var GALLERYMODE:Int=2
-    var CALLMODE:Int=3
-    var CONATACTMODE:Int=4
-    var boolean_camera:Boolean=false
-    var boolean_gallery:Boolean=false
-    var boolean_call:Boolean=false
-    var boolean_contact:Boolean=false
-
-    val productSubImages : ArrayList<String> = intent.getStringArrayListExtra("productSubImages")
-    val productMainImage = intent.getStringExtra("productMainImage")
+    private var mobileNumber : Any? = null
 
 
 
 
+// handle image in popup
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
-    @SuppressLint("InflateParams")
+    @SuppressLint("InflateParams", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_details)
 
         val Prefs = Prefs(this)
-        var Intent1: Intent
-        Intent1= getIntent()
-        val productId = Intent1.getStringExtra("id")
-        val adapterType = Intent1.getStringExtra("adapterType")
-        val brand = Intent1.getStringExtra("brand")
-        val model = Intent1.getStringExtra("model")
-        val mileage = Intent1.getStringExtra("mileage")+" "+"mile"
-        val transmission = Intent1.getStringExtra("transmission")
-        val price = Intent1.getStringExtra("price")+" "+"JOD"
-        val status = Intent1.getStringExtra("status")
-        val productType=Intent1.getStringExtra("productType").toString()
 
-        val vendor = Intent1.getStringExtra("vendor")
+        val productSubImages : ArrayList<String> = intent.getStringArrayListExtra("productSubImages")
+        val productMainImage = intent.getStringExtra("productMainImage")!!
+
+        val productId = intent.getStringExtra("id")
+        val adapterType = intent.getStringExtra("adapterType")
+        val brand = intent.getStringExtra("brand")
+        val model = intent.getStringExtra("model")
+        val mileage = intent.getStringExtra("mileage")+" "+"mile"
+        val transmission = intent.getStringExtra("transmission")
+        val price = intent.getStringExtra("price")+" "+"JOD"
+        val status = intent.getStringExtra("status")
+        val productType=intent.getStringExtra("productType").toString()
+
+        val vendor = intent.getStringExtra("vendor")
         val json = JSONObject(vendor)
         val email_address= json["email_address"].toString()
         val first_name= json["first_name"].toString()
         val last_name= json["last_name"].toString()
         mobileNumber=json["mobile_number"].toString()
 
-        tv_vendor_name.text=first_name +" "+ last_name
+        tv_vendor_name.text= "$first_name $last_name"
         Toast.makeText(applicationContext,vendor,Toast.LENGTH_SHORT).show()
 
         tv_brand_details!!.text=brand
@@ -207,20 +180,22 @@ class ProductDetailsActivity : AppCompatActivity() {
 //            Toast.makeText(applicationContext,Prefs.userId.toString(),Toast.LENGTH_SHORT).show()
 //            Toast.makeText(applicationContext,productType,Toast.LENGTH_SHORT).show()
             ServiceVolley().likeProductType(
-                productType.toString().toInt(),  Prefs.userId.toString().toInt() ,applicationContext)
+                productType.toInt(),  Prefs.userId.toString().toInt() ,applicationContext)
         }
 
 
-
-
-
-
-
-
-        Picasso
-            .with(this) // give it the context
-            .load(productMainImage) // load the image
-            .into(productMainImageIMG)
+        if(productMainImage == "null" || productMainImage.isEmpty()){
+            Picasso
+                .with(this) // give it the context
+                .load(R.drawable.tesla) // load the image
+                .into(productMainImageIMG)
+        } // end if
+        else {
+            Picasso
+                .with(this) // give it the context
+                .load(productMainImage) // load the image
+                .into(productMainImageIMG)
+        }// end else
 
 
 
@@ -259,31 +234,31 @@ class ProductDetailsActivity : AppCompatActivity() {
 
     } // end onCreate
 
-   fun someOfValidations(){
+   private fun someOfValidations(){
 
        val Prefs = Prefs(this)
-       var Intent1: Intent
-       Intent1= getIntent()
+       val Intent1: Intent = intent
        val productId = Intent1.getStringExtra("id")
        val adapterType = Intent1.getStringExtra("adapterType")
 
-        if(Prefs.userTypeId.equals("1")){
-            btn_delete_product.visibility= View.INVISIBLE
-        }else if (Prefs.userTypeId.equals("2")){
-            btn_buy1.visibility= View.INVISIBLE
-            fav_tv.visibility=View.INVISIBLE
-            favourite_iv.visibility=View.INVISIBLE
+       when {
+           Prefs.userTypeId == "1" -> btn_delete_product.visibility= View.INVISIBLE
+           Prefs.userTypeId == "2" -> {
+               btn_buy1.visibility= View.INVISIBLE
+               fav_tv.visibility=View.INVISIBLE
+               favourite_iv.visibility=View.INVISIBLE
 
-        }
-        else{
-            btn_delete_product.visibility= View.INVISIBLE
-            btn_buy1.visibility= View.INVISIBLE
-            fav_tv.visibility=View.INVISIBLE
-            favourite_iv.visibility=View.INVISIBLE
+           }
+           else -> {
+               btn_delete_product.visibility= View.INVISIBLE
+               btn_buy1.visibility= View.INVISIBLE
+               fav_tv.visibility=View.INVISIBLE
+               favourite_iv.visibility=View.INVISIBLE
 
-        }
+           }
+       }
 
-        if(adapterType.equals("user_request_adapter")){
+        if(adapterType == "user_request_adapter"){
             btn_delete_product.visibility= View.INVISIBLE
             btn_buy1.visibility= View.INVISIBLE
         }
@@ -299,7 +274,7 @@ class ProductDetailsActivity : AppCompatActivity() {
 
 
 
-    fun checkPermission() {
+    private fun checkPermission() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CALL_PHONE)
             != PackageManager.PERMISSION_GRANTED) {
@@ -337,7 +312,7 @@ class ProductDetailsActivity : AppCompatActivity() {
             return
         }
     }
-    fun callPhone(){
+    private fun callPhone(){
         val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mobileNumber.toString()))
         startActivity(intent)
     }

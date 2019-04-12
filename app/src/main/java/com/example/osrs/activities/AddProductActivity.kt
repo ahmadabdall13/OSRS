@@ -41,8 +41,10 @@ class AddProductActivity : AppCompatActivity() {
     private var storageReference : StorageReference? = null
     private var mCurrentPhotoPath: String = ""
     private var tag = 0
-    private var subImagesArrayList :MutableList<String> = arrayListOf()
-    private var mainImageURL = ""
+    private var subImagesArrayList :HashMap<String, String> = HashMap<String, String>()
+
+    private var mainImageURL : String? = null
+
 
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -74,45 +76,55 @@ class AddProductActivity : AppCompatActivity() {
 
         addProductBtn.setOnClickListener {
 
-            if (fieldsValidation() == true) {
-                ServiceVolley().addProduct(
-                    mainImageURL,subImagesArrayList,
-                    carBrandEt.text.toString(), carModelEt.text.toString()
-                    , yearOfMakeEt.text.toString(), engineCylindersSpinner.selectedItem.toString(),
-                    transmissionSpinner.selectedItem.toString(), carPrice.text.toString().toDouble(),
-                    carMileage.text.toString().toDouble(), extColor.text.toString(), intColor.text.toString(),
-                    productDescriptionEt.text.toString(),
-                    productTypeSp.selectedItemId, Prefs.userId.toInt(), this)
-            } else {
-                Toast.makeText(
-                    this, " Fill the fields please ", Toast.LENGTH_LONG
-                ).show()
-            }
-
             if(filePath != null){
                 val progressDialog = ProgressDialog(this)
                 progressDialog.setTitle("Uploading Bitch , Wait")
                 progressDialog.show()
 
 
-                if (tag==12) {
+//                if (tag==12) {
 
                     val imageRef = storageReference!!.child("images/" + UUID.randomUUID().toString())
                     imageRef.putFile(filePath!!)
-                        .addOnSuccessListener {
-                            val result = it.metadata!!.reference!!.downloadUrl
+                        .addOnSuccessListener { itBigger ->
+                            val result = itBigger.metadata!!.reference!!.downloadUrl
                             result.addOnSuccessListener {
 
                                 mainImageURL = it.toString()
+//                                Toast.makeText(
+//                                    this,  "kod emk"+it, Toast.LENGTH_LONG
+//                                ).show()
+                                progressDialog.dismiss()
+
+                                if (fieldsValidation()) {
+                                    Toast.makeText(
+                                        this,  "kos o5t emk"+mainImageURL, Toast.LENGTH_LONG
+                                    ).show()
+                                    ServiceVolley().addProduct(
+                                        mainImageURL.toString(),subImagesArrayList,
+                                        carBrandEt.text.toString(), carModelEt.text.toString()
+                                        , yearOfMakeEt.text.toString(), engineCylindersSpinner.selectedItem.toString(),
+                                        transmissionSpinner.selectedItem.toString(), carPrice.text.toString().toDouble(),
+                                        carMileage.text.toString().toDouble(), extColor.text.toString(), intColor.text.toString(),
+                                        productDescriptionEt.text.toString(),
+                                        productTypeSp.selectedItemId, Prefs.userId.toInt(), this)
+                                } else {
+                                    Toast.makeText(
+                                        this, " Fill the fields please ", Toast.LENGTH_LONG
+                                    ).show()
+                                }
+
+
 
                             } // end result.addOnSuccessListener
 
                         } // end imageRef.putFile(filePath!!).addOnSuccessListener
 
                         .addOnFailureListener {  }
-                } // end first inner if
+//                } // end first inner if
 
             } // end if
+
 
         }
 
@@ -316,7 +328,7 @@ class AddProductActivity : AppCompatActivity() {
                             val result = it.metadata!!.reference!!.downloadUrl
                             result.addOnSuccessListener {
 
-                                subImagesArrayList.add(it.toString())
+                                subImagesArrayList.put("",it.toString())
 
                             } // end result.addOnSuccessListener
                         } // end imageRef.putFile(filePath!!).addOnSuccessListener
@@ -351,7 +363,7 @@ class AddProductActivity : AppCompatActivity() {
                         val result = it.metadata!!.reference!!.downloadUrl
                         result.addOnSuccessListener {
 
-                            subImagesArrayList.add(it.toString())
+                            subImagesArrayList.put("",it.toString())
 
 
                         } // end result.addOnSuccessListener
@@ -369,13 +381,6 @@ class AddProductActivity : AppCompatActivity() {
         private const val REQUEST_TAKE_PHOTO = 1
         private const val REQUEST_SELECT_IMAGE_IN_ALBUM = 0
     }
-
-    @RequiresApi(Build.VERSION_CODES.N)
-    fun changeMainProductImage(v:View ){
-        tag=12
-        showPictureDialog()
-    } // end changeMainProductImage
-
 
 
 

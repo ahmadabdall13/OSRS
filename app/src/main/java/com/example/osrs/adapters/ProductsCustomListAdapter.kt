@@ -12,7 +12,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.osrs.R
 import com.example.osrs.activities.ProductDetailsActivity
+import com.facebook.FacebookSdk
 import com.facebook.FacebookSdk.getApplicationContext
+import com.squareup.picasso.Picasso
 import org.json.JSONObject
 
 
@@ -24,7 +26,7 @@ class ProductsCustomListAdapter(
     private val mileageTextA: ArrayList<Double>,
     private val transmissionTextA: ArrayList<String>,
     private val carPriceTextA: ArrayList<Double>,
-    private val imgid: ArrayList<String>,
+    private val mainProductImage: ArrayList<String>,
     private val offerStatusTextA: ArrayList<String>,
     private val adapterType: ArrayList<String>,
     private val vendors: ArrayList<JSONObject>,
@@ -38,8 +40,9 @@ class ProductsCustomListAdapter(
 
 ) : ArrayAdapter<String>(context, R.layout.products_custom_list, carBrandTextA) {
 
-    @SuppressLint("ViewHolder", "InflateParams", "ServiceCast")
+    @SuppressLint("ViewHolder", "InflateParams", "ServiceCast", "SetTextI18n")
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
+
 
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val rowView = inflater.inflate(R.layout.products_custom_list, null, true)
@@ -60,13 +63,21 @@ class ProductsCustomListAdapter(
         carPriceText.text = carPriceTextA[position].toString() + " " + "JOD"
         offerStatusText.text = offerStatusTextA[position]
 
-//        imageView.setImageResource(imgid[position])
-        Picasso
-            .with(getApplicationContext()) // give it the context
-            .load(imgid[position]) // load the image
-            .into(imageView)
+//        imageView.setImageResource(mainProductImage[position])
+        FacebookSdk.sdkInitialize(getApplicationContext())
 
-
+        if(mainProductImage[position] == "null" || mainProductImage[position].isEmpty()){
+            Picasso
+                .with(getApplicationContext()) // give it the context
+                .load(R.drawable.tesla) // load the image
+                .into(imageView)
+        } // end if
+        else {
+            Picasso
+                .with(getApplicationContext()) // give it the context
+                .load(mainProductImage[position]) // load the image
+                .into(imageView)
+        }// end else
 
         imageView.setOnClickListener {
             context.applicationContext.startActivity(
@@ -84,7 +95,7 @@ class ProductsCustomListAdapter(
                     .putExtra("status", offerStatusTextA[position])
                     .putExtra("vendor", vendors[position].toString())
                     .putExtra("productType", productTypes[position].toString())
-                    .putExtra("productMainImage", imgid[position])
+                    .putExtra("productMainImage", mainProductImage[position])
                     .putExtra("productSubImages", subImages)
 
             )

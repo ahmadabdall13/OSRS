@@ -10,7 +10,6 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_pre_login.*
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import com.android.volley.AuthFailureError
 import com.android.volley.Request
 import com.android.volley.Response
@@ -23,15 +22,12 @@ import com.example.osrs.services.ServiceVolley
 import org.json.JSONArray
 import org.json.JSONObject
 
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.widget.EditText
 import com.android.volley.toolbox.JsonObjectRequest
-import java.util.stream.IntStream
+import com.facebook.FacebookSdk
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.navigation_header.*
 
 
 class PreLoginActivity : AppCompatActivity() {
@@ -39,12 +35,11 @@ class PreLoginActivity : AppCompatActivity() {
 
 
 
-//    var mywebview : WebView? = null
     var carIds : ArrayList<Int> = arrayListOf()
     var carBrand : ArrayList<String> = arrayListOf()
     var carModle : ArrayList<String> = arrayListOf()
 
-    var imageId:ArrayList<String> = arrayListOf()
+    var mainProductImage:ArrayList<String> = arrayListOf()
     var subProductImages  :ArrayList<String> = arrayListOf()
 
 
@@ -64,6 +59,9 @@ class PreLoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pre_login)
+
+        FacebookSdk.sdkInitialize(this)
+
 
         // Fetching All Products In The Database
         getAllProducts(this)
@@ -114,10 +112,10 @@ class PreLoginActivity : AppCompatActivity() {
         drawerToggle.syncState()
 
 
-        if(Prefs.userTypeId.equals("1")){
+        if(Prefs.userTypeId == "1"){
             navigation_view.menu.clear()
             navigation_view.inflateMenu(R.menu.customer_menu)
-        }else if (Prefs.userTypeId.equals("2")){
+        }else if (Prefs.userTypeId == "2"){
             navigation_view.menu.clear()
             navigation_view.inflateMenu(R.menu.vendor_menu)
         }
@@ -201,18 +199,20 @@ class PreLoginActivity : AppCompatActivity() {
         val ss =Prefs.userTypeId
 
         // Inflate the login_menu; this adds items to the action bar if it is present.
-        if(Prefs.userTypeId == ""){
+        if(Prefs.userTypeId == "null"){
             menuInflater.inflate(R.menu.login_menu,menu)
         }
 
         else{
+
+            // put the user's name and pic in drawer
             menuInflater.inflate(R.menu.signout_menu,menu)
             userNameInDrawerTV.text = Prefs.firstName
-            Picasso
-                .with(this) // give it the context
-                .load(Prefs.userImage) // load the image
-                .into(userImageInDrawerTV)
-
+//            Picasso
+//                .with(this) // give it the context
+//                .load(Prefs.userImage) // load the image
+//                .into(userImageInDrawerTV)
+//
         }
 
 
@@ -222,7 +222,7 @@ class PreLoginActivity : AppCompatActivity() {
             val searchView = searchItem.actionView as SearchView
             val editext = searchView.findViewById<EditText>(android.support.v7.appcompat.R.id.search_src_text)
             editext.hint = "Search here..."
-            var carBrandFiltered : ArrayList<String> = arrayListOf()
+            val carBrandFiltered : ArrayList<String> = arrayListOf()
 
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
                 override fun onQueryTextSubmit(query: String?): Boolean {
@@ -239,7 +239,7 @@ class PreLoginActivity : AppCompatActivity() {
                             }
                         }
 
-                        var myListAdapter = ProductsCustomListAdapter(
+                        val myListAdapter = ProductsCustomListAdapter(
                             applicationContext,
                             carBrandFiltered,
                             carIds,
@@ -247,7 +247,7 @@ class PreLoginActivity : AppCompatActivity() {
                             mileAge,
                             trans,
                             carPrice,
-                            imageId,
+                            mainProductImage,
                             offerStatus,
                             adapterType,
                             vendors,
@@ -256,11 +256,8 @@ class PreLoginActivity : AppCompatActivity() {
                         )
                         mainProductsLV.adapter = myListAdapter
 
-
-
-
                     }else{
-                        var myListAdapter = ProductsCustomListAdapter(
+                        val myListAdapter = ProductsCustomListAdapter(
                             applicationContext,
                             carBrand,
                             carIds,
@@ -268,7 +265,7 @@ class PreLoginActivity : AppCompatActivity() {
                             mileAge,
                             trans,
                             carPrice,
-                            imageId,
+                            mainProductImage,
                             offerStatus,
                             adapterType,
                             vendors,
@@ -284,24 +281,6 @@ class PreLoginActivity : AppCompatActivity() {
 
             })
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         return true
     } // end onCreateOptionsMenu
@@ -347,21 +326,7 @@ class PreLoginActivity : AppCompatActivity() {
             val getAllProductsBasePath = "http://18.219.85.157/products"
             val TAG = ServiceVolley::class.java.simpleName
 
-            var myListAdapter : ProductsCustomListAdapter=ProductsCustomListAdapter(
-                context,
-                carBrand,
-                carIds,
-                carModle,
-                mileAge,
-                trans,
-                carPrice,
-                imageId,
-                offerStatus,
-                adapterType,
-                vendors,
-                productTypes,
-                subProductImages
-            )
+            var myListAdapter: ProductsCustomListAdapter
 
 
             val jsonObjReq =
@@ -384,14 +349,17 @@ class PreLoginActivity : AppCompatActivity() {
                                 trans.add(i,jsonObject["type_of_transmission"].toString())
                                 carPrice.add(i,jsonObject["price"].toString().toDouble())
                                 adapterType.add("products")
-//                                imageId.add(i,R.drawable.tesla1)
+//                                mainProductImage.add(i,R.drawable.tesla1)
                                 offerStatus.add(i,"")
                                 vendors.add(i,vendor)
                                 productTypes.add(i,jsonObject["product_type_id"].toString().toInt())
-                                imageId.add(i,jsonObject["image"].toString())
+
+                                mainProductImage.add(i,if (jsonObject["image"] == null)  "null"
+                                else jsonObject["image"].toString())
+
 
                                 for(j in 0 until jsonArray.length()){
-                                    val jsonInner: JSONObject = jsonArray.getJSONObject(i)
+                                    val jsonInner: JSONObject = jsonArray.getJSONObject(j)
                                     subProductImages.add(i,jsonInner["image"].toString())
                                 } // end for
 
@@ -412,11 +380,12 @@ class PreLoginActivity : AppCompatActivity() {
                             mileAge,
                             trans,
                             carPrice,
-                            imageId,
+                            mainProductImage,
                             offerStatus,
                             adapterType,
                             vendors,
-                            productTypes
+                            productTypes,
+                            subProductImages
                         )
                         mainProductsLV.adapter = myListAdapter
 
@@ -451,7 +420,7 @@ class PreLoginActivity : AppCompatActivity() {
         val Prefs = Prefs(this)
         val userId = Prefs.userId
 
-        if(userId.toString().equals("2")){
+        if(userId.toString() == "2"){
 
             val basePath = "http://18.219.85.157/"
             val getAllProductsBasePath = "http://18.219.85.157/predictions"
@@ -498,19 +467,19 @@ class PreLoginActivity : AppCompatActivity() {
 
 
                     // set the item in the top of the stack
-                    var carBrand1 = carBrand.get(i)
-                    var carModle1 = carModle.get(i)
-                    var imageId1 = imageId.get(i)
-                    var mileAge1 = mileAge.get(i)
-                    var trans1 = trans.get(i)
-                    var carPrice1 = carPrice.get(i)
-                    var offerStatus1 = offerStatus.get(i)
-                    var adapterType1 = adapterType.get(i)
-                    var vendors1 = vendors.get(i)
-                    var productType1 = productTypes.get(i)
+                    val carBrand1 = carBrand.get(i)
+                    val carModle1 = carModle.get(i)
+                    val imageId1 = mainProductImage.get(i)
+                    val mileAge1 = mileAge.get(i)
+                    val trans1 = trans.get(i)
+                    val carPrice1 = carPrice.get(i)
+                    val offerStatus1 = offerStatus.get(i)
+                    val adapterType1 = adapterType.get(i)
+                    val vendors1 = vendors.get(i)
+                    val productType1 = productTypes.get(i)
                     carBrand.removeAt(i)
                     carModle.removeAt(i)
-                    imageId.removeAt(i)
+                    mainProductImage.removeAt(i)
                     mileAge.removeAt(i)
                     trans.removeAt(i)
                     carPrice.removeAt(i)
@@ -523,7 +492,7 @@ class PreLoginActivity : AppCompatActivity() {
 
                     carBrand.add(0, carBrand1)
                     carModle.add(0, carModle1)
-                    imageId.add(0, imageId1)
+                    mainProductImage.add(0, imageId1)
                     mileAge.add(0, mileAge1)
                     trans.add(0, trans1)
                     carPrice.add(0, carPrice1)
@@ -534,9 +503,7 @@ class PreLoginActivity : AppCompatActivity() {
                     productTypes.add(0, productType1)
 
 
-
-
-                    var myListAdapter : ProductsCustomListAdapter=ProductsCustomListAdapter(
+                    val myListAdapter: ProductsCustomListAdapter = ProductsCustomListAdapter(
                         context,
                         carBrand,
                         carIds,
@@ -544,27 +511,14 @@ class PreLoginActivity : AppCompatActivity() {
                         mileAge,
                         trans,
                         carPrice,
-                        imageId,
+                        mainProductImage,
                         offerStatus,
                         adapterType,
                         vendors,
-                        productTypes
+                        productTypes,
+                        subProductImages
                     )
 
-                    myListAdapter = ProductsCustomListAdapter(
-                        context,
-                        carBrand,
-                        carIds,
-                        carModle,
-                        mileAge,
-                        trans,
-                        carPrice,
-                        imageId,
-                        offerStatus,
-                        adapterType,
-                        vendors,
-                        productTypes
-                    )
                     mainProductsLV.adapter = myListAdapter
 
 
@@ -578,13 +532,3 @@ class PreLoginActivity : AppCompatActivity() {
 
 
      }
-
-
-
-
-
-
-
-
-
-

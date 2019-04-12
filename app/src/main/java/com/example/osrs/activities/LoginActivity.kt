@@ -47,9 +47,9 @@ class LoginActivity : AppCompatActivity() {
                 object : FacebookCallback<LoginResult> {
                     override fun onSuccess(loginResult: LoginResult) {
 
-                        Log.d("Batool BITCH", "Facebook token: " + loginResult.accessToken.token)
-                        Log.d("Batool FUCK HER PUSSY", "Facebook userId: " + loginResult.accessToken.userId)
-                        ServiceVolley().loginFacebook(loginResult.accessToken.userId , applicationContext)
+                        Log.d("BITCH", "Facebook token: " + loginResult.accessToken.token)
+                        Log.d("FUCK HER PUSSY", "Facebook userId: " + loginResult.accessToken.userId)
+                        //ServiceVolley().loginFacebook(loginResult.accessToken.userId , applicationContext)
                     }
 
                     override fun onCancel() {

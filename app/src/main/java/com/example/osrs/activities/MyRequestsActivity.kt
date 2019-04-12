@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
+import android.widget.Toast
 import com.android.volley.AuthFailureError
 import com.android.volley.Request
 import com.android.volley.Response
@@ -14,7 +15,6 @@ import com.example.osrs.R
 import com.example.osrs.services.BackendVolley
 import com.example.osrs.services.ServiceVolley
 import kotlinx.android.synthetic.main.activity_my_requests.*
-import kotlinx.android.synthetic.main.activity_pre_login.*
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -56,7 +56,7 @@ class MyRequestsActivity : AppCompatActivity() {
 
 
 
-    fun getAllRequestsAsAUser(context: Context) {
+    private fun getAllRequestsAsAUser(context: Context) {
         val Prefs = Prefs(this)
 
         if(Prefs.userId != null && Prefs.userId != "") {
@@ -66,29 +66,31 @@ class MyRequestsActivity : AppCompatActivity() {
             val getAllProductsBasePath = "http://18.219.85.157/users/${Prefs.userId}/requests"
             val TAG = ServiceVolley::class.java.simpleName
 
-            var carIds: ArrayList<Int> = arrayListOf()
-            var carBrand: ArrayList<String> = arrayListOf()
-            var carModle: ArrayList<String> = arrayListOf()
+            val carIds: ArrayList<Int> = arrayListOf()
+            val carBrand: ArrayList<String> = arrayListOf()
+            val carModle: ArrayList<String> = arrayListOf()
 
 //            val imageIdArray = arrayOf(
 //                R.drawable.audi,
 //            )
 
-            var imageIdArray: ArrayList<Int> = arrayListOf()
-            var mileAge: ArrayList<Double> = arrayListOf()
 
-            var trans: ArrayList<String> = arrayListOf()
+            val mileAge: ArrayList<Double> = arrayListOf()
 
-            var carPrice: ArrayList<Double> = arrayListOf()
+            val trans: ArrayList<String> = arrayListOf()
+
+            val carPrice: ArrayList<Double> = arrayListOf()
 
             val offerStatus: ArrayList<String> = arrayListOf()
             val adapterType: ArrayList<String> = arrayListOf()
             val vendors: ArrayList<JSONObject> = arrayListOf()
-            var productTypes:ArrayList<Int> = arrayListOf()
+            val productTypes:ArrayList<Int> = arrayListOf()
+
+            val mainProductImage: ArrayList<String> = arrayListOf()
+            val subImages :ArrayList<String> = arrayListOf()
 
 
-
-            var myListAdapter: ProductsCustomListAdapter = ProductsCustomListAdapter(
+            var myListAdapter = ProductsCustomListAdapter(
                 context,
                 carBrand,
                 carIds,
@@ -96,11 +98,12 @@ class MyRequestsActivity : AppCompatActivity() {
                 mileAge,
                 trans,
                 carPrice,
-                imageIdArray,
+                mainProductImage,
                 offerStatus,
                 adapterType,
                 vendors,
-                productTypes
+                productTypes,
+                subImages
             )
 
 
@@ -114,9 +117,14 @@ class MyRequestsActivity : AppCompatActivity() {
 
                         for (i in 0 until response.length()) {
                             val jsonObject = response.getJSONObject(i)
+
                             if (jsonObject.has("id")) {
                                 val product = jsonObject.getJSONObject("product")
                                 val request_status = jsonObject.getJSONObject("request_status")
+                                val jsonArray: JSONArray = product.getJSONArray("images")
+                                val img = product["image"]
+
+//                                Toast.makeText(context,"${img.toString()}",Toast.LENGTH_LONG).show()
                                 carIds.add(i, product["id"].toString().toInt())
                                 carBrand.add(i, product["brand_name"].toString())
                                 carModle.add(i, product["model_name"].toString())
@@ -125,10 +133,16 @@ class MyRequestsActivity : AppCompatActivity() {
                                 carPrice.add(i, product["price"].toString().toDouble())
                                 offerStatus.add(i, request_status["status"].toString())
                                 adapterType.add("user_request_adapter")
-                                imageIdArray.add(i,R.drawable.audi)
+
                                 vendors.add(i, product.getJSONObject("vendor"))
                                 productTypes.add(i,product["product_type_id"].toString().toInt())
 
+                                mainProductImage.add(i,img.toString())
+
+                                for(j in 0 until jsonArray.length()){
+                                    val jsonInner: JSONObject = jsonArray.getJSONObject(j)
+                                    subImages.add(i,jsonInner["image"].toString())
+                                } // end for
 
 
                             } // end if
@@ -143,16 +157,17 @@ class MyRequestsActivity : AppCompatActivity() {
                             mileAge,
                             trans,
                             carPrice,
-                            imageIdArray,
+                            mainProductImage,
                             offerStatus,
                             adapterType,
                             vendors,
-                            productTypes
+                            productTypes,
+                            subImages
                         )
                         productsLV.adapter = myListAdapter
 
                     },
-                    Response.ErrorListener { error ->
+                    Response.ErrorListener {
                     }) {
                     @Throws(AuthFailureError::class)
                     override fun getHeaders(): Map<String, String> {
