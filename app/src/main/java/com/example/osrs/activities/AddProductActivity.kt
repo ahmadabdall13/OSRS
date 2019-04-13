@@ -76,25 +76,25 @@ class AddProductActivity : AppCompatActivity() {
 
         addProductBtn.setOnClickListener {
 
-            if(filePath != null){
-                val progressDialog = ProgressDialog(this)
-                progressDialog.setTitle("Uploading Bitch , Wait")
-                progressDialog.show()
+//            if(filePath != null){
+//                val progressDialog = ProgressDialog(this)
+//                progressDialog.setTitle("Uploading Bitch , Wait")
+//                progressDialog.show()
 
 
 //                if (tag==12) {
 
-                    val imageRef = storageReference!!.child("images/" + UUID.randomUUID().toString())
-                    imageRef.putFile(filePath!!)
-                        .addOnSuccessListener { itBigger ->
-                            val result = itBigger.metadata!!.reference!!.downloadUrl
-                            result.addOnSuccessListener {
-
-                                mainImageURL = it.toString()
-//                                Toast.makeText(
-//                                    this,  "kod emk"+it, Toast.LENGTH_LONG
-//                                ).show()
-                                progressDialog.dismiss()
+//                    val imageRef = storageReference!!.child("images/" + UUID.randomUUID().toString())
+//                    imageRef.putFile(filePath!!)
+//                        .addOnSuccessListener { itBigger ->
+//                            val result = itBigger.metadata!!.reference!!.downloadUrl
+//                            result.addOnSuccessListener {
+//
+//                                mainImageURL = it.toString()
+////                                Toast.makeText(
+////                                    this,  "kod emk"+it, Toast.LENGTH_LONG
+////                                ).show()
+//                                progressDialog.dismiss()
 
                                 if (fieldsValidation()) {
 //                                    Toast.makeText(
@@ -108,6 +108,10 @@ class AddProductActivity : AppCompatActivity() {
                                         carMileage.text.toString().toDouble(), extColor.text.toString(), intColor.text.toString(),
                                         productDescriptionEt.text.toString(),
                                         productTypeSp.selectedItemId, Prefs.userId.toInt(), this)
+
+                                    val intent = Intent(applicationContext, PreLoginActivity::class.java)
+                                    startActivity(intent)
+
                                 } else {
                                     Toast.makeText(
                                         this, " Fill the fields please ", Toast.LENGTH_LONG
@@ -115,15 +119,15 @@ class AddProductActivity : AppCompatActivity() {
                                 }
 
 
-
-                            } // end result.addOnSuccessListener
-
-                        } // end imageRef.putFile(filePath!!).addOnSuccessListener
-
-                        .addOnFailureListener {  }
-//                } // end first inner if
-
-            } // end if
+//
+//                            } // end result.addOnSuccessListener
+//
+//                        } // end imageRef.putFile(filePath!!).addOnSuccessListener
+//
+//                        .addOnFailureListener {  }
+////                } // end first inner if
+//
+//            } // end if
 
 
         }
@@ -281,6 +285,24 @@ class AddProductActivity : AppCompatActivity() {
                 try {
                     val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
                     mainProductPhotoIMG!!.setImageBitmap(bitmap)
+
+
+
+
+                    val imageRef = storageReference!!.child("images/" + UUID.randomUUID().toString())
+                    imageRef.putFile(filePath!!)
+                        .addOnSuccessListener {
+                            val result = it.metadata!!.reference!!.downloadUrl
+                            result.addOnSuccessListener {
+
+                                mainImageURL = it.toString()
+
+                            } // end result.addOnSuccessListener
+                        } // end imageRef.putFile(filePath!!).addOnSuccessListener
+                        .addOnFailureListener {  }
+
+
+
                 } // end try
                 catch (e: IOException) {
                     e.printStackTrace()
@@ -297,12 +319,34 @@ class AddProductActivity : AppCompatActivity() {
                 val bitmap: Bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath)
                 mainProductPhotoIMG.setImageBitmap(bitmap)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             } // end else if
 
         } // end Larger if
 
         // sub images
         if (tag==13) {
+
+                            val progressDialog = ProgressDialog(this)
+                progressDialog.setTitle("Uploading , Wait")
+                progressDialog.show()
+
+
             if (requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM &&
                 resultCode == Activity.RESULT_OK &&
                 data != null && data.data != null
@@ -329,6 +373,7 @@ class AddProductActivity : AppCompatActivity() {
                             result.addOnSuccessListener {
 
                                 subImagesArrayList.put("",it.toString())
+                                progressDialog.dismiss()
 
                             } // end result.addOnSuccessListener
                         } // end imageRef.putFile(filePath!!).addOnSuccessListener

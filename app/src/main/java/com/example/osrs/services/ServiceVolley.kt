@@ -14,6 +14,8 @@ import com.example.osrs.Prefs
 import com.example.osrs.activities.SignUpActivity
 import com.example.osrs.activities.PreLoginActivity
 import org.json.JSONObject
+import org.json.JSONArray
+
 
 class ServiceVolley : ServiceInterface {
 
@@ -197,25 +199,29 @@ class ServiceVolley : ServiceInterface {
         productTypeId:Long, vendorId:Int,
         context: Context
     ) {
-        val subImagesArrayList : java.util.HashMap<String, String> = subImages
+//        val subImagesArrayList : java.util.HashMap<String, String> = subImages
+
+//      val Images= subImages.values  as Array<String>
         val productOj = JSONObject()
-        productOj.put("brand_name", brandName)
-        productOj.put("model_name", modelName)
+        productOj.put("brand_name", brandName.toString())
+        productOj.put("model_name", modelName.toString())
         productOj.put("year_of_make", yearOfMake)
         productOj.put("type_of_engine", typeOfEngine)
-        productOj.put("price", price)
-        productOj.put("mileage", mileage)
-        productOj.put("external_color", externalColor)
-        productOj.put("internal_color", internalColor)
-        productOj.put("description", description)
-        productOj.put("product_type_id", productTypeId)
-        productOj.put("vendor_id", vendorId)
-        productOj.put("type_of_transmission", typeOfTransmission)
+        productOj.put("price", price.toString().toDouble())
+        productOj.put("mileage", mileage.toString().toDouble())
+        productOj.put("external_color", externalColor.toString())
+        productOj.put("internal_color", internalColor.toString())
+        productOj.put("description", description.toString())
+        productOj.put("product_type_id", productTypeId.toString().toInt())
+        productOj.put("vendor_id", vendorId.toString().toInt())
+        productOj.put("type_of_transmission", typeOfTransmission.toString())
         productOj.put("image", productMainImage)
-//        productOj.put("images", subImagesArrayList.values)
+        productOj.put("images", JSONArray(subImages.values.toList()))
+
+
 
 //        Toast.makeText(
-//            context, ""+ JSONArray(subImagesArrayList.values)
+//            context, ""+JSONArray(subImages.values)
 //            , Toast.LENGTH_LONG
 //        ).show()
 
@@ -223,15 +229,15 @@ class ServiceVolley : ServiceInterface {
         val jsonObjReq = object : JsonObjectRequest(
             Request.Method.POST, basePath + "products", productOj,
             Response.Listener<JSONObject> {
-                Toast.makeText(
-                    context, "Product Added Successfully "
-                    , Toast.LENGTH_LONG
-                ).show()
+//                Toast.makeText(
+//                    context, "Product Added Successfully "
+//                    , Toast.LENGTH_LONG
+//                ).show()
             },
             Response.ErrorListener { error ->
                 VolleyLog.e(TAG, "/post request fail! Error: ${error.message}")
-//                Toast.makeText(context, "Error While Adding Product ${error.message}", Toast.LENGTH_LONG).show()
-                Log.e(TAG,error.message)
+//                Toast.makeText(context, "Error While Adding Product $error}", Toast.LENGTH_LONG).show()
+//                Log.e(TAG,error.message)
             }) {
             @Throws(AuthFailureError::class)
             override fun getHeaders(): Map<String, String> {
