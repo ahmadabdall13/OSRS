@@ -24,6 +24,8 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.support.v4.app.ActivityCompat
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.product_image_popup.*
+
 
 class ProductDetailsActivity : AppCompatActivity() {
 
@@ -40,6 +42,9 @@ class ProductDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_details)
+
+
+
 
         val Prefs = Prefs(this)
 
@@ -59,12 +64,12 @@ class ProductDetailsActivity : AppCompatActivity() {
         val vendor = intent.getStringExtra("vendor")
         val json = JSONObject(vendor)
         val email_address= json["email_address"].toString()
-        val first_name= json["first_name"].toString()
-        val last_name= json["last_name"].toString()
+        val firstName= json["first_name"].toString()
+        val lastName= json["last_name"].toString()
         mobileNumber=json["mobile_number"].toString()
 
-        tv_vendor_name.text= "$first_name $last_name"
-        Toast.makeText(applicationContext,vendor,Toast.LENGTH_SHORT).show()
+        tv_vendor_name.text= "$firstName $lastName"
+        //Toast.makeText(applicationContext,vendor,Toast.LENGTH_SHORT).show()
 
         tv_brand_details!!.text=brand
         tv_model_details!!.text=model
@@ -75,9 +80,9 @@ class ProductDetailsActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar_product_details)
         val actionBar = supportActionBar
-        actionBar?.title = "Details"
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar!!.title = "Details"
+        actionBar.setDisplayHomeAsUpEnabled(true)
+        actionBar.setDisplayHomeAsUpEnabled(true)
 
 
         someOfValidations()
@@ -98,7 +103,7 @@ class ProductDetailsActivity : AppCompatActivity() {
 
 
         call_vendor.setOnClickListener{
-            Toast.makeText(applicationContext,mobileNumber.toString(),Toast.LENGTH_SHORT).show()
+           // Toast.makeText(applicationContext,mobileNumber.toString(),Toast.LENGTH_SHORT).show()
 
             checkPermission()
 
@@ -106,60 +111,6 @@ class ProductDetailsActivity : AppCompatActivity() {
 
 
 
-        subImage1.setOnClickListener{
-
-            val inflater:LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-
-            // Inflate a custom view using layout inflater
-            val view = inflater.inflate(R.layout.product_image_popup,null)
-
-            // Initialize a new instance of popup window
-            val popupWindow = PopupWindow(
-                view, // Custom view to show in popup window
-                LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
-                LinearLayout.LayoutParams.WRAP_CONTENT // Window height
-            )
-            popupWindow.isOutsideTouchable = true
-            popupWindow.isFocusable = true
-
-
-            // Set an elevation for the popup window
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                popupWindow.elevation = 10.0F
-            }
-
-
-            // If API level 23 or higher then execute the code
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                // Create a new slide animation for popup window enter transition
-                val slideIn = Slide()
-                slideIn.slideEdge = Gravity.TOP
-                popupWindow.enterTransition = slideIn
-
-                // Slide animation for popup window exit transition
-                val slideOut = Slide()
-                slideOut.slideEdge = Gravity.END
-                popupWindow.exitTransition = slideOut
-
-            }
-
-
-
-            // Set a dismiss listener for popup window
-            popupWindow.setOnDismissListener {
-//                Toast.makeText(applicationContext,"haha",Toast.LENGTH_SHORT).show()
-            }
-
-
-            // Finally, show the popup window on app
-            TransitionManager.beginDelayedTransition(test)
-            popupWindow.showAtLocation(
-                test, // Location to display popup window
-                Gravity.CENTER, // Exact position of layout to display popup
-                0, // X offset
-                0 // Y offset
-            )
-        }
 
 
 
@@ -172,8 +123,8 @@ class ProductDetailsActivity : AppCompatActivity() {
 
 
         fav_tv.setOnClickListener{
-            Toast.makeText(applicationContext,Prefs.userId.toString(),Toast.LENGTH_SHORT).show()
-            Toast.makeText(applicationContext,productType,Toast.LENGTH_SHORT).show()
+            //Toast.makeText(applicationContext,Prefs.userId.toString(),Toast.LENGTH_SHORT).show()
+            //Toast.makeText(applicationContext,productType,Toast.LENGTH_SHORT).show()
 
         }
         favourite_iv.setOnClickListener{
@@ -226,7 +177,398 @@ class ProductDetailsActivity : AppCompatActivity() {
         } // end for
 
 
+        productMainImageIMG.setOnClickListener{
 
+
+            val inflater:LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+            // Inflate a custom view using layout inflater
+            val view = inflater.inflate(R.layout.product_image_popup,null)
+
+            val popupImage : ImageView = view.findViewById(R.id.productImagePopup)
+
+            // Initialize a new instance of popup window
+            val popupWindow = PopupWindow(
+                view, // Custom view to show in popup window
+                LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
+                LinearLayout.LayoutParams.WRAP_CONTENT // Window height
+
+            )
+            popupWindow.isOutsideTouchable = true
+            popupWindow.isFocusable = true
+
+            // Set an elevation for the popup window
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                popupWindow.elevation = 10.0F
+            }
+
+
+            // If API level 23 or higher then execute the code
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                // Create a new slide animation for popup window enter transition
+                val slideIn = Slide()
+                slideIn.slideEdge = Gravity.TOP
+                popupWindow.enterTransition = slideIn
+
+                // Slide animation for popup window exit transition
+                val slideOut = Slide()
+                slideOut.slideEdge = Gravity.END
+                popupWindow.exitTransition = slideOut
+
+            }
+
+            // Set a dismiss listener for popup window
+            popupWindow.setOnDismissListener {
+                //                Toast.makeText(applicationContext,"haha",Toast.LENGTH_SHORT).show()
+            }
+
+            // Finally, show the popup window on app
+            TransitionManager.beginDelayedTransition(test)
+            popupWindow.showAtLocation(
+                test, // Location to display popup window
+                Gravity.CENTER, // Exact position of layout to display popup
+                0, // X offset
+                0 // Y offset
+            )
+
+            Picasso
+                .with(this) // give it the context
+                .load(productMainImage) // load the image
+                .into(popupImage)
+        } // end productMainImageIMG.setOnClickListener
+
+
+        subImage1.setOnClickListener{
+
+            val inflater:LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+            // Inflate a custom view using layout inflater
+            val view = inflater.inflate(R.layout.product_image_popup,null)
+            val popupImage : ImageView = view.findViewById(R.id.productImagePopup)
+            Picasso
+                .with(this) // give it the context
+                .load(productSubImages[0]) // load the image
+                .into(popupImage)
+            // Initialize a new instance of popup window
+            val popupWindow = PopupWindow(
+                view, // Custom view to show in popup window
+                LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
+                LinearLayout.LayoutParams.WRAP_CONTENT // Window height
+            )
+            popupWindow.isOutsideTouchable = true
+            popupWindow.isFocusable = true
+
+
+            // Set an elevation for the popup window
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                popupWindow.elevation = 10.0F
+            }
+
+
+            // If API level 23 or higher then execute the code
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                // Create a new slide animation for popup window enter transition
+                val slideIn = Slide()
+                slideIn.slideEdge = Gravity.TOP
+                popupWindow.enterTransition = slideIn
+
+                // Slide animation for popup window exit transition
+                val slideOut = Slide()
+                slideOut.slideEdge = Gravity.END
+                popupWindow.exitTransition = slideOut
+
+            }
+
+
+
+            // Set a dismiss listener for popup window
+            popupWindow.setOnDismissListener {
+                //                Toast.makeText(applicationContext,"haha",Toast.LENGTH_SHORT).show()
+            }
+
+
+            // Finally, show the popup window on app
+            TransitionManager.beginDelayedTransition(test)
+            popupWindow.showAtLocation(
+                test, // Location to display popup window
+                Gravity.CENTER, // Exact position of layout to display popup
+                0, // X offset
+                0 // Y offset
+            )
+        } // end subImage1.setOnClickListener
+
+
+        subImage2.setOnClickListener{
+
+
+
+            Picasso
+                .with(this) // give it the context
+                .load(productSubImages[1]) // load the image
+                .into(productImagePopup)
+
+            val inflater:LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+            // Inflate a custom view using layout inflater
+            val view = inflater.inflate(R.layout.product_image_popup,null)
+
+            val popupImage : ImageView = view.findViewById(R.id.productImagePopup)
+            Picasso
+                .with(this) // give it the context
+                .load(productSubImages[1]) // load the image
+                .into(popupImage)
+
+            // Initialize a new instance of popup window
+            val popupWindow = PopupWindow(
+                view, // Custom view to show in popup window
+                LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
+                LinearLayout.LayoutParams.WRAP_CONTENT // Window height
+            )
+            popupWindow.isOutsideTouchable = true
+            popupWindow.isFocusable = true
+
+
+            // Set an elevation for the popup window
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                popupWindow.elevation = 10.0F
+            }
+
+
+            // If API level 23 or higher then execute the code
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                // Create a new slide animation for popup window enter transition
+                val slideIn = Slide()
+                slideIn.slideEdge = Gravity.TOP
+                popupWindow.enterTransition = slideIn
+
+                // Slide animation for popup window exit transition
+                val slideOut = Slide()
+                slideOut.slideEdge = Gravity.END
+                popupWindow.exitTransition = slideOut
+
+            }
+
+
+
+            // Set a dismiss listener for popup window
+            popupWindow.setOnDismissListener {
+                //                Toast.makeText(applicationContext,"haha",Toast.LENGTH_SHORT).show()
+            }
+
+
+            // Finally, show the popup window on app
+            TransitionManager.beginDelayedTransition(test)
+            popupWindow.showAtLocation(
+                test, // Location to display popup window
+                Gravity.CENTER, // Exact position of layout to display popup
+                0, // X offset
+                0 // Y offset
+            )
+        } // end subImage2.setOnClickListener
+
+
+        subImage3.setOnClickListener{
+
+            val inflater:LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+            // Inflate a custom view using layout inflater
+            val view = inflater.inflate(R.layout.product_image_popup,null)
+            val popupImage : ImageView = view.findViewById(R.id.productImagePopup)
+            Picasso
+                .with(this) // give it the context
+                .load(productSubImages[2]) // load the image
+                .into(popupImage)
+            // Initialize a new instance of popup window
+            val popupWindow = PopupWindow(
+                view, // Custom view to show in popup window
+                LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
+                LinearLayout.LayoutParams.WRAP_CONTENT // Window height
+            )
+            popupWindow.isOutsideTouchable = true
+            popupWindow.isFocusable = true
+
+
+            // Set an elevation for the popup window
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                popupWindow.elevation = 10.0F
+            }
+
+
+            // If API level 23 or higher then execute the code
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                // Create a new slide animation for popup window enter transition
+                val slideIn = Slide()
+                slideIn.slideEdge = Gravity.TOP
+                popupWindow.enterTransition = slideIn
+
+                // Slide animation for popup window exit transition
+                val slideOut = Slide()
+                slideOut.slideEdge = Gravity.END
+                popupWindow.exitTransition = slideOut
+
+            }
+
+
+
+            // Set a dismiss listener for popup window
+            popupWindow.setOnDismissListener {
+                //                Toast.makeText(applicationContext,"haha",Toast.LENGTH_SHORT).show()
+            }
+
+
+            // Finally, show the popup window on app
+            TransitionManager.beginDelayedTransition(test)
+            popupWindow.showAtLocation(
+                test, // Location to display popup window
+                Gravity.CENTER, // Exact position of layout to display popup
+                0, // X offset
+                0 // Y offset
+            )
+        } // end subImage3.setOnClickListener
+
+
+        subImage4.setOnClickListener{
+
+            val inflater:LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+            // Inflate a custom view using layout inflater
+            val view = inflater.inflate(R.layout.product_image_popup,null)
+
+            val popupImage : ImageView = view.findViewById(R.id.productImagePopup)
+            Picasso
+                .with(this) // give it the context
+                .load(productSubImages[3]) // load the image
+                .into(popupImage)
+            // Initialize a new instance of popup window
+            val popupWindow = PopupWindow(
+                view, // Custom view to show in popup window
+                LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
+                LinearLayout.LayoutParams.WRAP_CONTENT // Window height
+            )
+            popupWindow.isOutsideTouchable = true
+            popupWindow.isFocusable = true
+
+
+            // Set an elevation for the popup window
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                popupWindow.elevation = 10.0F
+            }
+
+
+            // If API level 23 or higher then execute the code
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                // Create a new slide animation for popup window enter transition
+                val slideIn = Slide()
+                slideIn.slideEdge = Gravity.TOP
+                popupWindow.enterTransition = slideIn
+
+                // Slide animation for popup window exit transition
+                val slideOut = Slide()
+                slideOut.slideEdge = Gravity.END
+                popupWindow.exitTransition = slideOut
+
+            }
+
+
+
+            // Set a dismiss listener for popup window
+            popupWindow.setOnDismissListener {
+                //                Toast.makeText(applicationContext,"haha",Toast.LENGTH_SHORT).show()
+            }
+
+
+            // Finally, show the popup window on app
+            TransitionManager.beginDelayedTransition(test)
+            popupWindow.showAtLocation(
+                test, // Location to display popup window
+                Gravity.CENTER, // Exact position of layout to display popup
+                0, // X offset
+                0 // Y offset
+            )
+        } // end subImage4.setOnClickListener
+
+
+        subImage5.setOnClickListener{
+
+            val inflater:LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+            // Inflate a custom view using layout inflater
+            val view = inflater.inflate(R.layout.product_image_popup,null)
+
+            val popupImage : ImageView = view.findViewById(R.id.productImagePopup)
+            Picasso
+                .with(this) // give it the context
+                .load(productSubImages[4]) // load the image
+                .into(popupImage)
+
+            // Initialize a new instance of popup window
+            val popupWindow = PopupWindow(
+                view, // Custom view to show in popup window
+                LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
+                LinearLayout.LayoutParams.WRAP_CONTENT // Window height
+            )
+            popupWindow.isOutsideTouchable = true
+            popupWindow.isFocusable = true
+
+
+            // Set an elevation for the popup window
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                popupWindow.elevation = 10.0F
+            }
+
+
+            // If API level 23 or higher then execute the code
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                // Create a new slide animation for popup window enter transition
+                val slideIn = Slide()
+                slideIn.slideEdge = Gravity.TOP
+                popupWindow.enterTransition = slideIn
+
+                // Slide animation for popup window exit transition
+                val slideOut = Slide()
+                slideOut.slideEdge = Gravity.END
+                popupWindow.exitTransition = slideOut
+
+            }
+
+
+
+            // Set a dismiss listener for popup window
+            popupWindow.setOnDismissListener {
+                //                Toast.makeText(applicationContext,"haha",Toast.LENGTH_SHORT).show()
+            }
+
+
+            // Finally, show the popup window on app
+            TransitionManager.beginDelayedTransition(test)
+            popupWindow.showAtLocation(
+                test, // Location to display popup window
+                Gravity.CENTER, // Exact position of layout to display popup
+                0, // X offset
+                0 // Y offset
+            )
+        } // end subImage1.setOnClickListener
+
+
+
+        when (productSubImages.size) {
+            1 ->  { subImage2.visibility= View.INVISIBLE
+                    subImage3.visibility= View.INVISIBLE
+                subImage4.visibility= View.INVISIBLE
+                subImage5.visibility= View.INVISIBLE
+            }
+            2 -> {
+                subImage3.visibility= View.INVISIBLE
+                subImage4.visibility= View.INVISIBLE
+                subImage5.visibility= View.INVISIBLE
+            }
+            3 -> {
+                subImage4.visibility= View.INVISIBLE
+                subImage5.visibility= View.INVISIBLE
+            }
+            4 -> {subImage5.visibility= View.INVISIBLE
+            }
+        } // end when
 
 
 
@@ -316,6 +658,13 @@ class ProductDetailsActivity : AppCompatActivity() {
         val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mobileNumber.toString()))
         startActivity(intent)
     }
+
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    } // end onSupportNavigateUp
+
 
 
 } // end ProductDetailsActivity

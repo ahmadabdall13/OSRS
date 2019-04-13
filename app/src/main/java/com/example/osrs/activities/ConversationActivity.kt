@@ -8,16 +8,13 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.example.osrs.Prefs
 import com.example.osrs.R
-import com.example.osrs.adapters.ActiveChatAdapter
 import kotlinx.android.synthetic.main.activity_conversation.*
 import com.example.osrs.adapters.MsgsAdapter
 import com.example.osrs.services.BackendVolley
 import com.example.osrs.services.ServiceVolley
-import kotlinx.android.synthetic.main.activity_active_chats.*
 import org.json.JSONArray
 import android.content.Context
 import android.content.Intent
-import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class ConversationActivity : AppCompatActivity() {
 
@@ -30,16 +27,15 @@ class ConversationActivity : AppCompatActivity() {
 
 
         val Prefs = Prefs(this)
-        var Intent1: Intent
-        Intent1= getIntent()
-        channel_id = Intent1.getStringExtra("channel_id")
+        val intent1: Intent = intent
+        channel_id = intent1.getStringExtra("channel_id")
 
 
         setSupportActionBar(toolbar_conversation)
         val actionBar = supportActionBar
-        actionBar?.title = "Conversation"
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar!!.title = "Conversation"
+        actionBar.setDisplayHomeAsUpEnabled(true)
+        actionBar.setDisplayHomeAsUpEnabled(true)
 
 
 //        {
@@ -61,15 +57,15 @@ class ConversationActivity : AppCompatActivity() {
     }
 
 
-    fun getConversations(context:Context){
+    private fun getConversations(context:Context){
         //
         val Prefs = Prefs(this)
-        var msgs : ArrayList<String> = arrayListOf()
-        var userIds:ArrayList<Int> = arrayListOf()
-        var ids:ArrayList<Int> = arrayListOf()
+        val msgs : ArrayList<String> = arrayListOf()
+        val userIds:ArrayList<Int> = arrayListOf()
+        val ids:ArrayList<Int> = arrayListOf()
 
 
-        val getConversations = "http://18.219.85.157/channels/${channel_id}/chats"
+        val getConversations = "http://18.219.85.157/channels/$channel_id/chats"
 
             val TAG = ServiceVolley::class.java.simpleName
 
@@ -114,5 +110,12 @@ class ConversationActivity : AppCompatActivity() {
 
 
     }
+
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    } // end onSupportNavigateUp
+
 
 }

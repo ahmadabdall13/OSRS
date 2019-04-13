@@ -208,11 +208,11 @@ class PreLoginActivity : AppCompatActivity() {
             // put the user's name and pic in drawer
             menuInflater.inflate(R.menu.signout_menu,menu)
             userNameInDrawerTV.text = Prefs.firstName
-//            Picasso
-//                .with(this) // give it the context
-//                .load(Prefs.userImage) // load the image
-//                .into(userImageInDrawerTV)
-//
+            Picasso
+                .with(this) // give it the context
+                .load(Prefs.userImage) // load the image
+                .into(userImageInDrawerTV)
+
         }
 
 

@@ -126,7 +126,6 @@
                         android:id="@+id/subImage1"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@drawable/audi"
                         android:contentDescription="@string/todo"
                         android:background="@drawable/border"/>
 
@@ -134,7 +133,6 @@
                         android:id="@+id/subImage2"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@drawable/audi"
                         android:contentDescription="@string/todo"
                         android:background="@drawable/border"
                 />
@@ -143,7 +141,6 @@
                         android:id="@+id/subImage3"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@drawable/audi"
                         android:contentDescription="@string/todo"
                         android:background="@drawable/border"/>
 
@@ -151,7 +148,6 @@
                         android:id="@+id/subImage4"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@drawable/audi"
                         android:contentDescription="@string/todo"
                         android:background="@drawable/border"/>
 
@@ -159,7 +155,6 @@
                         android:id="@+id/subImage5"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@drawable/audi"
                         android:contentDescription="@string/todo"
                         android:background="@drawable/border"/>
 
@@ -182,10 +177,10 @@
 
     <View android:layout_width="match_parent"
           android:layout_below="@+id/card0"
-          android:layout_marginTop="3px"
+          android:layout_marginTop="3dp"
           android:background="@android:color/holo_red_dark"
           android:layout_height="0.2dp"
-    ></View>
+    />
 
 
 

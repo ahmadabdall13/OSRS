@@ -13,7 +13,6 @@ import com.example.osrs.R
 import com.example.osrs.adapters.VendorRequestAdapter
 import com.example.osrs.services.BackendVolley
 import com.example.osrs.services.ServiceVolley
-import kotlinx.android.synthetic.main.activity_pre_login.*
 import kotlinx.android.synthetic.main.activity_vendor_requests.*
 
 import org.json.JSONArray
@@ -28,7 +27,7 @@ class VendorRequestsActivity : AppCompatActivity() {
         getRecievedRequests(this)
 
 
-        var mToolbar: Toolbar = findViewById(R.id.toolbar_vendor_requests)
+        val mToolbar: Toolbar = findViewById(R.id.toolbar_vendor_requests)
         setSupportActionBar(mToolbar)
         //actionbar
         val actionbar = supportActionBar
@@ -52,7 +51,7 @@ class VendorRequestsActivity : AppCompatActivity() {
 
 
 
-    fun getRecievedRequests(context: Context) {
+    private fun getRecievedRequests(context: Context) {
 
 
         val Prefs = Prefs(this)
@@ -60,38 +59,27 @@ class VendorRequestsActivity : AppCompatActivity() {
         val userId = Prefs.userId
         val userTypeId = Prefs.userTypeId
 
-        if(userTypeId.equals("2") && !userId.equals(" ")){
+        if(userTypeId == "2" && userId != " "){
 
             val basePath = "http://18.219.85.157/"
-            val getAllProductsBasePath = "http://18.219.85.157/users/${userId}/orders"
+            val getAllProductsBasePath = "http://18.219.85.157/users/$userId/orders"
             val TAG = ServiceVolley::class.java.simpleName
 
 
-            var offers : ArrayList<String> = arrayListOf()
-            var carIds : ArrayList<Int> = arrayListOf()
-            var imageId : ArrayList<Int> = arrayListOf()
-        var carBrand : ArrayList<String> = arrayListOf()
-        var carPrice:ArrayList<Double> = arrayListOf()
+            val offers : ArrayList<String> = arrayListOf()
+            val carIds : ArrayList<Int> = arrayListOf()
+            val imageId : ArrayList<Int> = arrayListOf()
+        val carBrand : ArrayList<String> = arrayListOf()
+        val carPrice:ArrayList<Double> = arrayListOf()
             val usersNames:ArrayList<String> = arrayListOf()
             val vendors: ArrayList<JSONObject> = arrayListOf()
-            var ids : ArrayList<Int> = arrayListOf()
+            val ids : ArrayList<Int> = arrayListOf()
 
 
-
-        var myListAdapter : VendorRequestAdapter = VendorRequestAdapter(
-            context,
-            carBrand,
-            carIds,
-            imageId,
-            usersNames,
-            carPrice,
-            offers,
-            vendors,
-            ids
-        )
+            var myListAdapter: VendorRequestAdapter
 
 
-        val jsonObjReq =
+            val jsonObjReq =
             object : JsonArrayRequest(
                 Request.Method.GET,
                 getAllProductsBasePath,
@@ -131,7 +119,7 @@ class VendorRequestsActivity : AppCompatActivity() {
 
 
                 },
-                Response.ErrorListener { error ->
+                Response.ErrorListener {
                 }) {
                 @Throws(AuthFailureError::class)
                 override fun getHeaders(): Map<String, String> {
@@ -145,6 +133,12 @@ class VendorRequestsActivity : AppCompatActivity() {
         }
 
     } // end getAllProducts
+
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    } // end onSupportNavigateUp
 
 
 }

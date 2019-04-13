@@ -97,9 +97,9 @@ class AddProductActivity : AppCompatActivity() {
                                 progressDialog.dismiss()
 
                                 if (fieldsValidation()) {
-                                    Toast.makeText(
-                                        this,  "kos o5t emk"+mainImageURL, Toast.LENGTH_LONG
-                                    ).show()
+//                                    Toast.makeText(
+//                                        this,  "kos o5t emk"+mainImageURL, Toast.LENGTH_LONG
+//                                    ).show()
                                     ServiceVolley().addProduct(
                                         mainImageURL.toString(),subImagesArrayList,
                                         carBrandEt.text.toString(), carModelEt.text.toString()

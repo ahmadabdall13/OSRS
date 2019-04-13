@@ -27,9 +27,10 @@ class ActiveChatsActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar_active_chat)
         val actionBar = supportActionBar
-        actionBar?.title = "Active Chat"
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar!!.title = "Active Chat"
+
+        actionBar.setDisplayHomeAsUpEnabled(true)
+        actionBar.setDisplayHomeAsUpEnabled(true)
 
         getActiveChannels(this)
 
@@ -40,7 +41,7 @@ class ActiveChatsActivity : AppCompatActivity() {
 
 
 
-    fun getActiveChannels(context: Context) {
+    private fun getActiveChannels(context: Context) {
 //
         val Prefs = Prefs(this)
 
@@ -51,16 +52,11 @@ class ActiveChatsActivity : AppCompatActivity() {
         if(Prefs.userTypeId.equals("1")){
 
             val TAG = ServiceVolley::class.java.simpleName
-            var titles : ArrayList<String> = arrayListOf()
-            var productIds:ArrayList<Int> = arrayListOf()
-            var channelIds:ArrayList<Int> = arrayListOf()
+            val titles : ArrayList<String> = arrayListOf()
+            val productIds:ArrayList<Int> = arrayListOf()
+            val channelIds:ArrayList<Int> = arrayListOf()
 
-            var myListAdapter : ActiveChatAdapter = ActiveChatAdapter(
-                context,
-                titles,
-                channelIds,
-                productIds
-            )
+            var myListAdapter: ActiveChatAdapter
 
             val jsonObjReq =
                 object : JsonArrayRequest(
@@ -88,7 +84,7 @@ class ActiveChatsActivity : AppCompatActivity() {
                         active_chats_lv.adapter = myListAdapter
 
                     },
-                    Response.ErrorListener { error ->
+                    Response.ErrorListener {
                     }) {
                     @Throws(AuthFailureError::class)
                     override fun getHeaders(): Map<String, String> {
@@ -105,16 +101,11 @@ class ActiveChatsActivity : AppCompatActivity() {
 
 
             val TAG = ServiceVolley::class.java.simpleName
-            var titles : ArrayList<String> = arrayListOf()
-            var productIds:ArrayList<Int> = arrayListOf()
-            var channelIds:ArrayList<Int> = arrayListOf()
+            val titles : ArrayList<String> = arrayListOf()
+            val productIds:ArrayList<Int> = arrayListOf()
+            val channelIds:ArrayList<Int> = arrayListOf()
 
-            var myListAdapter : ActiveChatAdapter = ActiveChatAdapter(
-                context,
-                titles,
-                channelIds,
-                productIds
-            )
+            var myListAdapter: ActiveChatAdapter
 
             val jsonObjReq =
                 object : JsonArrayRequest(
@@ -159,5 +150,11 @@ class ActiveChatsActivity : AppCompatActivity() {
 
 
     } // end getAllProducts
+
+
+override fun onSupportNavigateUp(): Boolean {
+    onBackPressed()
+    return true
+} // end onSupportNavigateUp
 
 }

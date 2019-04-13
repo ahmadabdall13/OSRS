@@ -3,25 +3,16 @@ package com.example.osrs.services
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
-import android.os.Build
-import android.support.annotation.RequiresApi
 import android.util.Log
-import android.widget.ListView
 import android.widget.Toast
 import com.android.volley.AuthFailureError
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyLog
-import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.example.osrs.Prefs
-import com.example.osrs.R
-import com.example.osrs.adapters.ProductsCustomListAdapter
-import org.json.JSONArray
 import com.example.osrs.activities.SignUpActivity
 import com.example.osrs.activities.PreLoginActivity
-import kotlinx.android.synthetic.main.activity_pre_login.*
 import org.json.JSONObject
 
 class ServiceVolley : ServiceInterface {
@@ -72,7 +63,7 @@ class ServiceVolley : ServiceInterface {
             },
             Response.ErrorListener { error ->
                 VolleyLog.e(TAG, "/post request fail! Error: ${error.message}")
-                Toast.makeText(context, "Error : Sing The Fuck Up ${error.message}", Toast.LENGTH_LONG).show()
+               // Toast.makeText(context, "Error : Sing The Fuck Up ${error.message}", Toast.LENGTH_LONG).show()
 
 
             }) {
@@ -165,10 +156,10 @@ class ServiceVolley : ServiceInterface {
             Response.Listener<JSONObject> { response ->
 
                 if (response.has("id")) {
-                    Toast.makeText(context, "hahah congrats! {$response}", Toast.LENGTH_LONG).show()
+                  //  Toast.makeText(context, "hahah congrats! {$response}", Toast.LENGTH_LONG).show()
 
                 } else {
-                    Toast.makeText(context, "Please Sign The Fuck Up", Toast.LENGTH_LONG).show()
+                  //  Toast.makeText(context, "Please Sign The Fuck Up", Toast.LENGTH_LONG).show()
 //                    val intent = Intent(context, SignUpActivity::class.java)
 //                    intent.putExtra("social_id", socialId)
 //                    context.startActivity(intent)
@@ -180,7 +171,7 @@ class ServiceVolley : ServiceInterface {
             },
             Response.ErrorListener { error ->
                 VolleyLog.e(TAG, "/post request fail! Error: ${error.message}")
-                Toast.makeText(context, "Error : Sing The Fuck Up ${error.message}", Toast.LENGTH_LONG).show()
+             //   Toast.makeText(context, "Error : Sing The Fuck Up ${error.message}", Toast.LENGTH_LONG).show()
 
 
             }) {
@@ -223,16 +214,15 @@ class ServiceVolley : ServiceInterface {
         productOj.put("image", productMainImage)
 //        productOj.put("images", subImagesArrayList.values)
 
-        Toast.makeText(
-            context, ""+ JSONArray(subImagesArrayList.values)
-            , Toast.LENGTH_LONG
-        ).show()
+//        Toast.makeText(
+//            context, ""+ JSONArray(subImagesArrayList.values)
+//            , Toast.LENGTH_LONG
+//        ).show()
 
 
         val jsonObjReq = object : JsonObjectRequest(
             Request.Method.POST, basePath + "products", productOj,
-            Response.Listener<JSONObject> { response ->
-
+            Response.Listener<JSONObject> {
                 Toast.makeText(
                     context, "Product Added Successfully "
                     , Toast.LENGTH_LONG
@@ -240,7 +230,7 @@ class ServiceVolley : ServiceInterface {
             },
             Response.ErrorListener { error ->
                 VolleyLog.e(TAG, "/post request fail! Error: ${error.message}")
-                Toast.makeText(context, "Error While Adding Product ${error.message}", Toast.LENGTH_LONG).show()
+//                Toast.makeText(context, "Error While Adding Product ${error.message}", Toast.LENGTH_LONG).show()
                 Log.e(TAG,error.message)
             }) {
             @Throws(AuthFailureError::class)
@@ -258,22 +248,22 @@ class ServiceVolley : ServiceInterface {
 
 
     override fun createUserRequest(
-        productId:Int,customerId:Int,requestStatusId:Int,
+        productId:Int, customer_id:Int, requestStatusId:Int,
         context: Context
     ) {
         val productOj = JSONObject()
         productOj.put("product_id", productId)
-        productOj.put("customer_id", customerId)
+        productOj.put("customer_id", customer_id)
         productOj.put("request_status_id", 1)
 
 
 
         val jsonObjReq = object : JsonObjectRequest(
             Request.Method.POST, basePath + "requests", productOj,
-            Response.Listener<JSONObject> { response ->
+            Response.Listener<JSONObject> {
 
                 Toast.makeText(
-                    context, ", Added to your requests , thank you ...  ${response} "
+                    context, "Added to your requests , thank you "
                     , Toast.LENGTH_LONG
                 ).show()
 
@@ -315,17 +305,17 @@ class ServiceVolley : ServiceInterface {
     ) {
 
         val jsonObjReq = object : JsonObjectRequest(
-            Request.Method.PUT, basePath + "products/${productId}/to_deleted", null,
+            Request.Method.PUT, basePath + "products/$productId/to_deleted", null,
             Response.Listener<JSONObject> { response ->
 
                 Toast.makeText(
-                    context, ", has been deleted , thank you ...  ${response} "
+                    context, ", has been deleted , thank you ...  $response "
                     , Toast.LENGTH_LONG
                 ).show()
             },
             Response.ErrorListener { error ->
                 VolleyLog.e(TAG, "/post request : ${error.message}")
-                Toast.makeText(context, "Error :  ${error.message}", Toast.LENGTH_LONG).show()
+//                Toast.makeText(context, "Error :  ${error.message}", Toast.LENGTH_LONG).show()
 
 
             }) {
@@ -357,13 +347,13 @@ class ServiceVolley : ServiceInterface {
             Response.Listener<JSONObject> { response ->
 
                 Toast.makeText(
-                    context, "Thank you , We will help you to find the suitable products "
+                    context, "Thank you , We will help you to find suitable products "
                     , Toast.LENGTH_LONG
                 ).show()
             },
             Response.ErrorListener { error ->
                 VolleyLog.e(TAG, "/post request fail! Error: ${error.message}")
-                Toast.makeText(context, "Error : Sing The Fuck Up ${error.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Something Went Wrong, Not Added To AI ${error.message}", Toast.LENGTH_LONG).show()
 
 
             }) {
@@ -393,7 +383,7 @@ class ServiceVolley : ServiceInterface {
 
         val jsonObjReq = object : JsonObjectRequest(
             Request.Method.POST, basePath + "chats", productOj,
-            Response.Listener<JSONObject> { response ->
+            Response.Listener<JSONObject> {
 
                 Toast.makeText(
                     context, "Your msg has been sent . "
@@ -402,7 +392,7 @@ class ServiceVolley : ServiceInterface {
             },
             Response.ErrorListener { error ->
                 VolleyLog.e(TAG, "/post request fail! Error: ${error.message}")
-                Toast.makeText(context, "Error : Sing The Fuck Up ${error.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Something Went Wrong Your Msg Hasn't Been Sent ${error.message}", Toast.LENGTH_LONG).show()
 
 
             }) {
@@ -425,11 +415,11 @@ class ServiceVolley : ServiceInterface {
     ) {
 
         val jsonObjReq = object : JsonObjectRequest(
-            Request.Method.PUT, basePath + "requests/${requestId}/to_completed", null,
+            Request.Method.PUT, basePath + "requests/$requestId/to_completed", null,
             Response.Listener<JSONObject> { response ->
 
                 Toast.makeText(
-                    context, ", has been hired , thank you ...  ${response} "
+                    context, ", has been hired , thank you ...  $response "
                     , Toast.LENGTH_LONG
                 ).show()
             },
@@ -458,10 +448,10 @@ class ServiceVolley : ServiceInterface {
     ) {
 
         val jsonObjReq = object : JsonObjectRequest(
-            Request.Method.PUT, basePath + "requests/${requestId}/to_cancelled", null,
+            Request.Method.PUT, basePath + "requests/$requestId/to_cancelled", null,
             Response.Listener<JSONObject> { response ->
                 Toast.makeText(
-                    context, ", has been declined , thank you ...  ${response} "
+                    context, ", has been declined , thank you ...  $response "
                     , Toast.LENGTH_LONG
                 ).show()
             },

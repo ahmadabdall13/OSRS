@@ -103,8 +103,8 @@ class ChatListAdapter(
 
     fun createChannel(users:ArrayList<Int> ,vendorId:Int,productId:Int,context:Context){
 //        Toast.makeText(context,users.toString(), Toast.LENGTH_SHORT).show()
-        Toast.makeText(context,vendorId.toString(), Toast.LENGTH_SHORT).show()
-        Toast.makeText(context,productId.toString(), Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context,vendorId.toString(), Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context,productId.toString(), Toast.LENGTH_SHORT).show()
 
         val basePath = "http://18.219.85.157/"
 
@@ -121,10 +121,10 @@ class ChatListAdapter(
 
                     val channelId = response["id"]
 
-                if (!channelId.equals("")) {
+                if (channelId != "") {
 
                     Toast.makeText(
-                        context, "The Channel has been created ${channelId}, thx "
+                        context, "The Channel has been created $channelId, thx "
                         , Toast.LENGTH_LONG
                     ).show()
 
@@ -135,7 +135,7 @@ class ChatListAdapter(
             },
             Response.ErrorListener { error ->
                 VolleyLog.e("TAG", "/post request fail! Error: ${error.message}")
-                Toast.makeText(context, "Error : Sing The Fuck Up ${error.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Error : Channel Not Created ", Toast.LENGTH_LONG).show()
 
 
             }) {
@@ -172,13 +172,13 @@ class ChatListAdapter(
                 )
 
                 Toast.makeText(
-                    context, ", has been updated , thank you ...  ${response} "
+                    context, ", has been updated , thank you ...  $response "
                     , Toast.LENGTH_LONG
                 ).show()
             },
             Response.ErrorListener { error ->
                 VolleyLog.e("TA", "/post request : ${error.message}")
-                Toast.makeText(context, "Error :  ${error.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Error : Not Updated", Toast.LENGTH_LONG).show()
 
 
             }) {

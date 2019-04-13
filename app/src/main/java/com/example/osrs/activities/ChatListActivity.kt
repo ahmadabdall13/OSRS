@@ -25,9 +25,9 @@ class ChatListActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar_chat)
         val actionBar = supportActionBar
-        actionBar?.title = "Chat"
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar!!.title = "Chat"
+        actionBar.setDisplayHomeAsUpEnabled(true)
+        actionBar.setDisplayHomeAsUpEnabled(true)
 
 
         getPossibleChannels(this)
@@ -39,18 +39,14 @@ class ChatListActivity : AppCompatActivity() {
     fun getPossibleChannels(context: Context) {
 //
         val Prefs = Prefs(this)
-        var titles : ArrayList<String> = arrayListOf()
-        var productIds:ArrayList<Int> = arrayListOf()
+        val titles : ArrayList<String> = arrayListOf()
+        val productIds:ArrayList<Int> = arrayListOf()
 
 
         val getAllProductsBasePath = "http://18.219.85.157/vendors/"+Prefs.userId.toString().toInt()+"/multi_bids"
         val TAG = ServiceVolley::class.java.simpleName
 
-        var myListAdapter : ChatListAdapter = ChatListAdapter(
-            context,
-            titles,
-            productIds
-        )
+        var myListAdapter: ChatListAdapter
 
         val jsonObjReq =
             object : JsonArrayRequest(
@@ -90,6 +86,11 @@ class ChatListActivity : AppCompatActivity() {
 
     } // end getAllProducts
 
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    } // end onSupportNavigateUp
 
 
 }
