@@ -100,9 +100,9 @@
 
     <string-array name="types_of_transmissions">
         <item>Type of Transmission</item>
-        <item>Automatic Transmission</item>
-        <item>Manual Transmission</item>
-        <item>Semi-automatic Transmission</item>
+        <item>Auto</item>
+        <item>Manual </item>
+        <item>Semi-auto</item>
     </string-array>
 
 
